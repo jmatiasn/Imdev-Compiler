@@ -1,82 +1,59 @@
 %{
-/* C Declarations: */
-#include <stdio.h>
-#include "y.tab.h" 
-
-int yylineno=1;
-void yyerror(char *message);
-
+   #include <stdio.h>
 %}
-/* Lex Definitions: */
-digitos [0-9]
 
 %%
 
-char	     	                        {yylval.sValue = strdup(yytext);return(TIPO);}
-void					{yylval.sValue = strdup(yytext);return(TIPO);}
-const	                                {yylval.sValue = strdup(yytext);return(CONST);}
-float	                                {yylval.sValue = strdup(yytext);return(TIPO);}
-inteiro	                                {yylval.sValue = strdup(yytext);return(TIPO);}
-string			                {yylval.sValue = strdup(yytext);return(TIPO);}
-main			        	{yylval.sValue = strdup(yytext);return(MAIN);}
-se                        		{yylval.sValue = strdup(yytext);return(SE);}
-senao                     		{yylval.sValue = strdup(yytext);return(SENAO);}
-entao                     		{yylval.sValue = strdup(yytext);return(ENTAO);}
-fimse                     		{yylval.sValue = strdup(yytext);return(FIM_SE);}
-enquanto  			    	{yylval.sValue = strdup(yytext);return(ENQUANTO);}
-fimenquanto               		{yylval.sValue = strdup(yytext);return(FIM_ENQUANTO);}
-para					{yylval.sValue = strdup(yytext);return(FIM_PARA);}
-fimpara                   		{yylval.sValue = strdup(yytext);return(FIM_PARA);}
-faca                      		{yylval.sValue = strdup(yytext);return(FACA);}
-break                      		{yylval.sValue = strdup(yytext);return(BREAK);}
-return                      		{yylval.sValue = strdup(yytext);return(RETURN);}
-print                      		{yylval.sValue = strdup(yytext);return(PRINT);}
-aloca 					{yylval.sValue = strdup(yytext);return(ALOCA);}
-libera 					{yylval.sValue = strdup(yytext);return(LIBERA);}
-[a-zA-Z_][a-zA-Z_0-9]*			{yylval.sValue = strdup(yytext);return ID;}
-({digitos}+)               		{yylval.iValue = atoi(yytext);return NUMERO;}
-(-{digitos}+)               		{yylval.iValue = atoi(yytext);return NUMERO;} 	/* numero negativo */
-({digitos}*\.{digitos}+)		{yylval.fValue = atof(yytext);return REAL;}
-\"(\\.|[^\\"])*\"                       {yylval.sValue = strdup(yytext);return STRING;}
-"="                                     {yylval.sValue = strdup(yytext);return(OP_ATRIBUICAO);}
-"("                                     {yylval.sValue = strdup(yytext);return(ABRE_PAREN);}
-")"                                     {yylval.sValue = strdup(yytext);return(FECHA_PAREN);}
-"["                                     {yylval.sValue = strdup(yytext);return(ABRE_COLCHETE);}
-"]"                                     {yylval.sValue = strdup(yytext);return(FECHA_COLCHETE);}
-"{"                                     {yylval.sValue = strdup(yytext);return(ABRE_CHAVES);}
-"}"                                     {yylval.sValue = strdup(yytext);return(FECHA_CHAVES);}
-";"                                     {yylval.sValue = strdup(yytext);return(PONTO_VIRGULA);}
-":"					{yylval.sValue = strdup(yytext);return(DOIS_PONTOS);}
-","                                     {yylval.sValue = strdup(yytext);return(VIRGULA);}
-"+"           				{yylval.sValue = strdup(yytext);return(OP_SOMA);}
-"-"    				        {yylval.sValue = strdup(yytext);return(OP_SUB);}
-"*"            				{yylval.sValue = strdup(yytext);return(OP_MULT);}
-"/"            				{yylval.sValue = strdup(yytext);return(OP_DIV);}
-"%"                                     {yylval.sValue = strdup(yytext);return(OP_RESTO);}
-"|"					{yylval.sValue = strdup(yytext);return(OP_LOGICO_OU);}
-"&"					{yylval.sValue = strdup(yytext);return(OP_LOGICO_E);}
-"<"            				{yylval.sValue = strdup(yytext);return(OP_MENOR);}
-">"   		 		        {yylval.sValue = strdup(yytext);return(OP_MAIOR);}
-"<="					{yylval.sValue = strdup(yytext);return(OP_MENOR_IGUAL);}
-">="           				{yylval.sValue = strdup(yytext);return(OP_MAIOR_IGUAL);}
-"=="					{yylval.sValue = strdup(yytext);return(OP_IGUAL);}
-"!="					{yylval.sValue = strdup(yytext);return(OP_DIFERENTE);}
-"++"  			                {yylval.sValue = strdup(yytext);return(OP_INC);}
-"--"  			                {yylval.sValue = strdup(yytext);return(OP_DEC);}
-[\n]                                    {yylineno++;}	/* quebra linha */
-[ \t\r]+				/* espaços em branco */
-.					yyerror("valor ilegal");/* erro */	
+char	     	                        	printf("TIPO_CHAR\n");
+void						printf("TIPO_VOID\n");
+const	                                	printf("CONST\n");
+float	                                	printf("TIPO_FLOAT\n"); 
+inteiro	                                	printf("TIPO_INT\n"); 
+string						printf("TIPO_STRING\n"); 
+main			        		printf ("MAIN\n");
+se                        	        	printf ("SE\n");
+senao                           		printf ("SENAO\n");
+entao                           		printf("ENTAO\n");
+fimse                            		printf("FIM_SE\n");
+enquanto  			        	printf("ENQUANTO\n");
+fimenquanto                       		printf("FIM_ENQUANTO\n");
+para				        	printf("PARA\n");
+fimpara                   	        	printf("FIM_PARA\n");
+faca                            		printf("FACA\n");
+imprime                             		printf("IMPRIME\n");
+aloca 				                printf("ALOCA\n");
+libera 				                printf("LIBERA\n");
+
+"="                                       	printf("OP_ATRIBUICAO\n");
+"("                                       	printf("ABRE_PAREN\n");
+")"                                       	printf("FECHA_PAREN\n");
+    "["                                   	printf("ABRE_COLCHETE\n");
+"]"                                       	printf("FECHA_COLCHETE\n");
+"{"                                       	printf("ABRE_CHAVES\n");
+"}"                                       	printf("FECHA_CHAVES\n");
+";"                                       	printf("PONTO_VIRGULA\n");
+":"					        printf("DOIS_PONTOS\n");
+","                                       	printf("VIRGULA\n");
+"+"           		            		printf("OP_SOMA\n");
+"-"    				                printf("OP_SUB\n");
+"*"            			              	printf("OP_MULT\n");
+"/"            				        printf("OP_DIV\n");
+"%"                                       	printf("OP_RESTO\n");
+"|"                 				printf("OP_LOGICO_OU\n");
+"&"					        printf("OP_LOGICO_E\n");
+"<"            				        printf("OP_MENOR\n");
+">"   		 		                printf("OP_MAIOR\n");
+"<="				                printf("OP_MENOR_IGUAL\n");
+">="           		            		printf("OP_MAIOR_IGUAL\n");
+"=="				                printf("OP_IGUAL\n");
+"!="				                printf("OP_DIFERENTE\n");
+"++"  			                        printf("OP_INC\n");
+"--"  			                        printf("OP_DEC\n");
+
+[ \t\r\n]+			                /* espaços em branco */
+[a-zA-Z_][a-zA-Z_0-9]*	        		printf("ID\n");
+.					        //yyerror("valor ilegal");/* erro */	
 
 %%
 
-#ifndef yywrap
-   int yywrap (void) {
-   return 1;
-   }
-#endif
-void yyerror(char *message)
-{
-   fprintf(stderr,"Error: \"%s\" in line %d. Lexem = %s\n", message, yylineno, yytext);
-   exit(1);
-}
 
