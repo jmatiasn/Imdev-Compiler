@@ -1,0 +1,9 @@
+yacc -d parser.y
+flex scanner.l
+gcc lex.yy.c y.tab.c -o teste.exec
+./teste.exec < input
+
+flex scanner.l
+bison parser.y -v -d
+gcc lex.yy.c westeros.tab.c -o parser
+./parser < prog0.txt
