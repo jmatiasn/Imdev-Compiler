@@ -44,6 +44,7 @@ falso                                   {return FALSO;}
 "%"                                     {return OP_RESTO;}
 "|"                 				            {return OP_LOGICO_OU;}
 "&"					                            {return OP_LOGICO_E;}
+"!"                                     {return OP_LOGICO_NEGACAO;}
 "<"            				                  {return OP_MENOR;}
 ">"   		 		                          {return OP_MAIOR;}
 "<="				                            {return OP_MENOR_IGUAL;}

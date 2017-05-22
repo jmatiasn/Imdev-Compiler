@@ -23,7 +23,8 @@
 %token FACA IMPRIME ALOCA LIBERA
 %token OP_ATRIBUICAO PONTO_VIRGULA DOIS_PONTOS VIRGULA
 %token ABRE_PAREN FECHA_PAREN ABRE_COLCHETE FECHA_COLCHETE ABRE_CHAVES FECHA_CHAVES
-%token OP_SOMA OP_SUB OP_MULT OP_DIV OP_RESTO OP_LOGICO_OU OP_LOGICO_E OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUAL OP_DIFERENTE
+%token OP_SOMA OP_SUB OP_MULT OP_DIV OP_RESTO
+%token OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUAL OP_DIFERENTE
 %token OP_INC OP_DEC
 
 %start programa
@@ -36,15 +37,30 @@ programa : sentencas                                                            
 
 sentenca : atribuicao                                                           {}
          | se                                                                   {}
+         | enquanto                                                             {}
+         | para                                                                 {}
          ;
 
 atribuicao : VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA                            {}
            | CONST ID OP_ATRIBUICAO expr PONTO_VIRGULA                          {}
            ;
 
-se : SE ABRE_PAREN exprbool FECHA_PAREN ENTAO sentencas FIM_SE                  {}
-   | SE ABRE_PAREN exprbool FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE  {}
+se : SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas FIM_SE                 {}
+   | SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas
+            SENAO sentencas FIM_SE                                              {}
    ;
+
+enquanto : ENQUANTO ABRE_PAREN exprsbool FECHA_PAREN
+                    ENTAO sentencas FIM_ENQUANTO                                {}
+         ;
+
+para : PARA ABRE_PAREN VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA exprsbool
+            PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA        {}
+     ;
+
+exprUnaria : ID OP_INC                                                          {}
+           | ID OP_DEC                                                          {}
+           ;
 
 exprbool : VERDADE                                                              {}
          | FALSO                                                                {}
@@ -52,7 +68,8 @@ exprbool : VERDADE                                                              
 
 expr : ID                                                                       {}
      | literal                                                                  {}
-     | literal operador expr                                                    {}
+     | expr operador literal                                                    {}
+     | expr operador ID                                                         {}
      ;
 
 operador : OP_SOMA                                                              {}
@@ -62,12 +79,21 @@ operador : OP_SOMA                                                              
          | OP_RESTO                                                             {}
          ;
 
+oplogico : OP_LOGICO_E                                                          {}
+         | OP_LOGICO_OU                                                         {}
+         | OP_LOGICO_NEG                                                        {}
+         ;
+
 literal : V_INTEIRO                                                             {}
         ;
 
 sentencas : sentenca                                                            {}
-          | sentenca PONTO_VIRGULA sentencas                                    {}
+          | sentencas PONTO_VIRGULA sentenca                                    {}
           ;
+
+exprsbool: exprbool                                                             {}
+         | exprsbool oplogico exprbool                                          {}
+         ;
 
 %%
 
