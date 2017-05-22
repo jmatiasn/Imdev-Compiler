@@ -23,7 +23,9 @@ fimpara                   	        	  {return FIM_PARA;}
 faca                            		    {return FACA;}
 imprime                             		{return IMPRIME;}
 aloca 				                          {return ALOCA;}
-libera 				                          {return LIBERA;}
+libera				                          {return LIBERA;}
+verdade                                 {return VERDADE;}
+falso                                   {return FALSO;}
 
 "="                                     {return OP_ATRIBUICAO;}
 "("                                    	{return ABRE_PAREN;}
