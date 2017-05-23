@@ -8,9 +8,9 @@
 %}
 
 %union {
-	int    iValue; 	/* valor inteiro*/
-	char   cValue; 	/* valor char*/
-	char * sValue;  /* valor string */
+  int    iValue; 	/* valor inteiro*/
+  char   cValue; 	/* valor char*/
+  char * sValue;  /* valor string */
   float  fValue;  /* valor real */
   //bool   bValue;
 
@@ -40,66 +40,80 @@
 
 %%
 
-programa : sentencas                                                            {}
+programa :
+         sentencas                                                            {}
          ;
 
-sentenca : atribuicao                                                           {}
+sentenca :
+         atribuicao                                                             {}
          | se                                                                   {}
          | enquanto                                                             {}
          | para                                                                 {}
          ;
 
-atribuicao : VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA                            {}
+atribuicao :
+           VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA                              {}
            | CONST ID OP_ATRIBUICAO expr PONTO_VIRGULA                          {}
            ;
 
-se : SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas FIM_SE                 {}
+se :
+   SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas FIM_SE                   {}
    | SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas
             SENAO sentencas FIM_SE                                              {}
    ;
 
-enquanto : ENQUANTO ABRE_PAREN exprsbool FECHA_PAREN
+enquanto :
+         ENQUANTO ABRE_PAREN exprsbool FECHA_PAREN
                     ENTAO sentencas FIM_ENQUANTO                                {}
          ;
 
-para : PARA ABRE_PAREN VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA exprsbool
+para :
+     PARA ABRE_PAREN VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA exprsbool
             PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA        {}
      ;
 
-exprUnaria : ID OP_INC                                                          {}
+exprUnaria :
+           ID OP_INC                                                            {}
            | ID OP_DEC                                                          {}
            ;
 
-exprbool : VERDADE                                                              {}
+exprbool :
+         VERDADE                                                                {}
          | FALSO                                                                {}
          ;
 
-expr : ID                                                                       {}
+expr :
+     ID                                                                         {}
      | literal                                                                  {}
      | expr operador literal                                                    {}
      | expr operador ID                                                         {}
      ;
 
-operador : OP_SOMA                                                              {}
+operador :
+         OP_SOMA                                                                {}
          | OP_SUB                                                               {}
          | OP_MULT                                                              {}
          | OP_DIV                                                               {}
          | OP_RESTO                                                             {}
          ;
 
-oplogico : OP_LOGICO_E                                                          {}
+oplogico :
+         OP_LOGICO_E                                                            {}
          | OP_LOGICO_OU                                                         {}
          | OP_LOGICO_NEG                                                        {}
          ;
 
-literal : V_INTEIRO                                                             {}
+literal :
+        V_INTEIRO                                                               {}
         ;
 
-sentencas : sentenca                                                            {}
+sentencas :
+          sentenca                                                              {}
           | sentencas PONTO_VIRGULA sentenca                                    {}
           ;
 
-exprsbool: exprbool                                                             {}
+exprsbool:
+         exprbool                                                               {}
          | exprsbool oplogico exprbool                                          {}
          ;
 
