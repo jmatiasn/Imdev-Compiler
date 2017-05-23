@@ -156,15 +156,16 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "sintatico.y" /* yacc.c:1909  */
+#line 10 "sintatico.y" /* yacc.c:1909  */
 
 	int    iValue; 	/* valor inteiro*/
 	char   cValue; 	/* valor char*/
 	char * sValue;  /* valor string */
+  float  fValue;  /* valor real */
   //bool   bValue;
-  float  fValue;
 
-#line 168 "y.tab.h" /* yacc.c:1909  */
+
+#line 169 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

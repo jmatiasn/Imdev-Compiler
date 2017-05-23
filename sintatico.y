@@ -1,6 +1,5 @@
 %{
     #include <stdio.h>
-
     int yylex(void);
     int yyerror(char *s);
     extern int yylineno;
@@ -12,22 +11,29 @@
 	int    iValue; 	/* valor inteiro*/
 	char   cValue; 	/* valor char*/
 	char * sValue;  /* valor string */
+  float  fValue;  /* valor real */
   //bool   bValue;
-  float  fValue;
+
 };
 
-%token <sValue> ID
-%token <iValue> V_INTEIRO
 //%token <bValue> V_BOOL
-%token <fValue> V_REAL
-%token TIPO_CHAR TIPO_VOID TIPO_REAL TIPO_INT TIPO_STRING VERDADE FALSO
-%token VAR CONST MAIN SE SENAO ENTAO FIM_SE ENQUANTO FIM_ENQUANTO PARA FIM_PARA
-%token FACA IMPRIME ALOCA LIBERA
-%token OP_ATRIBUICAO PONTO_VIRGULA DOIS_PONTOS VIRGULA
-%token ABRE_PAREN FECHA_PAREN ABRE_COLCHETE FECHA_COLCHETE ABRE_CHAVES FECHA_CHAVES
-%token OP_SOMA OP_SUB OP_MULT OP_DIV OP_RESTO
-%token OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUAL OP_DIFERENTE
-%token OP_INC OP_DEC
+%token<sValue> ID
+%token<iValue> V_INTEIRO
+%token<fValue> V_REAL
+%token<sValue> TIPO_CHAR TIPO_VOID TIPO_REAL TIPO_INT TIPO_STRING VERDADE FALSO
+%token<sValue> VAR CONST MAIN SE SENAO ENTAO FIM_SE ENQUANTO FIM_ENQUANTO PARA FIM_PARA
+%token<sValue> FACA IMPRIME ALOCA LIBERA
+%token<sValue> OP_ATRIBUICAO PONTO_VIRGULA DOIS_PONTOS VIRGULA
+%token<sValue> ABRE_PAREN FECHA_PAREN ABRE_COLCHETE FECHA_COLCHETE ABRE_CHAVES FECHA_CHAVES
+%token<sValue> OP_SOMA OP_SUB OP_MULT OP_DIV OP_RESTO
+%token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUAL OP_DIFERENTE
+%token<sValue> OP_INC OP_DEC
+
+%left OP_SOMA OP_SUB
+%left OP_MULT OP_DIV OP_RESTO
+%left OP_IGUAL OP_MENOR_IGUAL OP_MAIOR_IGUAL
+%left OP_INC OP_DEC OP_MAIOR OP_MENOR
+
 
 %start programa
 %type <sValue> sentenca
