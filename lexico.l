@@ -29,36 +29,37 @@ digitos[0-9]
 "verdade"                                 {yylval.sValue = strdup(yytext); return VERDADE;}
 "falso"                                   {yylval.sValue = strdup(yytext); return FALSO;}
 
-"="                                       {return OP_ATRIBUICAO;}
-"("                                    	  {return ABRE_PAREN;}
-")"                                    	  {return FECHA_PAREN;}
-"["                                       {return ABRE_COLCHETE;}
-"]"                                       {return FECHA_COLCHETE;}
-"{"                                       {return ABRE_CHAVES;}
-"}"                                       {return FECHA_CHAVES;}
-";"                                       {return PONTO_VIRGULA;}
-":"					                              {return DOIS_PONTOS;}
-","                                       {return VIRGULA;}
-"+"           		            		        {return OP_SOMA;}
-"-"    				                            {return OP_SUB;}
-"*"            			              	      {return OP_MULT;}
-"/"            				                    {return OP_DIV;}
-"%"                                       {return OP_RESTO;}
-"|"                 				              {return OP_LOGICO_OU;}
-"&"					                              {return OP_LOGICO_E;}
-"!!"                                       {return OP_LOGICO_NEG;}
-"<"            				                    {return OP_MENOR;}
-">"   		 		                            {return OP_MAIOR;}
-"<="				                              {return OP_MENOR_IGUAL;}
-">="           		            		        {return OP_MAIOR_IGUAL;}
-"=="				                              {return OP_IGUAL;}
-"!="				                              {return OP_DIFERENTE;}
-"++"  			                              {return OP_INC;}
-"--"  			                              {return OP_DEC;}
-[ \t\r\n]+			                          ;
-[_]*[a-zA-Z]+[a-zA-Z0-9_]*	        	    {return ID;}
-{digitos}+                                {return V_INTEIRO;}
-({digitos}*\.{digitos}+)                  {return V_REAL;}
+"="                                       {yylval.sValue = strdup(yytext); return OP_ATRIBUICAO;}
+"("                                    	  {yylval.sValue = strdup(yytext); return ABRE_PAREN;}
+")"                                    	  {yylval.sValue = strdup(yytext); return FECHA_PAREN;}
+"["                                       {yylval.sValue = strdup(yytext); return ABRE_COLCHETE;}
+"]"                                       {yylval.sValue = strdup(yytext); return FECHA_COLCHETE;}
+"{"                                       {yylval.sValue = strdup(yytext); return ABRE_CHAVES;}
+"}"                                       {yylval.sValue = strdup(yytext); return FECHA_CHAVES;}
+";"                                       {yylval.sValue = strdup(yytext); return PONTO_VIRGULA;}
+":"					                              {yylval.sValue = strdup(yytext); return DOIS_PONTOS;}
+","                                       {yylval.sValue = strdup(yytext); return VIRGULA;}
+"+"           		            	          {yylval.sValue = strdup(yytext); return OP_SOMA;}
+"-"    				                            {yylval.sValue = strdup(yytext); return OP_SUB;}
+"*"            			                      {yylval.sValue = strdup(yytext); return OP_MULT;}
+"/"            				                    {yylval.sValue = strdup(yytext); return OP_DIV;}
+"%"                                       {yylval.sValue = strdup(yytext); return OP_RESTO;}
+"|"                 			                {yylval.sValue = strdup(yytext); return OP_LOGICO_OU;}
+"&"					                              {yylval.sValue = strdup(yytext); return OP_LOGICO_E;}
+"!"                                       {yylval.sValue = strdup(yytext); return OP_LOGICO_NEG;}
+"<"            				                    {yylval.sValue = strdup(yytext); return OP_MENOR;}
+">"   		 		                            {yylval.sValue = strdup(yytext); return OP_MAIOR;}
+"<="				                              {yylval.sValue = strdup(yytext); return OP_MENOR_IGUAL;}
+">="           		            	          {yylval.sValue = strdup(yytext); return OP_MAIOR_IGUAL;}
+"=="				                              {yylval.sValue = strdup(yytext); return OP_IGUAL;}
+"!="				                              {yylval.sValue = strdup(yytext); return OP_DIFERENTE;}
+"++"  			                              {yylval.sValue = strdup(yytext); return OP_INC;}
+"--"  			                              {yylval.sValue = strdup(yytext); return OP_DEC;}
+[_]*[a-zA-Z]+[a-zA-Z0-9_]*	              {yylval.sValue = strdup(yytext); return ID;}
+{digitos}+                                {yylval.iValue = atoi(yytext); return V_INTEIRO;}
+({digitos}*\.{digitos}+)                  {yylval.fValue = atof(yytext); return V_REAL;}
+[\n]                                      {yylineno++;}
+[ \t\r]+			                            ;
 .					                                {printf("ERRO\n");}
 
 %%
