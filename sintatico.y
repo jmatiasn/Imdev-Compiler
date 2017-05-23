@@ -12,13 +12,15 @@
 	int    iValue; 	/* valor inteiro*/
 	char   cValue; 	/* valor char*/
 	char * sValue;  /* valor string */
-  bool   bValue;
+  //bool   bValue;
+  float  fValue;
 };
 
 %token <sValue> ID
 %token <iValue> V_INTEIRO
-%token <bValue> V_BOOL
-%token TIPO_CHAR TIPO_VOID TIPO_FLOAT TIPO_INT TIPO_STRING VERDADE FALSO
+//%token <bValue> V_BOOL
+%token <fValue> V_REAL
+%token TIPO_CHAR TIPO_VOID TIPO_REAL TIPO_INT TIPO_STRING VERDADE FALSO
 %token VAR CONST MAIN SE SENAO ENTAO FIM_SE ENQUANTO FIM_ENQUANTO PARA FIM_PARA
 %token FACA IMPRIME ALOCA LIBERA
 %token OP_ATRIBUICAO PONTO_VIRGULA DOIS_PONTOS VIRGULA
@@ -97,11 +99,12 @@ exprsbool: exprbool                                                             
 
 %%
 
-void yyerror(char *s) {
-    fprintf(stderr, "%d: %s at '%s'\n", yylineno, s, yytext);
-}
 
-int main(void) {
-    yyparse();
+#ifndef yywrap
+   int yywrap (void) {return 1;}
+#endif
+
+int yyerror(char *s) {
+    fprintf(stderr, "%d: %s at '%s'\n", yylineno, s, yytext);
     return 0;
 }

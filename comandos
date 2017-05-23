@@ -1,5 +1,5 @@
-//comandos válidos
-yacc -vd sintatico.y
+
+yacc -vd sintatico.y		//-v gera .output com o diagrama LALR(1), -d gera y.tab.h
 flex lexico.l
 gcc lex.yy.c y.tab.c -o teste.exec
 ./teste.exec < input
