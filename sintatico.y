@@ -8,20 +8,22 @@
 %}
 
 %union {
-  int    iValue; 	/* valor inteiro*/
-  char   cValue; 	/* valor char*/
-  char * sValue;  /* valor string */
-  float  fValue;  /* valor real */
-  //bool   bValue;
+  int    iValue; /* valor inteiro*/
+  char   cValue; /* valor char*/
+  char * sValue; /* valor string */
+  float  fValue; /* valor real */
+
 
 };
 
-//%token <bValue> V_BOOL
-%token<sValue> ID
 %token<iValue> V_INTEIRO
 %token<fValue> V_REAL
-%token<sValue> TIPO_CHAR TIPO_VOID TIPO_REAL TIPO_INT TIPO_STRING VERDADE FALSO
-%token<sValue> VAR CONST MAIN SE SENAO ENTAO FIM_SE ENQUANTO FIM_ENQUANTO PARA FIM_PARA
+%token<sValue> V_STRING
+%token<sValue> ID
+%token<sValue> MAIN RETORNO
+%token<sValue> FUNC PROC
+%token<sValue> TIPO_CHAR TIPO_VOID TIPO_REAL TIPO_INT TIPO_STRING TIPO_BOOL VERDADE FALSO
+%token<sValue> VAR CONST SE SENAO ENTAO FIM_SE ENQUANTO FIM_ENQUANTO PARA FIM_PARA
 %token<sValue> FACA IMPRIME ALOCA LIBERA
 %token<sValue> OP_ATRIBUICAO PONTO_VIRGULA DOIS_PONTOS VIRGULA
 %token<sValue> ABRE_PAREN FECHA_PAREN ABRE_COLCHETE FECHA_COLCHETE ABRE_CHAVES FECHA_CHAVES
@@ -41,19 +43,60 @@
 %%
 
 programa :
-         sentencas                                                            {}
+         subprogramas principal                                                 {}
          ;
+
+principal:
+        MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES          {}
+        ;
+
+subprogramas :
+             subprograma                                                        {}
+             | subprograma subprogramas                                         {}
+             ;
+
+subprograma :
+            proc                                                                {}
+            | funcao                                                            {}
+            ;
+
+proc :
+     PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES
+     sentencas FECHA_CHAVES                                                     {}
+     ;
+
+funcao :
+        FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
+        sentencas RETORNO ID FECHA_CHAVES                                       {}
+        ;
+
+params :
+    param                                                                       {}
+    | param VIRGULA params                                                      {}
+    ;
+
+param :
+      tprimitivo ID                                                             {}
+      ;
+
+sentencas :
+          sentenca                                                              {}
+          | sentenca PONTO_VIRGULA sentencas                                    {}
+          ;
 
 sentenca :
          atribuicao                                                             {}
+         | LIBERA ID PONTO_VIRGULA                                              {}
          | se                                                                   {}
          | enquanto                                                             {}
          | para                                                                 {}
+         | imprime                                                              {}
          ;
 
 atribuicao :
-           VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA                              {}
-           | CONST ID OP_ATRIBUICAO expr PONTO_VIRGULA                          {}
+           VAR ID DOIS_PONTOS tprimitivo OP_ATRIBUICAO expr PONTO_VIRGULA       {}
+           | CONST ID DOIS_PONTOS tprimitivo OP_ATRIBUICAO expr PONTO_VIRGULA   {}
+           | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
            ;
 
 se :
@@ -64,7 +107,7 @@ se :
 
 enquanto :
          ENQUANTO ABRE_PAREN exprsbool FECHA_PAREN
-                    ENTAO sentencas FIM_ENQUANTO                                {}
+                    FACA sentencas FIM_ENQUANTO                                 {}
          ;
 
 para :
@@ -85,8 +128,8 @@ exprbool :
 expr :
      ID                                                                         {}
      | literal                                                                  {}
-     | expr operador literal                                                    {}
-     | expr operador ID                                                         {}
+     | literal operador expr                                                    {}
+     | ID operador expr                                                         {}
      ;
 
 operador :
@@ -101,21 +144,37 @@ oplogico :
          OP_LOGICO_E                                                            {}
          | OP_LOGICO_OU                                                         {}
          | OP_LOGICO_NEG                                                        {}
+         | OP_IGUAL                                                             {}
+         | OP_DIFERENTE                                                         {}
+         | OP_MAIOR                                                             {}
+         | OP_MENOR                                                             {}
+         | OP_MAIOR_IGUAL                                                       {}
+         | OP_MENOR_IGUAL
          ;
+
+imprime :
+        IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA                   {}
+        ;
 
 literal :
         V_INTEIRO                                                               {}
+        V_REAL                                                                  {}
         ;
 
-sentencas :
-          sentenca                                                              {}
-          | sentencas PONTO_VIRGULA sentenca                                    {}
+tprimitivo:
+          TIPO_INT                                                              {}
+          | TIPO_CHAR                                                           {}
+          | TIPO_REAL                                                           {}
+          | TIPO_VOID                                                           {}
+          | TIPO_STRING                                                         {}
+          | TIPO_BOOL                                                           {}
           ;
 
 exprsbool:
          exprbool                                                               {}
-         | exprsbool oplogico exprbool                                          {}
+         | exprbool oplogico exprsbool                                          {}
          ;
+
 
 %%
 

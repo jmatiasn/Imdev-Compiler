@@ -13,7 +13,10 @@ digitos[0-9]
 "real"	                                	{yylval.sValue = strdup(yytext); return TIPO_REAL;}
 "inteiro"	                                {yylval.sValue = strdup(yytext); return TIPO_INT;}
 "string"						                      {yylval.sValue = strdup(yytext); return TIPO_STRING;}
+"booleano"                                {yylval.sValue = strdup(yytext); return TIPO_BOOL;}
 "main"			        		                  {yylval.sValue = strdup(yytext); return MAIN;}
+"func"		        		                    {yylval.sValue = strdup(yytext); return FUNC;}
+"proc"		        		                    {yylval.sValue = strdup(yytext); return PROC;}
 "se"                        	        	  {yylval.sValue = strdup(yytext); return SE;}
 "senao"                           		    {yylval.sValue = strdup(yytext); return SENAO;}
 "entao"                           		    {yylval.sValue = strdup(yytext); return ENTAO;}
@@ -28,6 +31,7 @@ digitos[0-9]
 "libera"				                          {yylval.sValue = strdup(yytext); return LIBERA;}
 "verdade"                                 {yylval.sValue = strdup(yytext); return VERDADE;}
 "falso"                                   {yylval.sValue = strdup(yytext); return FALSO;}
+"retorno"                                 {yylval.sValue = strdup(yytext); return RETORNO;}
 
 "="                                       {yylval.sValue = strdup(yytext); return OP_ATRIBUICAO;}
 "("                                    	  {yylval.sValue = strdup(yytext); return ABRE_PAREN;}
@@ -58,6 +62,7 @@ digitos[0-9]
 [_]*[a-zA-Z]+[a-zA-Z0-9_]*	              {yylval.sValue = strdup(yytext); return ID;}
 {digitos}+                                {yylval.iValue = atoi(yytext); return V_INTEIRO;}
 ({digitos}*\.{digitos}+)                  {yylval.fValue = atof(yytext); return V_REAL;}
+\"(\\.|[^\\"])*\"                         {yylval.sValue = strdup(yytext); return V_STRING;}
 [\n]                                      {yylineno++;}
 [ \t\r]+			                            ;
 .					                                {printf("ERRO\n");}

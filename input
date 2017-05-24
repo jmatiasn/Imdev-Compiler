@@ -1,0 +1,33 @@
+proc liberarInteiro (inteiro valorA) {
+    libera valorA;
+}
+
+func exponenciacao (inteiro a, inteiro b): inteiro {
+    var indice: inteiro = 1;
+    enquanto (indice <= b) faca
+        a = a * a;
+        indice++;
+    fimenquanto
+    retorno a;
+}
+
+main () {
+    imprime ("hello world!");
+    
+    var notaDaProva: real = 10;
+    var acertouTodas: booleano = falso;
+    
+    se (!acertouTodas ) entao
+        imprime ("vish!");
+    fimse
+    
+    para ( var numErros = 3; numErros > 0; numErros-- ) faca
+        notaDaProva = notaDaProva - 1;
+    fimpara
+
+    se (verdade) entao 
+        imprime ("Imdev");
+    fimse
+}
+
+
