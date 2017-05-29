@@ -43,7 +43,7 @@
 %%
 
 programa :
-         subprogramas principal                                                 {}
+         subprogramas                                                           {}
          ;
 
 principal:
@@ -58,6 +58,7 @@ subprogramas :
 subprograma :
             proc                                                                {}
             | funcao                                                            {}
+            | principal                                                         {}
             ;
 
 proc :
