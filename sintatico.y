@@ -126,18 +126,18 @@ listavaloresarray :
             ;
 
 se :
-   SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas FIM_SE                   {}
-   | SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas
+   SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE                   {}
+   | SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas
         SENAO sentencas FIM_SE                                                  {}
    ;
 
 enquanto :
-         ENQUANTO ABRE_PAREN exprsbool FECHA_PAREN
+         ENQUANTO ABRE_PAREN expr FECHA_PAREN
                     FACA sentencas FIM_ENQUANTO                                 {}
          ;
 
 para :
-     PARA ABRE_PAREN atribuicao exprsbool
+     PARA ABRE_PAREN atribuicao expr
             PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA        {}
      ;
 
@@ -146,20 +146,19 @@ exprUnaria :
            | ID OP_DEC                                                          {}
            ;
 
-exprbool :
-         tbool                                                                  {}
-         | ID                                                                   {}
-         | OP_LOGICO_NEG tbool                                                  {}
-         | OP_LOGICO_NEG ID                                                     {}
-         | expr oprelacional exprbool                                           {}
-         ;
-
 expr :
      ID                                                                         {}
      | literal                                                                  {}
      | literal operador expr                                                    {}
      | ID operador expr                                                         {}
      | acessoarray                                                              {}
+     /* */
+     | tbool                                                                    {}
+     | OP_LOGICO_NEG tbool                                                      {}
+     | OP_LOGICO_NEG ID                                                         {}
+     | literal oprelacional expr                                                {}
+     | ID oprelacional expr                                                     {}
+     | ID oplogico expr                                                         {}
      | chamadaprocoufuncao                                                      {}
      ;
      
@@ -211,11 +210,6 @@ tprimitivo:
           | TIPO_STRING                                                         {}
           | TIPO_BOOL                                                           {}
           ;
-
-exprsbool:
-         exprbool                                                               {}
-         | exprbool oplogico exprsbool                                          {}
-         ;
          
 listaids :
          expr                                                                     {}
