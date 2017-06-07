@@ -4,6 +4,10 @@ main () {
     imprime("notaDaProva");
 }
 
+proc imprimirNotaDaProva() {
+    imprime("notaDaProva");
+}
+
 
 main () {
     var novoArray: [inteiro] = [2,3,4]
@@ -34,6 +38,11 @@ func teste11 ( inteiro dez ) : inteiro {
   retorno linguagem;
 }
 
+func pegarNota(): inteiro {
+    imprimirNotaDaProva();
+    retorno 6;
+}
+
 
 func soma ( inteiro dez, inteiro vinte ) : inteiro {
   var total: inteiro = dez + vinte;
@@ -47,6 +56,7 @@ func soma ( inteiro dez, inteiro vinte ) : inteiro {
   fimpara
   
   total2++;
+  var teste11: inteiro = pegarNota;
   
   retorno total;
 }

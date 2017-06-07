@@ -62,13 +62,17 @@ subprograma :
             ;
 
 proc :
-     PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES
-     sentencas FECHA_CHAVES                                                     {}
+     PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES
+        sentencas FECHA_CHAVES                                                  {}
+     | PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES
+        sentencas FECHA_CHAVES                                                  {}
      ;
 
 funcao :
-        FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
-        sentencas RETORNO ID PONTO_VIRGULA FECHA_CHAVES                         {}
+        FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
+        sentencas FECHA_CHAVES                                                  {}
+        | FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
+        sentencas FECHA_CHAVES                                                  {}
         ;
 
 params :
@@ -93,6 +97,8 @@ sentenca :
          | para                                                                 {}
          | imprime                                                              {}
          | exprUnaria PONTO_VIRGULA                                             {}
+         | chamadaprocoufuncao                                                  {}
+         | RETORNO expr PONTO_VIRGULA                                           {}
          ;
 
 atribuicao :
@@ -154,11 +160,12 @@ expr :
      | literal operador expr                                                    {}
      | ID operador expr                                                         {}
      | acessoarray                                                              {}
+     | chamadaprocoufuncao                                                      {}
      ;
      
 acessoarray :
             ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE                           {}
-            | ID ABRE_COLCHETE ID FECHA_COLCHETE                         {}
+            | ID ABRE_COLCHETE ID FECHA_COLCHETE                                {}
             ;
 
 operador :
@@ -209,6 +216,16 @@ exprsbool:
          exprbool                                                               {}
          | exprbool oplogico exprsbool                                          {}
          ;
+         
+listaids :
+         expr                                                                     {}
+         | expr VIRGULA listaids                                                  {}
+         ;
+         
+chamadaprocoufuncao:
+        ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA                                 {}
+        | ID ABRE_PAREN listaids FECHA_PAREN PONTO_VIRGULA                      {}
+        ;
 
 %%
 int yyerror(char *msg) {
