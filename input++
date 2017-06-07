@@ -27,7 +27,7 @@ proc teste ( inteiro dez ) {
 
 func teste11 ( inteiro dez ) : inteiro {
 	var linguagem: inteiro = V_INTEIRO;
-  retorno linguagem
+  retorno linguagem;
 }
 
 
@@ -44,10 +44,10 @@ func soma ( inteiro dez, inteiro vinte ) : inteiro {
   
   total2++;
   
-  retorno total
+  retorno total;
 }
 
 func subtracao ( real dez, real vinte ) : real {
 	var total: real = dez - vinte;
-  retorno total
+  retorno total;
 }
