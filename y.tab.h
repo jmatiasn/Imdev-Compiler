@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.0.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -45,130 +45,140 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    ID = 258,
-    V_INTEIRO = 259,
-    V_REAL = 260,
-    TIPO_CHAR = 261,
-    TIPO_VOID = 262,
-    TIPO_REAL = 263,
-    TIPO_INT = 264,
-    TIPO_STRING = 265,
-    VERDADE = 266,
-    FALSO = 267,
-    VAR = 268,
-    CONST = 269,
-    MAIN = 270,
-    SE = 271,
-    SENAO = 272,
-    ENTAO = 273,
-    FIM_SE = 274,
-    ENQUANTO = 275,
-    FIM_ENQUANTO = 276,
-    PARA = 277,
-    FIM_PARA = 278,
-    FACA = 279,
-    IMPRIME = 280,
-    ALOCA = 281,
-    LIBERA = 282,
-    OP_ATRIBUICAO = 283,
-    PONTO_VIRGULA = 284,
-    DOIS_PONTOS = 285,
-    VIRGULA = 286,
-    ABRE_PAREN = 287,
-    FECHA_PAREN = 288,
-    ABRE_COLCHETE = 289,
-    FECHA_COLCHETE = 290,
-    ABRE_CHAVES = 291,
-    FECHA_CHAVES = 292,
-    OP_SOMA = 293,
-    OP_SUB = 294,
-    OP_MULT = 295,
-    OP_DIV = 296,
-    OP_RESTO = 297,
-    OP_LOGICO_OU = 298,
-    OP_LOGICO_E = 299,
-    OP_LOGICO_NEG = 300,
-    OP_MENOR = 301,
-    OP_MAIOR = 302,
-    OP_MENOR_IGUAL = 303,
-    OP_MAIOR_IGUAL = 304,
-    OP_IGUAL = 305,
-    OP_DIFERENTE = 306,
-    OP_INC = 307,
-    OP_DEC = 308
+    V_INTEIRO = 258,
+    V_REAL = 259,
+    V_STRING = 260,
+    ID = 261,
+    MAIN = 262,
+    RETORNO = 263,
+    FUNC = 264,
+    PROC = 265,
+    TIPO_CHAR = 266,
+    TIPO_VOID = 267,
+    TIPO_REAL = 268,
+    TIPO_INT = 269,
+    TIPO_STRING = 270,
+    TIPO_BOOL = 271,
+    VERDADE = 272,
+    FALSO = 273,
+    VAR = 274,
+    CONST = 275,
+    SE = 276,
+    SENAO = 277,
+    ENTAO = 278,
+    FIM_SE = 279,
+    ENQUANTO = 280,
+    FIM_ENQUANTO = 281,
+    PARA = 282,
+    FIM_PARA = 283,
+    OP_ATRIBUICAO = 284,
+    PONTO_VIRGULA = 285,
+    DOIS_PONTOS = 286,
+    VIRGULA = 287,
+    FACA = 288,
+    IMPRIME = 289,
+    ALOCA = 290,
+    LIBERA = 291,
+    ABRE_PAREN = 292,
+    FECHA_PAREN = 293,
+    ABRE_COLCHETE = 294,
+    FECHA_COLCHETE = 295,
+    ABRE_CHAVES = 296,
+    FECHA_CHAVES = 297,
+    OP_SOMA = 298,
+    OP_SUB = 299,
+    OP_MULT = 300,
+    OP_DIV = 301,
+    OP_RESTO = 302,
+    OP_LOGICO_OU = 303,
+    OP_LOGICO_E = 304,
+    OP_LOGICO_NEG = 305,
+    OP_MENOR = 306,
+    OP_MAIOR = 307,
+    OP_MENOR_IGUAL = 308,
+    OP_MAIOR_IGUAL = 309,
+    OP_IGUALDADE = 310,
+    OP_DIFERENTE = 311,
+    OP_INC = 312,
+    OP_DEC = 313,
+    OP_IGUAL = 314
   };
 #endif
 /* Tokens.  */
-#define ID 258
-#define V_INTEIRO 259
-#define V_REAL 260
-#define TIPO_CHAR 261
-#define TIPO_VOID 262
-#define TIPO_REAL 263
-#define TIPO_INT 264
-#define TIPO_STRING 265
-#define VERDADE 266
-#define FALSO 267
-#define VAR 268
-#define CONST 269
-#define MAIN 270
-#define SE 271
-#define SENAO 272
-#define ENTAO 273
-#define FIM_SE 274
-#define ENQUANTO 275
-#define FIM_ENQUANTO 276
-#define PARA 277
-#define FIM_PARA 278
-#define FACA 279
-#define IMPRIME 280
-#define ALOCA 281
-#define LIBERA 282
-#define OP_ATRIBUICAO 283
-#define PONTO_VIRGULA 284
-#define DOIS_PONTOS 285
-#define VIRGULA 286
-#define ABRE_PAREN 287
-#define FECHA_PAREN 288
-#define ABRE_COLCHETE 289
-#define FECHA_COLCHETE 290
-#define ABRE_CHAVES 291
-#define FECHA_CHAVES 292
-#define OP_SOMA 293
-#define OP_SUB 294
-#define OP_MULT 295
-#define OP_DIV 296
-#define OP_RESTO 297
-#define OP_LOGICO_OU 298
-#define OP_LOGICO_E 299
-#define OP_LOGICO_NEG 300
-#define OP_MENOR 301
-#define OP_MAIOR 302
-#define OP_MENOR_IGUAL 303
-#define OP_MAIOR_IGUAL 304
-#define OP_IGUAL 305
-#define OP_DIFERENTE 306
-#define OP_INC 307
-#define OP_DEC 308
+#define V_INTEIRO 258
+#define V_REAL 259
+#define V_STRING 260
+#define ID 261
+#define MAIN 262
+#define RETORNO 263
+#define FUNC 264
+#define PROC 265
+#define TIPO_CHAR 266
+#define TIPO_VOID 267
+#define TIPO_REAL 268
+#define TIPO_INT 269
+#define TIPO_STRING 270
+#define TIPO_BOOL 271
+#define VERDADE 272
+#define FALSO 273
+#define VAR 274
+#define CONST 275
+#define SE 276
+#define SENAO 277
+#define ENTAO 278
+#define FIM_SE 279
+#define ENQUANTO 280
+#define FIM_ENQUANTO 281
+#define PARA 282
+#define FIM_PARA 283
+#define OP_ATRIBUICAO 284
+#define PONTO_VIRGULA 285
+#define DOIS_PONTOS 286
+#define VIRGULA 287
+#define FACA 288
+#define IMPRIME 289
+#define ALOCA 290
+#define LIBERA 291
+#define ABRE_PAREN 292
+#define FECHA_PAREN 293
+#define ABRE_COLCHETE 294
+#define FECHA_COLCHETE 295
+#define ABRE_CHAVES 296
+#define FECHA_CHAVES 297
+#define OP_SOMA 298
+#define OP_SUB 299
+#define OP_MULT 300
+#define OP_DIV 301
+#define OP_RESTO 302
+#define OP_LOGICO_OU 303
+#define OP_LOGICO_E 304
+#define OP_LOGICO_NEG 305
+#define OP_MENOR 306
+#define OP_MAIOR 307
+#define OP_MENOR_IGUAL 308
+#define OP_MAIOR_IGUAL 309
+#define OP_IGUALDADE 310
+#define OP_DIFERENTE 311
+#define OP_INC 312
+#define OP_DEC 313
+#define OP_IGUAL 314
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
+typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
 #line 10 "sintatico.y" /* yacc.c:1909  */
 
-  int    iValue; 	/* valor inteiro*/
-  char   cValue; 	/* valor char*/
-  char * sValue;  /* valor string */
-  float  fValue;  /* valor real */
-  //bool   bValue;
+  int    iValue; /* valor inteiro*/
+  char   cValue; /* valor char*/
+  char * sValue; /* valor string */
+  float  fValue; /* valor real */
 
 
-#line 169 "y.tab.h" /* yacc.c:1909  */
+
+#line 181 "y.tab.h" /* yacc.c:1909  */
 };
-
-typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

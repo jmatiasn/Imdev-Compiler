@@ -1,0 +1,53 @@
+var notaDaProva: inteiro = 10;
+
+main () {
+    imprime("notaDaProva");
+}
+
+
+main () {
+    var notaDaProva: inteiro = 10;
+}
+
+
+main () {
+    var notaDaProva: real = V_REAL;
+}
+
+
+proc teste ( inteiro dez ) {
+	var linguagem: string = V_STRING;
+
+  se (verdade) entao
+  var linguagem: string = V_STRING;
+  fimse
+
+}
+
+
+func teste11 ( inteiro dez ) : inteiro {
+	var linguagem: inteiro = V_INTEIRO;
+  retorno linguagem
+}
+
+
+func soma ( inteiro dez, inteiro vinte ) : inteiro {
+	var total: inteiro = dez + vinte;
+
+  enquanto(verdade) faca
+    var total2: inteiro = dez + vinte;
+  fimenquanto
+  
+  para(var i: inteiro = 12; 10 > total; i--) faca
+    imprime("haha");
+  fimpara
+  
+  total2++;
+  
+  retorno total
+}
+
+func subtracao ( real dez, real vinte ) : real {
+	var total: real = dez - vinte;
+  retorno total
+}

@@ -1,10 +1,10 @@
 %{
     #include <stdio.h>
+    #include <string.h>
     int yylex(void);
-    int yyerror(char *s);
+    int yyerror(char *msg);
     extern int yylineno;
     extern char * yytext;
-
 %}
 
 %union {
@@ -24,11 +24,12 @@
 %token<sValue> FUNC PROC
 %token<sValue> TIPO_CHAR TIPO_VOID TIPO_REAL TIPO_INT TIPO_STRING TIPO_BOOL VERDADE FALSO
 %token<sValue> VAR CONST SE SENAO ENTAO FIM_SE ENQUANTO FIM_ENQUANTO PARA FIM_PARA
-%token<sValue> FACA IMPRIME ALOCA LIBERA
 %token<sValue> OP_ATRIBUICAO PONTO_VIRGULA DOIS_PONTOS VIRGULA
+%token<sValue> FACA IMPRIME ALOCA LIBERA
 %token<sValue> ABRE_PAREN FECHA_PAREN ABRE_COLCHETE FECHA_COLCHETE ABRE_CHAVES FECHA_CHAVES
+
 %token<sValue> OP_SOMA OP_SUB OP_MULT OP_DIV OP_RESTO
-%token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUAL OP_DIFERENTE
+%token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUALDADE OP_DIFERENTE
 %token<sValue> OP_INC OP_DEC
 
 %left OP_SOMA OP_SUB
@@ -36,14 +37,12 @@
 %left OP_IGUAL OP_MENOR_IGUAL OP_MAIOR_IGUAL
 %left OP_INC OP_DEC OP_MAIOR OP_MENOR
 
-
 %start programa
-%type <sValue> sentenca
 
 %%
 
 programa :
-         subprogramas                                                           {}
+         subprogramas                                                           {printf("\n\npassou no teste\n\n");}
          ;
 
 principal:
@@ -59,6 +58,7 @@ subprograma :
             proc                                                                {}
             | funcao                                                            {}
             | principal                                                         {}
+            | atribuicao                                                        {}
             ;
 
 proc :
@@ -68,7 +68,7 @@ proc :
 
 funcao :
         FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
-        sentencas RETORNO ID FECHA_CHAVES                                       {}
+        sentencas RETORNO ID PONTO_VIRGULA FECHA_CHAVES                         {}
         ;
 
 params :
@@ -82,7 +82,7 @@ param :
 
 sentencas :
           sentenca                                                              {}
-          | sentenca PONTO_VIRGULA sentencas                                    {}
+          | sentenca sentencas                                                  {}
           ;
 
 sentenca :
@@ -92,6 +92,7 @@ sentenca :
          | enquanto                                                             {}
          | para                                                                 {}
          | imprime                                                              {}
+         | exprUnaria PONTO_VIRGULA                                             {}
          ;
 
 atribuicao :
@@ -103,7 +104,7 @@ atribuicao :
 se :
    SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas FIM_SE                   {}
    | SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas
-            SENAO sentencas FIM_SE                                              {}
+        SENAO sentencas FIM_SE                                                  {}
    ;
 
 enquanto :
@@ -112,7 +113,7 @@ enquanto :
          ;
 
 para :
-     PARA ABRE_PAREN VAR ID OP_ATRIBUICAO expr PONTO_VIRGULA exprsbool
+     PARA ABRE_PAREN atribuicao exprsbool
             PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA        {}
      ;
 
@@ -122,8 +123,11 @@ exprUnaria :
            ;
 
 exprbool :
-         VERDADE                                                                {}
-         | FALSO                                                                {}
+         tbool                                                                  {}
+         | ID                                                                   {}
+         | OP_LOGICO_NEG tbool                                                  {}
+         | OP_LOGICO_NEG ID                                                     {}
+         | expr oprelacional exprbool                                           {}
          ;
 
 expr :
@@ -144,14 +148,15 @@ operador :
 oplogico :
          OP_LOGICO_E                                                            {}
          | OP_LOGICO_OU                                                         {}
-         | OP_LOGICO_NEG                                                        {}
-         | OP_IGUAL                                                             {}
-         | OP_DIFERENTE                                                         {}
-         | OP_MAIOR                                                             {}
-         | OP_MENOR                                                             {}
-         | OP_MAIOR_IGUAL                                                       {}
-         | OP_MENOR_IGUAL
          ;
+         
+oprelacional :
+             OP_IGUALDADE                                                       {}
+             | OP_DIFERENTE                                                     {}
+             | OP_MAIOR                                                         {}
+             | OP_MENOR                                                         {}
+             | OP_MAIOR_IGUAL                                                   {}
+             | OP_MENOR_IGUAL                                                   {}
 
 imprime :
         IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA                   {}
@@ -159,8 +164,13 @@ imprime :
 
 literal :
         V_INTEIRO                                                               {}
-        V_REAL                                                                  {}
+        | V_REAL                                                                {}
         ;
+         
+tbool: 
+     VERDADE                                                                    {}
+     | FALSO                                                                    {}
+     ;
 
 tprimitivo:
           TIPO_INT                                                              {}
@@ -176,15 +186,14 @@ exprsbool:
          | exprbool oplogico exprsbool                                          {}
          ;
 
-
 %%
-
-
-#ifndef yywrap
-   int yywrap (void) {return 1;}
-#endif
-
-int yyerror(char *s) {
-    fprintf(stderr, "%d: %s at '%s'\n", yylineno, s, yytext);
+int yyerror(char *msg) {
+    fprintf(stderr, "%d: %s at '%s'\n", yylineno, msg, yytext);
     return 0;
+
+
+}
+
+int main (void) {
+	return yyparse ( );
 }
