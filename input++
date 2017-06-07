@@ -6,7 +6,9 @@ main () {
 
 
 main () {
+    var novoArray: [inteiro] = [2,3,4]
     var notaDaProva: inteiro = 10;
+    notaDaProva = novoArray[notaDaProva];
 }
 
 
@@ -16,23 +18,25 @@ main () {
 
 
 proc teste ( inteiro dez ) {
-	var linguagem: string = V_STRING;
+  var linguagem: string = V_STRING;
 
   se (verdade) entao
-  var linguagem: string = V_STRING;
+    linguagem = V_STRING;
+  senao 
+    linguagem = 10;
   fimse
 
 }
 
 
 func teste11 ( inteiro dez ) : inteiro {
-	var linguagem: inteiro = V_INTEIRO;
+  var linguagem: inteiro = V_INTEIRO;
   retorno linguagem;
 }
 
 
 func soma ( inteiro dez, inteiro vinte ) : inteiro {
-	var total: inteiro = dez + vinte;
+  var total: inteiro = dez + vinte;
 
   enquanto(verdade) faca
     var total2: inteiro = dez + vinte;
@@ -48,6 +52,6 @@ func soma ( inteiro dez, inteiro vinte ) : inteiro {
 }
 
 func subtracao ( real dez, real vinte ) : real {
-	var total: real = dez - vinte;
+  var total: real = dez - vinte;
   retorno total;
 }

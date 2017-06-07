@@ -99,7 +99,25 @@ atribuicao :
            VAR ID DOIS_PONTOS tprimitivo OP_ATRIBUICAO expr PONTO_VIRGULA       {}
            | CONST ID DOIS_PONTOS tprimitivo OP_ATRIBUICAO expr PONTO_VIRGULA   {}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
+           | atribuicaoarray                                                    {}
            ;
+
+atribuicaoarray :
+            VAR ID DOIS_PONTOS ABRE_COLCHETE tprimitivo FECHA_COLCHETE 
+                OP_ATRIBUICAO instanciaarray                                    {}
+            | CONST ID DOIS_PONTOS ABRE_COLCHETE tprimitivo FECHA_COLCHETE 
+                OP_ATRIBUICAO instanciaarray                                    {}
+            ;
+            
+instanciaarray :
+            ID                                                                  {}
+            | ABRE_COLCHETE listavaloresarray FECHA_COLCHETE                    {}
+            ;
+            
+listavaloresarray :
+            expr                                                                {}
+            | expr VIRGULA listavaloresarray                                    {}
+            ;
 
 se :
    SE ABRE_PAREN exprsbool FECHA_PAREN ENTAO sentencas FIM_SE                   {}
@@ -135,7 +153,13 @@ expr :
      | literal                                                                  {}
      | literal operador expr                                                    {}
      | ID operador expr                                                         {}
+     | acessoarray                                                              {}
      ;
+     
+acessoarray :
+            ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE                           {}
+            | ID ABRE_COLCHETE ID FECHA_COLCHETE                         {}
+            ;
 
 operador :
          OP_SOMA                                                                {}
