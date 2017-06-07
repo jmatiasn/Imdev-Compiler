@@ -32,6 +32,9 @@ proc teste ( inteiro dez ) {
 
 }
 
+-* comentário *- 
+-*  bloco de
+comentário *- 
 
 func teste11 ( inteiro dez ) : inteiro {
   var linguagem: inteiro = V_INTEIRO;

@@ -8,7 +8,6 @@
 digitos[0-9]
 %%
 
-
 "char"	     	                        {yylval.sValue = strdup(yytext); return TIPO_CHAR;}
 "void"						            {yylval.sValue = strdup(yytext); return TIPO_VOID;}
 "const"	                                {yylval.sValue = strdup(yytext); return CONST;}
@@ -66,7 +65,8 @@ digitos[0-9]
 ({digitos}*\.{digitos}+)                {yylval.fValue = atof(yytext); return V_REAL;}
 \"(\\.|[^\\"])*\"                       {yylval.sValue = strdup(yytext); return V_STRING;}
 [\n]                                    {yylineno++;}
-[ \t\r]                                                           
+[ \t\n]                                 ;
+"-*"([^*]|\*+[^*/])*\*+"-"    		;
 .					                    {printf("ERRO\n");}
 
 %%
