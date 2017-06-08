@@ -32,10 +32,13 @@
 %token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUALDADE OP_DIFERENTE
 %token<sValue> OP_INC OP_DEC
 
+%left OP_LOGICO_NEG
+%left OP_LOGICO_E OP_LOGICO_OU
 %left OP_SOMA OP_SUB
 %left OP_MULT OP_DIV OP_RESTO
 %left OP_IGUAL OP_MENOR_IGUAL OP_MAIOR_IGUAL
 %left OP_INC OP_DEC OP_MAIOR OP_MENOR
+%left OP_IGUALDADE OP_DIFERENTE
 
 %start programa
 
@@ -69,9 +72,9 @@ proc :
      ;
 
 funcao :
-        FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
+        FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES
         sentencas FECHA_CHAVES                                                  {}
-        | FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tprimitivo ABRE_CHAVES
+        | FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES
         sentencas FECHA_CHAVES                                                  {}
         ;
 
@@ -81,7 +84,7 @@ params :
     ;
 
 param :
-      tprimitivo ID                                                             {}
+      tipoPrimitivo ID                                                          {}
       ;
 
 sentencas :
@@ -96,37 +99,37 @@ sentenca :
          | enquanto                                                             {}
          | para                                                                 {}
          | imprime                                                              {}
-         | exprUnaria PONTO_VIRGULA                                             {}
-         | chamadaprocoufuncao                                                  {}
+         | expr PONTO_VIRGULA                                                   {}
+         | chamadaProcOuFuncao                                                  {}
          | RETORNO expr PONTO_VIRGULA                                           {}
          ;
 
 atribuicao :
-           VAR ID DOIS_PONTOS tprimitivo OP_ATRIBUICAO expr PONTO_VIRGULA       {}
-           | CONST ID DOIS_PONTOS tprimitivo OP_ATRIBUICAO expr PONTO_VIRGULA   {}
+           VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {}
+           | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
-           | atribuicaoarray                                                    {}
+           | atribuicaoArray                                                    {}
            ;
 
-atribuicaoarray :
-            VAR ID DOIS_PONTOS ABRE_COLCHETE tprimitivo FECHA_COLCHETE 
-                OP_ATRIBUICAO instanciaarray                                    {}
-            | CONST ID DOIS_PONTOS ABRE_COLCHETE tprimitivo FECHA_COLCHETE 
-                OP_ATRIBUICAO instanciaarray                                    {}
+atribuicaoArray :
+            VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE
+                OP_ATRIBUICAO instanciaArray                                    {}
+            | CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE
+                OP_ATRIBUICAO instanciaArray                                    {}
             ;
-            
-instanciaarray :
+
+instanciaArray :
             ID                                                                  {}
-            | ABRE_COLCHETE listavaloresarray FECHA_COLCHETE                    {}
+            | ABRE_COLCHETE listaValoresArray FECHA_COLCHETE                    {}
             ;
-            
-listavaloresarray :
+
+listaValoresArray :
             expr                                                                {}
-            | expr VIRGULA listavaloresarray                                    {}
+            | expr VIRGULA listaValoresArray                                    {}
             ;
 
 se :
-   SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE                   {}
+   SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE                        {}
    | SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas
         SENAO sentencas FIM_SE                                                  {}
    ;
@@ -141,46 +144,57 @@ para :
             PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA        {}
      ;
 
-exprUnaria :
-           ID OP_INC                                                            {}
-           | ID OP_DEC                                                          {}
-           ;
+termo:
+     literal                                                                    {}
+     | ID                                                                       {}
+     | acessoArray                                                              {}
+     | chamadaProcOuFuncao                                                      {}
+     ;
 
 expr :
-     ID                                                                         {}
-     | literal                                                                  {}
-     | literal operador expr                                                    {}
-     | ID operador expr                                                         {}
-     | acessoarray                                                              {}
-     /* */
-     | tbool                                                                    {}
-     | OP_LOGICO_NEG tbool                                                      {}
-     | OP_LOGICO_NEG ID                                                         {}
-     | literal oprelacional expr                                                {}
-     | ID oprelacional expr                                                     {}
-     | ID oplogico expr                                                         {}
-     | chamadaprocoufuncao                                                      {}
+     termo                                                                      {}
+     | exprUnaria                                                               {}
+     | exprBinaria                                                              {}
      ;
-     
-acessoarray :
+
+
+acessoArray :
             ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE                           {}
             | ID ABRE_COLCHETE ID FECHA_COLCHETE                                {}
             ;
 
-operador :
-         OP_SOMA                                                                {}
-         | OP_SUB                                                               {}
-         | OP_MULT                                                              {}
-         | OP_DIV                                                               {}
-         | OP_RESTO                                                             {}
-         ;
+exprUnaria :
+           termo OP_INC                                                         {}
+           | termo OP_DEC                                                       {}
+           | OP_LOGICO_NEG expr                                                 {}
+           ;
 
-oplogico :
+exprBinaria :
+            expr operadorBinario termo                                          {}
+            | expr operadorBinario exprUnaria                                   {}
+            ;
+
+operadorBinario :
+                operadorAritmetico                                              {}
+                | operadorLogico                                                {}
+                | operadorRelacional                                            {}
+                ;
+
+
+operadorAritmetico :
+                   OP_SOMA                                                      {}
+                   | OP_SUB                                                     {}
+                   | OP_MULT                                                    {}
+                   | OP_DIV                                                     {}
+                   | OP_RESTO                                                   {}
+                   ;
+
+operadorLogico :
          OP_LOGICO_E                                                            {}
          | OP_LOGICO_OU                                                         {}
          ;
-         
-oprelacional :
+
+operadorRelacional :
              OP_IGUALDADE                                                       {}
              | OP_DIFERENTE                                                     {}
              | OP_MAIOR                                                         {}
@@ -195,14 +209,15 @@ imprime :
 literal :
         V_INTEIRO                                                               {}
         | V_REAL                                                                {}
+        | literalBool                                                           {}
         ;
-         
-tbool: 
+
+literalBool:
      VERDADE                                                                    {}
      | FALSO                                                                    {}
      ;
 
-tprimitivo:
+tipoPrimitivo:
           TIPO_INT                                                              {}
           | TIPO_CHAR                                                           {}
           | TIPO_REAL                                                           {}
@@ -210,15 +225,15 @@ tprimitivo:
           | TIPO_STRING                                                         {}
           | TIPO_BOOL                                                           {}
           ;
-         
-listaids :
-         expr                                                                     {}
-         | expr VIRGULA listaids                                                  {}
+
+listaIds :
+         expr                                                                   {}
+         | expr VIRGULA listaIds                                                {}
          ;
-         
-chamadaprocoufuncao:
+
+chamadaProcOuFuncao:
         ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA                                 {}
-        | ID ABRE_PAREN listaids FECHA_PAREN PONTO_VIRGULA                      {}
+        | ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA                      {}
         ;
 
 %%

@@ -26,18 +26,19 @@ proc teste ( inteiro dez ) {
 
   se (verdade) entao
     linguagem = V_STRING;
-  senao 
+  senao
     linguagem = 10;
   fimse
 
 }
 
--* comentário *- 
+-* comentário *-
 -*  bloco de
-comentário *- 
+comentário *-
 
 func teste11 ( inteiro dez ) : inteiro {
   var linguagem: inteiro = V_INTEIRO;
+  linguagem = V_INTEIRO + V_INTEIRO--;
   retorno linguagem;
 }
 
@@ -53,14 +54,14 @@ func soma ( inteiro dez, inteiro vinte ) : inteiro {
   enquanto(verdade) faca
     var total2: inteiro = dez + vinte;
   fimenquanto
-  
+
   para(var i: inteiro = 12; 10 > total; i--) faca
     imprime("haha");
   fimpara
-  
+
   total2++;
   var teste11: inteiro = pegarNota;
-  
+
   retorno total;
 }
 
