@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include <string.h>
+    #include "util.h"
     int yylex(void);
     int yyerror(char *msg);
     extern int yylineno;
@@ -105,7 +106,9 @@ sentenca :
          ;
 
 atribuicao :
-           VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {}
+           VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {
+                                                                                addID($2);
+                                                                                }
            | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
            | atribuicaoArray                                                    {}
