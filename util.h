@@ -22,23 +22,32 @@ struct TipoCompleto {
 };
 
 void adicionarID(char *nome) {
+    //Verifica se a variável já foi declarada
+    struct DataItem *item = find_item(nome, escopo_ordem);
+
+    if(item != NULL) {
+      fprintf (stderr, "ERROR: Variável %s já declarada. Linha: %d\n", nome, yylineno);
+      exit(0);
+    }
+
+
     //TODO: criar método de identificar type
     int tipo = 0;
-    
+
     struct Item *info;
     info = malloc(sizeof(struct Item));
     info->type = tipo;
     info->tamanhoX = 0;
     info->tamanhoY = 0;
     info->parametros = NULL;
-    
-    char escopo_ident[3] = ".N\0"; 
+
+    char escopo_ident[3] = ".N\0";
     char *escopo = malloc(sizeof(escopo_ident) + (2 * sizeof(char*)));
-    sprintf(escopo,"%s%d",escopo_ident, escopo_ordem); 
-    
-    char *chave = malloc(sizeof(nome) + sizeof(escopo) + sizeof(char*)); 
-    sprintf(chave,"%s%s",nome,escopo); 
-    
+    sprintf(escopo,"%s%d",escopo_ident, escopo_ordem);
+
+    char *chave = malloc(sizeof(nome) + sizeof(escopo) + sizeof(char*));
+    sprintf(chave,"%s%s",nome,escopo);
+
     add_item(chave, info);
     print_itens();
 }
