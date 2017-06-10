@@ -1668,7 +1668,7 @@ yyreduce:
   case 28:
 #line 109 "sintatico.y" /* yacc.c:1646  */
     {
-                                                                                addID((yyvsp[-5].sValue));
+                                                                                adicionarID((yyvsp[-5].sValue));
                                                                                 }
 #line 1674 "y.tab.c" /* yacc.c:1646  */
     break;

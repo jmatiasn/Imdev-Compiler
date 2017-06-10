@@ -107,7 +107,7 @@ sentenca :
 
 atribuicao :
            VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {
-                                                                                addID($2);
+                                                                                adicionarID($2);
                                                                                 }
            | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
