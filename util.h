@@ -36,9 +36,9 @@ void adicionarID(char *nome) {
     char *escopo = malloc(sizeof(escopo_ident) + (2 * sizeof(char*)));
     sprintf(escopo,"%s%d",escopo_ident, escopo_ordem); 
     
-    char *key = malloc(sizeof(nome) + sizeof(escopo) + sizeof(char*)); 
-    sprintf(key,"%s%s",nome,escopo); 
+    char *chave = malloc(sizeof(nome) + sizeof(escopo) + sizeof(char*)); 
+    sprintf(chave,"%s%s",nome,escopo); 
     
-    add_item(key, info);
+    add_item(chave, info);
     print_itens();
 }
