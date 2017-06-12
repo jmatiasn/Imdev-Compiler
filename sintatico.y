@@ -35,7 +35,8 @@
 %token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUALDADE OP_DIFERENTE
 %token<sValue> OP_INC OP_DEC
 
-%type<sValue> expr tipoPrimitivo termo literal
+%type<sValue> tipoPrimitivo  literalBool
+%type<tipoCompleto> literal expr termo
 
 %left OP_LOGICO_NEG
 %left OP_LOGICO_E OP_LOGICO_OU
@@ -112,7 +113,9 @@ sentenca :
 atribuicao :
            VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {
                                                                                 verificarIDJaDecl($2);
-                                                                                adicionarID($2, verificarCompatTipos($4, $6));
+                                                                                char* tipo = verificarCompatTipos($4, $6);
+                                                                                adicionarID($2, 
+                                                                                            $6);
                                                                                 }
            | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
@@ -154,8 +157,8 @@ para :
 
 expr :
      termo                                                                      {$$ = $1;}
-     | exprUnaria                                                               {$$ = "inteiro";}
-     | exprBinaria                                                              {$$ = "inteiro";}
+     | exprUnaria                                                               {}
+     | exprBinaria                                                              {}
      ;
 
 termo:
@@ -214,14 +217,19 @@ imprime :
         ;
 
 literal :
-        V_INTEIRO                                                               {$$ = identificarTipo(convIntParaChar($1));}
-        | V_REAL                                                                {$$ = identificarTipo(convFloatParaChar($1));}
-        | literalBool                                                           {$$ = "booleano";}
+        V_INTEIRO                                                               {$$ = criarTipoCompleto(convIntParaChar($1));}
+        | V_REAL                                                                {$$ = criarTipoCompleto(convIntParaChar($1));}
+        | literalBool                                                           {
+                                                                                    TipoCompleto* tipoCompleto = novoTipoCompleto();
+                                                                                    tipoCompleto->tipo = "booleano";
+                                                                                    tipoCompleto->sValor = $1;
+                                                                                    $$ = tipoCompleto;
+                                                                                }
         ;
 
 literalBool:
-     VERDADE                                                                    {}
-     | FALSO                                                                    {}
+     VERDADE                                                                    {$$ = $1;}
+     | FALSO                                                                    {$$ = $1;}
      ;
 
 tipoPrimitivo:

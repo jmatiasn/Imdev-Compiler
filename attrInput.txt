@@ -1,5 +1,5 @@
 main () {
-    var notaDaProva: real = 10.5;
+    var notaDaProva: inteiro = 10;
 }
 
 

@@ -12,8 +12,17 @@ struct DataItem {
    UT_hash_handle hh;
 };
 
+typedef struct TipoCompleto{
+    char *string;
+    int qtdRetornos;
+    char *tipo;
+    int iValor;
+    float fValor;
+    char *sValor;
+} TipoCompleto;
+
 struct Item {
-    char *type;
+    TipoCompleto *tipoCompleto;
     struct DataItem *parametros;
 };
 
@@ -102,7 +111,10 @@ void print_itens() {
     for(s=itens; s != NULL; s=(struct DataItem*)(s->hh.next)) {
         printf("chave: %s\t", s->key);
         if(s->data != NULL) {
-           printf("tipo: %s\t", s->data->type);
+           printf("tipo: %s\t", s->data->tipoCompleto->tipo);
+           printf("sValor: %s\t", s->data->tipoCompleto->sValor);
+           printf("iValor: %d\t", s->data->tipoCompleto->iValor);
+           printf("fValor: %f\t", s->data->tipoCompleto->fValor);
            printf("parametros:");
         }
         printf("\n");
