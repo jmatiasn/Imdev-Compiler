@@ -2,6 +2,8 @@
     #include <stdio.h>
     #include <string.h>
     #include "util.h"
+    #include <mcheck.h>
+    
     int yylex(void);
     int yyerror(char *msg);
     extern int yylineno;
@@ -13,7 +15,7 @@
   char   cValue; /* valor char*/
   char * sValue; /* valor string */
   float  fValue; /* valor real */
-
+  struct TipoCompleto* tipoCompleto;
 
 };
 
@@ -32,6 +34,8 @@
 %token<sValue> OP_SOMA OP_SUB OP_MULT OP_DIV OP_RESTO
 %token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUALDADE OP_DIFERENTE
 %token<sValue> OP_INC OP_DEC
+
+%type<sValue> expr tipoPrimitivo termo literal
 
 %left OP_LOGICO_NEG
 %left OP_LOGICO_E OP_LOGICO_OU
@@ -107,7 +111,8 @@ sentenca :
 
 atribuicao :
            VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {
-                                                                                adicionarID($2);
+                                                                                verificarIDJaDecl($2);
+                                                                                adicionarID($2, verificarCompatTipos($4, $6));
                                                                                 }
            | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
@@ -147,19 +152,18 @@ para :
             PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA        {}
      ;
 
+expr :
+     termo                                                                      {$$ = $1;}
+     | exprUnaria                                                               {$$ = "inteiro";}
+     | exprBinaria                                                              {$$ = "inteiro";}
+     ;
+
 termo:
-     literal                                                                    {}
+     literal                                                                    {$$ = $1;}
      | ID                                                                       {}
      | acessoArray                                                              {}
      | chamadaProcOuFuncao                                                      {}
      ;
-
-expr :
-     termo                                                                      {}
-     | exprUnaria                                                               {}
-     | exprBinaria                                                              {}
-     ;
-
 
 acessoArray :
             ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE                           {}
@@ -210,9 +214,9 @@ imprime :
         ;
 
 literal :
-        V_INTEIRO                                                               {}
-        | V_REAL                                                                {}
-        | literalBool                                                           {}
+        V_INTEIRO                                                               {$$ = identificarTipo(convIntParaChar($1));}
+        | V_REAL                                                                {$$ = identificarTipo(convFloatParaChar($1));}
+        | literalBool                                                           {$$ = "booleano";}
         ;
 
 literalBool:
@@ -221,12 +225,12 @@ literalBool:
      ;
 
 tipoPrimitivo:
-          TIPO_INT                                                              {}
-          | TIPO_CHAR                                                           {}
-          | TIPO_REAL                                                           {}
-          | TIPO_VOID                                                           {}
-          | TIPO_STRING                                                         {}
-          | TIPO_BOOL                                                           {}
+          TIPO_INT                                                              {$$ = $1;}
+          | TIPO_CHAR                                                           {$$ = $1;}
+          | TIPO_REAL                                                           {$$ = $1;}
+          | TIPO_VOID                                                           {$$ = $1;}
+          | TIPO_STRING                                                         {$$ = $1;}
+          | TIPO_BOOL                                                           {$$ = $1;}
           ;
 
 listaIds :

@@ -13,9 +13,7 @@ struct DataItem {
 };
 
 struct Item {
-    int type;
-    int tamanhoX;   //Quantidade de elementos no eixo x do vetor/matriz;
-    int tamanhoY;   //Quantidade de elementos no eixo y do vetor/matriz;
+    char *type;
     struct DataItem *parametros;
 };
 
@@ -104,9 +102,7 @@ void print_itens() {
     for(s=itens; s != NULL; s=(struct DataItem*)(s->hh.next)) {
         printf("chave: %s\t", s->key);
         if(s->data != NULL) {
-           printf("tipo: %d\t", s->data->type);
-           printf("tamanhoX: %d\t", s->data->tamanhoX);
-           printf("tamanhoY: %d\t", s->data->tamanhoY);
+           printf("tipo: %s\t", s->data->type);
            printf("parametros:");
         }
         printf("\n");
