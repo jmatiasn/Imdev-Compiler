@@ -15,7 +15,7 @@
   char   cValue; /* valor char*/
   char * sValue; /* valor string */
   float  fValue; /* valor real */
-  struct TipoCompleto* tipoCompleto;
+  struct Item* item;
 
 };
 
@@ -36,7 +36,7 @@
 %token<sValue> OP_INC OP_DEC
 
 %type<sValue> tipoPrimitivo  literalBool
-%type<tipoCompleto> literal expr termo
+%type<item> literal expr termo exprUnaria
 
 %left OP_LOGICO_NEG
 %left OP_LOGICO_E OP_LOGICO_OU
@@ -51,7 +51,8 @@
 %%
 
 programa :
-         subprogramas                                                           {printf("\n\npassou no teste\n\n");}
+         subprogramas                                                           {printf("\n\npassou no teste\n\n");
+                                                                                print_itens();}
          ;
 
 principal:
@@ -114,8 +115,7 @@ atribuicao :
            VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA    {
                                                                                 verificarIDJaDecl($2);
                                                                                 char* tipo = verificarCompatTipos($4, $6);
-                                                                                adicionarID($2, 
-                                                                                            $6);
+                                                                                adicionarID($2, $6);
                                                                                 }
            | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
@@ -157,13 +157,13 @@ para :
 
 expr :
      termo                                                                      {$$ = $1;}
-     | exprUnaria                                                               {}
+     | exprUnaria                                                               {$$ = $1;}
      | exprBinaria                                                              {}
      ;
 
 termo:
      literal                                                                    {$$ = $1;}
-     | ID                                                                       {}
+     | ID                                                                       {$$ = obterItem($1);}
      | acessoArray                                                              {}
      | chamadaProcOuFuncao                                                      {}
      ;
@@ -174,7 +174,7 @@ acessoArray :
             ;
 
 exprUnaria :
-           termo OP_INC                                                         {}
+           termo OP_INC                                                         {$$ = $1; incrementar($1);}
            | termo OP_DEC                                                       {}
            | OP_LOGICO_NEG expr                                                 {}
            ;
@@ -217,13 +217,13 @@ imprime :
         ;
 
 literal :
-        V_INTEIRO                                                               {$$ = criarTipoCompleto(convIntParaChar($1));}
-        | V_REAL                                                                {$$ = criarTipoCompleto(convIntParaChar($1));}
+        V_INTEIRO                                                               {$$ = criarItemCompleto(convIntParaChar($1));}
+        | V_REAL                                                                {$$ = criarItemCompleto(convIntParaChar($1));}
         | literalBool                                                           {
-                                                                                    TipoCompleto* tipoCompleto = novoTipoCompleto();
-                                                                                    tipoCompleto->tipo = "booleano";
-                                                                                    tipoCompleto->sValor = $1;
-                                                                                    $$ = tipoCompleto;
+                                                                                    Item* item = novoItem();
+                                                                                    item->tipoCompleto->tipo = "booleano";
+                                                                                    item->tipoCompleto->sValor = $1;
+                                                                                    $$ = item;
                                                                                 }
         ;
 

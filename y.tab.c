@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "3.0.2"
+#define YYBISON_VERSION "3.0.4"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -229,7 +229,7 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE YYSTYPE;
+
 union YYSTYPE
 {
 #line 13 "sintatico.y" /* yacc.c:355  */
@@ -238,11 +238,13 @@ union YYSTYPE
   char   cValue; /* valor char*/
   char * sValue; /* valor string */
   float  fValue; /* valor real */
-  struct TipoCompleto* tipoCompleto;
+  struct Item* item;
 
 
 #line 245 "y.tab.c" /* yacc.c:355  */
 };
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -256,7 +258,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 260 "y.tab.c" /* yacc.c:358  */
+#line 262 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -559,9 +561,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    54,    54,    58,    62,    63,    67,    68,    69,    70,
-      74,    76,    81,    83,    88,    89,    93,    97,    98,   102,
-     103,   104,   105,   106,   107,   108,   109,   110,   114,   120,
+       0,    54,    54,    59,    63,    64,    68,    69,    70,    71,
+      75,    77,    82,    84,    89,    90,    94,    98,    99,   103,
+     104,   105,   106,   107,   108,   109,   110,   111,   115,   120,
      121,   122,   126,   128,   133,   134,   138,   139,   143,   144,
      149,   154,   159,   160,   161,   165,   166,   167,   168,   172,
      173,   177,   178,   179,   183,   184,   188,   189,   190,   195,
@@ -1513,532 +1515,532 @@ yyreduce:
     {
         case 2:
 #line 54 "sintatico.y" /* yacc.c:1646  */
-    {printf("\n\npassou no teste\n\n");}
-#line 1518 "y.tab.c" /* yacc.c:1646  */
+    {printf("\n\npassou no teste\n\n");
+                                                                                print_itens();}
+#line 1521 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 58 "sintatico.y" /* yacc.c:1646  */
+#line 59 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1524 "y.tab.c" /* yacc.c:1646  */
+#line 1527 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 62 "sintatico.y" /* yacc.c:1646  */
+#line 63 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1530 "y.tab.c" /* yacc.c:1646  */
+#line 1533 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 63 "sintatico.y" /* yacc.c:1646  */
+#line 64 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1536 "y.tab.c" /* yacc.c:1646  */
+#line 1539 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 67 "sintatico.y" /* yacc.c:1646  */
+#line 68 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1542 "y.tab.c" /* yacc.c:1646  */
+#line 1545 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 68 "sintatico.y" /* yacc.c:1646  */
+#line 69 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1548 "y.tab.c" /* yacc.c:1646  */
+#line 1551 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 69 "sintatico.y" /* yacc.c:1646  */
+#line 70 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1554 "y.tab.c" /* yacc.c:1646  */
+#line 1557 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 70 "sintatico.y" /* yacc.c:1646  */
+#line 71 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1560 "y.tab.c" /* yacc.c:1646  */
+#line 1563 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 75 "sintatico.y" /* yacc.c:1646  */
+#line 76 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1566 "y.tab.c" /* yacc.c:1646  */
+#line 1569 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 77 "sintatico.y" /* yacc.c:1646  */
+#line 78 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1572 "y.tab.c" /* yacc.c:1646  */
+#line 1575 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 82 "sintatico.y" /* yacc.c:1646  */
+#line 83 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1578 "y.tab.c" /* yacc.c:1646  */
+#line 1581 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 84 "sintatico.y" /* yacc.c:1646  */
+#line 85 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1584 "y.tab.c" /* yacc.c:1646  */
+#line 1587 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 88 "sintatico.y" /* yacc.c:1646  */
+#line 89 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1590 "y.tab.c" /* yacc.c:1646  */
+#line 1593 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 89 "sintatico.y" /* yacc.c:1646  */
+#line 90 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1596 "y.tab.c" /* yacc.c:1646  */
+#line 1599 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 93 "sintatico.y" /* yacc.c:1646  */
+#line 94 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1602 "y.tab.c" /* yacc.c:1646  */
+#line 1605 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 97 "sintatico.y" /* yacc.c:1646  */
+#line 98 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1608 "y.tab.c" /* yacc.c:1646  */
+#line 1611 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 98 "sintatico.y" /* yacc.c:1646  */
+#line 99 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1614 "y.tab.c" /* yacc.c:1646  */
+#line 1617 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 102 "sintatico.y" /* yacc.c:1646  */
+#line 103 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1620 "y.tab.c" /* yacc.c:1646  */
+#line 1623 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 103 "sintatico.y" /* yacc.c:1646  */
+#line 104 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1626 "y.tab.c" /* yacc.c:1646  */
+#line 1629 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 104 "sintatico.y" /* yacc.c:1646  */
+#line 105 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1632 "y.tab.c" /* yacc.c:1646  */
+#line 1635 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 105 "sintatico.y" /* yacc.c:1646  */
+#line 106 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1638 "y.tab.c" /* yacc.c:1646  */
+#line 1641 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 106 "sintatico.y" /* yacc.c:1646  */
+#line 107 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1644 "y.tab.c" /* yacc.c:1646  */
+#line 1647 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 107 "sintatico.y" /* yacc.c:1646  */
+#line 108 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1650 "y.tab.c" /* yacc.c:1646  */
+#line 1653 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 108 "sintatico.y" /* yacc.c:1646  */
+#line 109 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1656 "y.tab.c" /* yacc.c:1646  */
+#line 1659 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 109 "sintatico.y" /* yacc.c:1646  */
+#line 110 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1662 "y.tab.c" /* yacc.c:1646  */
+#line 1665 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 110 "sintatico.y" /* yacc.c:1646  */
+#line 111 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1668 "y.tab.c" /* yacc.c:1646  */
+#line 1671 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 114 "sintatico.y" /* yacc.c:1646  */
+#line 115 "sintatico.y" /* yacc.c:1646  */
     {
                                                                                 verificarIDJaDecl((yyvsp[-5].sValue));
-                                                                                char* tipo = verificarCompatTipos((yyvsp[-3].sValue), (yyvsp[-1].tipoCompleto));
-                                                                                adicionarID((yyvsp[-5].sValue), 
-                                                                                            (yyvsp[-1].tipoCompleto));
+                                                                                char* tipo = verificarCompatTipos((yyvsp[-3].sValue), (yyvsp[-1].item));
+                                                                                adicionarID((yyvsp[-5].sValue), (yyvsp[-1].item));
                                                                                 }
-#line 1679 "y.tab.c" /* yacc.c:1646  */
+#line 1681 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 120 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1685 "y.tab.c" /* yacc.c:1646  */
+#line 1687 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 121 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1691 "y.tab.c" /* yacc.c:1646  */
+#line 1693 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 122 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1697 "y.tab.c" /* yacc.c:1646  */
+#line 1699 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 127 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1703 "y.tab.c" /* yacc.c:1646  */
+#line 1705 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 129 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1709 "y.tab.c" /* yacc.c:1646  */
+#line 1711 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
 #line 133 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1715 "y.tab.c" /* yacc.c:1646  */
+#line 1717 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
 #line 134 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1721 "y.tab.c" /* yacc.c:1646  */
+#line 1723 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
 #line 138 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1727 "y.tab.c" /* yacc.c:1646  */
+#line 1729 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
 #line 139 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1733 "y.tab.c" /* yacc.c:1646  */
+#line 1735 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
 #line 143 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1739 "y.tab.c" /* yacc.c:1646  */
+#line 1741 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
 #line 145 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1745 "y.tab.c" /* yacc.c:1646  */
+#line 1747 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
 #line 150 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1751 "y.tab.c" /* yacc.c:1646  */
+#line 1753 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 155 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1757 "y.tab.c" /* yacc.c:1646  */
+#line 1759 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
 #line 159 "sintatico.y" /* yacc.c:1646  */
-    {(yyval.tipoCompleto) = (yyvsp[0].tipoCompleto);}
-#line 1763 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = (yyvsp[0].item);}
+#line 1765 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
 #line 160 "sintatico.y" /* yacc.c:1646  */
-    {}
-#line 1769 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = (yyvsp[0].item);}
+#line 1771 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
 #line 161 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1775 "y.tab.c" /* yacc.c:1646  */
+#line 1777 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
 #line 165 "sintatico.y" /* yacc.c:1646  */
-    {(yyval.tipoCompleto) = (yyvsp[0].tipoCompleto);}
-#line 1781 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = (yyvsp[0].item);}
+#line 1783 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
 #line 166 "sintatico.y" /* yacc.c:1646  */
-    {}
-#line 1787 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = obterItem((yyvsp[0].sValue));}
+#line 1789 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
 #line 167 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1793 "y.tab.c" /* yacc.c:1646  */
+#line 1795 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
 #line 168 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1799 "y.tab.c" /* yacc.c:1646  */
+#line 1801 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
 #line 172 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1805 "y.tab.c" /* yacc.c:1646  */
+#line 1807 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
 #line 173 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1811 "y.tab.c" /* yacc.c:1646  */
+#line 1813 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
 #line 177 "sintatico.y" /* yacc.c:1646  */
-    {}
-#line 1817 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = (yyvsp[-1].item); incrementar((yyvsp[-1].item));}
+#line 1819 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
 #line 178 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1823 "y.tab.c" /* yacc.c:1646  */
+#line 1825 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
 #line 179 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1829 "y.tab.c" /* yacc.c:1646  */
+#line 1831 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
 #line 183 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1835 "y.tab.c" /* yacc.c:1646  */
+#line 1837 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
 #line 184 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1841 "y.tab.c" /* yacc.c:1646  */
+#line 1843 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
 #line 188 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1847 "y.tab.c" /* yacc.c:1646  */
+#line 1849 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
 #line 189 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1853 "y.tab.c" /* yacc.c:1646  */
+#line 1855 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
 #line 190 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1859 "y.tab.c" /* yacc.c:1646  */
+#line 1861 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
 #line 195 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1865 "y.tab.c" /* yacc.c:1646  */
+#line 1867 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
 #line 196 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1871 "y.tab.c" /* yacc.c:1646  */
+#line 1873 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
 #line 197 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1877 "y.tab.c" /* yacc.c:1646  */
+#line 1879 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
 #line 198 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1883 "y.tab.c" /* yacc.c:1646  */
+#line 1885 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 199 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1889 "y.tab.c" /* yacc.c:1646  */
+#line 1891 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
 #line 203 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1895 "y.tab.c" /* yacc.c:1646  */
+#line 1897 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
 #line 204 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1901 "y.tab.c" /* yacc.c:1646  */
+#line 1903 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
 #line 208 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1907 "y.tab.c" /* yacc.c:1646  */
+#line 1909 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
 #line 209 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1913 "y.tab.c" /* yacc.c:1646  */
+#line 1915 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
 #line 210 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1919 "y.tab.c" /* yacc.c:1646  */
+#line 1921 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
 #line 211 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1925 "y.tab.c" /* yacc.c:1646  */
+#line 1927 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
 #line 212 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1931 "y.tab.c" /* yacc.c:1646  */
+#line 1933 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
 #line 213 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1937 "y.tab.c" /* yacc.c:1646  */
+#line 1939 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
 #line 216 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 1943 "y.tab.c" /* yacc.c:1646  */
+#line 1945 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
 #line 220 "sintatico.y" /* yacc.c:1646  */
-    {(yyval.tipoCompleto) = criarTipoCompleto(convIntParaChar((yyvsp[0].iValue)));}
-#line 1949 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = criarItemCompleto(convIntParaChar((yyvsp[0].iValue)));}
+#line 1951 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
 #line 221 "sintatico.y" /* yacc.c:1646  */
-    {(yyval.tipoCompleto) = criarTipoCompleto(convIntParaChar((yyvsp[0].fValue)));}
-#line 1955 "y.tab.c" /* yacc.c:1646  */
+    {(yyval.item) = criarItemCompleto(convIntParaChar((yyvsp[0].fValue)));}
+#line 1957 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
 #line 222 "sintatico.y" /* yacc.c:1646  */
     {
-                                                                                    TipoCompleto* tipoCompleto = novoTipoCompleto();
-                                                                                    tipoCompleto->tipo = "booleano";
-                                                                                    tipoCompleto->sValor = (yyvsp[0].sValue);
-                                                                                    (yyval.tipoCompleto) = tipoCompleto;
+                                                                                    Item* item = novoItem();
+                                                                                    item->tipoCompleto->tipo = "booleano";
+                                                                                    item->tipoCompleto->sValor = (yyvsp[0].sValue);
+                                                                                    (yyval.item) = item;
                                                                                 }
-#line 1966 "y.tab.c" /* yacc.c:1646  */
+#line 1968 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
 #line 231 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 1972 "y.tab.c" /* yacc.c:1646  */
+#line 1974 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
 #line 232 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 1978 "y.tab.c" /* yacc.c:1646  */
+#line 1980 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
 #line 236 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 1984 "y.tab.c" /* yacc.c:1646  */
+#line 1986 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
 #line 237 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 1990 "y.tab.c" /* yacc.c:1646  */
+#line 1992 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
 #line 238 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 1996 "y.tab.c" /* yacc.c:1646  */
+#line 1998 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
 #line 239 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2002 "y.tab.c" /* yacc.c:1646  */
+#line 2004 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
 #line 240 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2008 "y.tab.c" /* yacc.c:1646  */
+#line 2010 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
 #line 241 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2014 "y.tab.c" /* yacc.c:1646  */
+#line 2016 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
 #line 245 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2020 "y.tab.c" /* yacc.c:1646  */
+#line 2022 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
 #line 246 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2026 "y.tab.c" /* yacc.c:1646  */
+#line 2028 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
 #line 250 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2032 "y.tab.c" /* yacc.c:1646  */
+#line 2034 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
 #line 251 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2038 "y.tab.c" /* yacc.c:1646  */
+#line 2040 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2042 "y.tab.c" /* yacc.c:1646  */
+#line 2044 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

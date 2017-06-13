@@ -29,6 +29,14 @@ TipoCompleto *novoTipoCompleto() {
     return retorno;
 }
 
+Item *novoItem() {
+    struct Item *info;
+    info = malloc(sizeof(struct Item));
+    info->tipoCompleto = novoTipoCompleto();
+    info->parametros = NULL;
+    return info;
+}
+
 void verificarIDJaDecl(char *nome) {
     //Verifica se a variável já foi declarada
     struct DataItem *item = find_item(nome, escopo_ordem);
@@ -39,25 +47,36 @@ void verificarIDJaDecl(char *nome) {
     }
 }
 
-char *verificarCompatTipos(char *tipo1, TipoCompleto *tipoCompleto) {
+void verificarIDNaoDecl(char *nome) {
+    //Verifica se a variável não foi declarada
+    struct DataItem *item = find_item(nome, escopo_ordem);
+    
+    if(item == NULL) {
+            fprintf (stderr, "ERRO: Variável %s não foi declarada. Linha: %d\n", nome, yylineno);
+            exit(0);
+    }
+}
+
+char *verificarCompatTipos(char *tipo1, Item *item) {
     char *retorno = novaString(sizeof(char*) * 100);
     
-    if(strcmp(tipo1,tipoCompleto->tipo) != 0) {
-            fprintf (stderr, "ERRO: Tipos %s e %s não são compatíveis. Linha: %d\n", tipo1, tipoCompleto->tipo, yylineno);
+    if(strcmp(tipo1, item->tipoCompleto->tipo) != 0) {
+            fprintf (stderr, "ERRO: Tipos %s e %s não são compatíveis. Linha: %d\n", 
+                    tipo1, item->tipoCompleto->tipo, yylineno);
             exit(0);
     }
     retorno = tipo1;
 }
 
-void adicionarID(char *nome, TipoCompleto *tipoCompleto) {
+void adicionarID(char *nome, Item *item) {
     
     struct Item *info;
     info = malloc(sizeof(struct Item));
     info->tipoCompleto = novoTipoCompleto();
-    info->tipoCompleto->tipo = tipoCompleto->tipo;
-    info->tipoCompleto->sValor = tipoCompleto->sValor;
-    info->tipoCompleto->iValor = tipoCompleto->iValor;
-    info->tipoCompleto->fValor = tipoCompleto->fValor;
+    info->tipoCompleto->tipo = item->tipoCompleto->tipo;
+    info->tipoCompleto->sValor = item->tipoCompleto->sValor;
+    info->tipoCompleto->iValor = item->tipoCompleto->iValor;
+    info->tipoCompleto->fValor = item->tipoCompleto->fValor;
     info->parametros = NULL;
     
     char escopo_ident[3] = ".N\0"; 
@@ -68,7 +87,6 @@ void adicionarID(char *nome, TipoCompleto *tipoCompleto) {
     sprintf(chave,"%s%s",nome,escopo); 
     
     add_item(chave, info);
-    print_itens();
 }
 
 char *convIntParaChar(int valor) {
@@ -83,16 +101,16 @@ char *convFloatParaChar(float valor) {
     return retorno;
 }
 
-TipoCompleto *criarTipoCompleto(char *valor) {
+Item *criarItemCompleto(char *valor) {
     
-    TipoCompleto* retorno = novoTipoCompleto();
+    Item* retorno = novoItem();
     
     if(checkRegex(valor, "([0-9]*\\.[0-9]+)")) {
-        retorno->tipo = "real";
+        retorno->tipoCompleto->tipo = "real";
         return retorno;   
     } else if (checkRegex(valor, "([0-9]+)")) {
-        retorno->tipo = "inteiro";
-        retorno->iValor = atoi(valor);
+        retorno->tipoCompleto->tipo = "inteiro";
+        retorno->tipoCompleto->iValor = atoi(valor);
         return retorno;   
     } else {
          fprintf (stderr, "ERRO: Tipo não identificado. Linha: %d\n", yylineno);
@@ -101,17 +119,24 @@ TipoCompleto *criarTipoCompleto(char *valor) {
     
 }
 
-// char *obterTipoCompleto(char *nome) {
-//     verificarIDJaDecl(nome);
-//     struct DataItem *item = find_item(nome, escopo_ordem);
+Item *obterItem(char *nome) {
+    verificarIDNaoDecl(nome);
     
-//     if(item != NULL) {
-//         char *retorno = novaString(sizeof(char*) * 100);
-//     } else {
-//          fprintf (stderr, "ERRO: ID não identificado. Linha: %d\n", yylineno);
-//          exit(0);
-//     }
-// }
+    struct DataItem *item = find_item(nome, escopo_ordem);
+    Item* retorno = novoItem(); 
+    
+    if(item != NULL) {
+        retorno = item->data;
+        return retorno;
+    } else {
+        fprintf (stderr, "ERRO: ID não identificado. Linha: %d\n", yylineno);
+        exit(0);
+    }
+}
+
+void incrementar(Item *item) {
+    //
+}
 
 int checkRegex(const char *string, char *pattern) {
     int    status;

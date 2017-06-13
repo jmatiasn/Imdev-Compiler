@@ -1,5 +1,6 @@
 main () {
-    var notaDaProva: inteiro = 10;
+    var taxa: inteiro = 10;
+    var tributo: inteiro = 3;
 }
 
 

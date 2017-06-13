@@ -6,11 +6,11 @@
 #define SIZE 100
 #define STRING_SIZE 50
 
-struct DataItem {
+typedef struct DataItem {
    char key[STRING_SIZE];
    struct Item *data;   
    UT_hash_handle hh;
-};
+} DataItem;
 
 typedef struct TipoCompleto{
     char *string;
@@ -21,10 +21,11 @@ typedef struct TipoCompleto{
     char *sValor;
 } TipoCompleto;
 
-struct Item {
+typedef struct Item {
+    char *nome;
     TipoCompleto *tipoCompleto;
     struct DataItem *parametros;
-};
+} Item;
 
 struct DataItem *itens = NULL;
 
