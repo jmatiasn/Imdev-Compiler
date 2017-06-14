@@ -35,7 +35,8 @@
 %token<sValue> OP_LOGICO_OU OP_LOGICO_E OP_LOGICO_NEG OP_MENOR OP_MAIOR OP_MENOR_IGUAL OP_MAIOR_IGUAL OP_IGUALDADE OP_DIFERENTE
 %token<sValue> OP_INC OP_DEC
 
-%type<sValue> tipoPrimitivo  literalBool
+%type<sValue> tipoPrimitivo literalBool
+%type<sValue> operadorAritmetico operadorLogico operadorRelacional operadorBinario
 %type<item> literal expr termo exprUnaria
 
 %left OP_LOGICO_NEG
@@ -118,7 +119,7 @@ atribuicao :
                                                                                 adicionarID($2, $6);
                                                                                 escreverAtribuicao($4,$2,$6);
                                                                                 }
-           | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
+           | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{/*escreverAtribuicaoConst($2,$6);*/}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
            | atribuicaoArray                                                    {}
            ;
@@ -177,7 +178,8 @@ acessoArray :
 exprUnaria :
            OP_INC termo                                                         {$$ = incrementar($2);}
            | OP_DEC termo                                                       {$$ = decrementar($2);}
-           | OP_LOGICO_NEG expr                                                 {}
+           | OP_LOGICO_NEG expr                                                 {verificarSeExprEhBooleano($2);
+                                                                                $$ = negarExprBooleano($2);}
            ;
 
 exprBinaria :
@@ -186,32 +188,32 @@ exprBinaria :
             ;
 
 operadorBinario :
-                operadorAritmetico                                              {}
-                | operadorLogico                                                {}
-                | operadorRelacional                                            {}
+                operadorAritmetico                                              {$$ = $1;}
+                | operadorLogico                                                {$$ = $1;}
+                | operadorRelacional                                            {$$ = $1;}
                 ;
 
 
 operadorAritmetico :
-                   OP_SOMA                                                      {}
-                   | OP_SUB                                                     {}
-                   | OP_MULT                                                    {}
-                   | OP_DIV                                                     {}
-                   | OP_RESTO                                                   {}
+                   OP_SOMA                                                      {$$ = $1;}
+                   | OP_SUB                                                     {$$ = $1;}
+                   | OP_MULT                                                    {$$ = $1;}
+                   | OP_DIV                                                     {$$ = $1;}
+                   | OP_RESTO                                                   {$$ = $1;}
                    ;
 
 operadorLogico :
-         OP_LOGICO_E                                                            {}
-         | OP_LOGICO_OU                                                         {}
+         OP_LOGICO_E                                                            {$$ = $1;}
+         | OP_LOGICO_OU                                                         {$$ = $1;}
          ;
 
 operadorRelacional :
-             OP_IGUALDADE                                                       {}
-             | OP_DIFERENTE                                                     {}
-             | OP_MAIOR                                                         {}
-             | OP_MENOR                                                         {}
-             | OP_MAIOR_IGUAL                                                   {}
-             | OP_MENOR_IGUAL                                                   {}
+             OP_IGUALDADE                                                       {$$ = $1;}
+             | OP_DIFERENTE                                                     {$$ = $1;}
+             | OP_MAIOR                                                         {$$ = $1;}
+             | OP_MENOR                                                         {$$ = $1;}
+             | OP_MAIOR_IGUAL                                                   {$$ = $1;}
+             | OP_MENOR_IGUAL                                                   {$$ = $1;}
 
 imprime :
         IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA                   {}
@@ -223,6 +225,7 @@ imprime :
 literal :
         V_INTEIRO                                                               {$$ = criarItemCompleto(convIntParaChar($1));}
         | V_REAL                                                                {$$ = criarItemCompleto(convFloatParaChar($1));}
+        | V_STRING                                                              {$$ = criarItemCompleto($1);}
         | literalBool                                                           {
                                                                                     Item* item = novoItem();
                                                                                     item->tipoCompleto->tipo = "booleano";

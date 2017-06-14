@@ -78,6 +78,30 @@ bool verificarSeTipoEhInteiro(Item *item) {
     return true;
 }
 
+bool verificarSeEhTipoBooleano(Item *item) {
+    
+    if(strcmp("booleano", item->tipoCompleto->tipo) != 0) {
+            return false;
+    }
+    return true;
+}
+
+void verificarSeExprEhBooleano(Item *item) {
+    if (!verificarSeEhTipoBooleano(item)) {
+        fprintf (stderr, "ERRO: Expressão não é do tipo booleano. Linha: %d\n", yylineno);
+        exit(0);
+    }
+}
+
+Item *negarExprBooleano(Item *item) {
+    if(strcmp("verdade", item->tipoCompleto->sValor) == 0) {
+        item->tipoCompleto->sValor = "falso";
+    } else {
+        item->tipoCompleto->sValor = "verdade";
+    }
+    return item;
+}
+
 void adicionarID(char *nome, Item *item) {
     
     struct Item *info;
@@ -189,9 +213,25 @@ char *novaSentenca(int tamanho) {
 }
 
 void escrever(char *sentenca) {
-    cArquivo = fopen("./output.c", "a+");
+    cArquivo = fopen("./saida.c", "a+");
     fprintf(cArquivo, "%s", sentenca);
     fclose(cArquivo);
+}
+
+void escreverInicio(char *sentenca) {
+    FILE *cArquivoTemp = fopen("./temporario.c", "a+");
+    fprintf(cArquivoTemp, "%s", sentenca);
+    fclose(cArquivoTemp);
+    
+    char c;
+    
+    do {
+      c = fgetc(cArquivo);
+      fputc(c, cArquivoTemp);
+    } while (c != EOF);
+   
+    remove("saida.c");
+    rename("temporario.c", "saida.c");
 }
 
 char *formatarTipo(char *tipo) {
@@ -219,6 +259,12 @@ char* acessarValor(Item *item) {
         return convFloatParaChar(item->tipoCompleto->fValor);
     } else if (strcmp(tipo, "string") == 0) {
         return item->tipoCompleto->sValor;
+    } else if (strcmp(tipo, "booleano") == 0) {
+        if(strcmp(item->tipoCompleto->sValor, "falso") == 0) {
+            return "false";
+        } else if(strcmp(item->tipoCompleto->sValor, "verdade") == 0) {
+            return "true";
+        }
     }
     return "-1";
 }
@@ -237,6 +283,13 @@ void escreverAtribuicao(char* tipo, char *id, Item* valor) {
     escrever(atribuicao);
 }
 
-void escreverAtribuicaoConst() {
+void escreverAtribuicaoConst(char *id, Item* valor) {
+    char *atribuicao = novaSentenca(strlen(id));
+    strcpy(atribuicao, "#define ");
+    strcat(atribuicao, id);
+    strcat(atribuicao, " ");
+    strcat(atribuicao, acessarValor(valor));
+    strcat(atribuicao, "\n");
     
+    escreverInicio(atribuicao);
 }

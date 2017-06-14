@@ -3,6 +3,8 @@ main () {
     var testeInteiro: inteiro = 1230;
     var taxa: inteiro = ++23;
     var testeDecrementar1111111: inteiro = --21;
+    var testeBool: booleano = !verdade;
+    var testestes: booleano = verdade;
 }
 
 

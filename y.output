@@ -111,23 +111,24 @@ Grammar
 
    75 literal: V_INTEIRO
    76        | V_REAL
-   77        | literalBool
+   77        | V_STRING
+   78        | literalBool
 
-   78 literalBool: VERDADE
-   79            | FALSO
+   79 literalBool: VERDADE
+   80            | FALSO
 
-   80 tipoPrimitivo: TIPO_INT
-   81              | TIPO_CHAR
-   82              | TIPO_REAL
-   83              | TIPO_VOID
-   84              | TIPO_STRING
-   85              | TIPO_BOOL
+   81 tipoPrimitivo: TIPO_INT
+   82              | TIPO_CHAR
+   83              | TIPO_REAL
+   84              | TIPO_VOID
+   85              | TIPO_STRING
+   86              | TIPO_BOOL
 
-   86 listaIds: expr
-   87         | expr VIRGULA listaIds
+   87 listaIds: expr
+   88         | expr VIRGULA listaIds
 
-   88 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
-   89                    | ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
+   89 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
+   90                    | ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
 
 
 Terminals, with rules where they appear
@@ -136,20 +137,20 @@ $end (0) 0
 error (256)
 V_INTEIRO (258) 48 72 75
 V_REAL (259) 73 76
-V_STRING (260) 71
-ID (261) 9 10 11 12 15 19 27 28 29 31 32 33 45 48 49 74 88 89
+V_STRING (260) 71 77
+ID (261) 9 10 11 12 15 19 27 28 29 31 32 33 45 48 49 74 89 90
 MAIN (262) 2
 RETORNO (263) 26
 FUNC (264) 11 12
 PROC (265) 9 10
-TIPO_CHAR (266) 81
-TIPO_VOID (267) 83
-TIPO_REAL (268) 82
-TIPO_INT (269) 80
-TIPO_STRING (270) 84
-TIPO_BOOL (271) 85
-VERDADE (272) 78
-FALSO (273) 79
+TIPO_CHAR (266) 82
+TIPO_VOID (267) 84
+TIPO_REAL (268) 83
+TIPO_INT (269) 81
+TIPO_STRING (270) 85
+TIPO_BOOL (271) 86
+VERDADE (272) 79
+FALSO (273) 80
 VAR (274) 27 31
 CONST (275) 28 32
 SE (276) 37 38
@@ -161,15 +162,15 @@ FIM_ENQUANTO (281) 39
 PARA (282) 40
 FIM_PARA (283) 40
 OP_ATRIBUICAO (284) 27 28 29 31 32
-PONTO_VIRGULA (285) 19 24 26 27 28 29 40 71 72 73 74 88 89
+PONTO_VIRGULA (285) 19 24 26 27 28 29 40 71 72 73 74 89 90
 DOIS_PONTOS (286) 11 12 27 28 31 32
-VIRGULA (287) 14 36 87
+VIRGULA (287) 14 36 88
 FACA (288) 39 40
 IMPRIME (289) 71 72 73 74
 ALOCA (290)
 LIBERA (291) 19
-ABRE_PAREN (292) 2 9 10 11 12 37 38 39 40 71 72 73 74 88 89
-FECHA_PAREN (293) 2 9 10 11 12 37 38 39 40 71 72 73 74 88 89
+ABRE_PAREN (292) 2 9 10 11 12 37 38 39 40 71 72 73 74 89 90
+FECHA_PAREN (293) 2 9 10 11 12 37 38 39 40 71 72 73 74 89 90
 ABRE_COLCHETE (294) 31 32 34 48 49
 FECHA_COLCHETE (295) 31 32 34 48 49
 ABRE_CHAVES (296) 2 9 10 11 12
@@ -233,7 +234,7 @@ para (77)
     on left: 40, on right: 22
 expr (78)
     on left: 41 42 43, on right: 24 26 27 28 29 35 36 37 38 39 40 52
-    53 54 86 87
+    53 54 87 88
 termo (79)
     on left: 44 45 46 47, on right: 41 50 51 53
 acessoArray (80)
@@ -253,15 +254,15 @@ operadorRelacional (86)
 imprime (87)
     on left: 71 72 73 74, on right: 23
 literal (88)
-    on left: 75 76 77, on right: 44
+    on left: 75 76 77 78, on right: 44
 literalBool (89)
-    on left: 78 79, on right: 77
+    on left: 79 80, on right: 78
 tipoPrimitivo (90)
-    on left: 80 81 82 83 84 85, on right: 11 12 15 27 28 31 32
+    on left: 81 82 83 84 85 86, on right: 11 12 15 27 28 31 32
 listaIds (91)
-    on left: 86 87, on right: 87 89
+    on left: 87 88, on right: 88 90
 chamadaProcOuFuncao (92)
-    on left: 88 89, on right: 25 47
+    on left: 89 90, on right: 25 47
 
 
 State 0
@@ -409,28 +410,29 @@ State 15
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 31
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    expr                 go to state 32
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
 State 16
 
     2 principal: MAIN ABRE_PAREN . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_PAREN  shift, and go to state 39
+    FECHA_PAREN  shift, and go to state 40
 
 
 State 17
@@ -438,7 +440,7 @@ State 17
    11 funcao: FUNC ID . ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
    12       | FUNC ID . ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_PAREN  shift, and go to state 40
+    ABRE_PAREN  shift, and go to state 41
 
 
 State 18
@@ -446,7 +448,7 @@ State 18
     9 proc: PROC ID . ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
    10     | PROC ID . ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_PAREN  shift, and go to state 41
+    ABRE_PAREN  shift, and go to state 42
 
 
 State 19
@@ -454,7 +456,7 @@ State 19
    27 atribuicao: VAR ID . DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    31 atribuicaoArray: VAR ID . DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    DOIS_PONTOS  shift, and go to state 42
+    DOIS_PONTOS  shift, and go to state 43
 
 
 State 20
@@ -462,7 +464,7 @@ State 20
    28 atribuicao: CONST ID . DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    32 atribuicaoArray: CONST ID . DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    DOIS_PONTOS  shift, and go to state 43
+    DOIS_PONTOS  shift, and go to state 44
 
 
 State 21
@@ -495,888 +497,903 @@ State 24
 
 State 25
 
-   45 termo: ID .
-   48 acessoArray: ID . ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE
-   49            | ID . ABRE_COLCHETE ID FECHA_COLCHETE
-   88 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
-   89                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
+   77 literal: V_STRING .
 
-    ABRE_PAREN     shift, and go to state 44
-    ABRE_COLCHETE  shift, and go to state 45
-
-    $default  reduce using rule 45 (termo)
+    $default  reduce using rule 77 (literal)
 
 
 State 26
 
-   78 literalBool: VERDADE .
+   45 termo: ID .
+   48 acessoArray: ID . ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE
+   49            | ID . ABRE_COLCHETE ID FECHA_COLCHETE
+   89 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
+   90                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
 
-    $default  reduce using rule 78 (literalBool)
+    ABRE_PAREN     shift, and go to state 45
+    ABRE_COLCHETE  shift, and go to state 46
+
+    $default  reduce using rule 45 (termo)
 
 
 State 27
 
-   79 literalBool: FALSO .
+   79 literalBool: VERDADE .
 
     $default  reduce using rule 79 (literalBool)
 
 
 State 28
 
+   80 literalBool: FALSO .
+
+    $default  reduce using rule 80 (literalBool)
+
+
+State 29
+
    52 exprUnaria: OP_LOGICO_NEG . expr
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 46
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    expr                 go to state 47
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 29
+State 30
 
    50 exprUnaria: OP_INC . termo
 
     V_INTEIRO  shift, and go to state 23
     V_REAL     shift, and go to state 24
-    ID         shift, and go to state 25
-    VERDADE    shift, and go to state 26
-    FALSO      shift, and go to state 27
+    V_STRING   shift, and go to state 25
+    ID         shift, and go to state 26
+    VERDADE    shift, and go to state 27
+    FALSO      shift, and go to state 28
 
-    termo                go to state 47
-    acessoArray          go to state 33
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    termo                go to state 48
+    acessoArray          go to state 34
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 30
+State 31
 
    51 exprUnaria: OP_DEC . termo
 
     V_INTEIRO  shift, and go to state 23
     V_REAL     shift, and go to state 24
-    ID         shift, and go to state 25
-    VERDADE    shift, and go to state 26
-    FALSO      shift, and go to state 27
+    V_STRING   shift, and go to state 25
+    ID         shift, and go to state 26
+    VERDADE    shift, and go to state 27
+    FALSO      shift, and go to state 28
 
-    termo                go to state 48
-    acessoArray          go to state 33
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    termo                go to state 49
+    acessoArray          go to state 34
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 31
+State 32
 
    29 atribuicao: ID OP_ATRIBUICAO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   shift, and go to state 49
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    PONTO_VIRGULA   shift, and go to state 50
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
-State 32
+State 33
 
    41 expr: termo .
 
     $default  reduce using rule 41 (expr)
 
 
-State 33
+State 34
 
    46 termo: acessoArray .
 
     $default  reduce using rule 46 (termo)
 
 
-State 34
+State 35
 
    42 expr: exprUnaria .
 
     $default  reduce using rule 42 (expr)
 
 
-State 35
+State 36
 
    43 expr: exprBinaria .
 
     $default  reduce using rule 43 (expr)
 
 
-State 36
+State 37
 
    44 termo: literal .
 
     $default  reduce using rule 44 (termo)
 
 
-State 37
-
-   77 literal: literalBool .
-
-    $default  reduce using rule 77 (literal)
-
-
 State 38
+
+   78 literal: literalBool .
+
+    $default  reduce using rule 78 (literal)
+
+
+State 39
 
    47 termo: chamadaProcOuFuncao .
 
     $default  reduce using rule 47 (termo)
 
 
-State 39
+State 40
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  shift, and go to state 67
-
-
-State 40
-
-   11 funcao: FUNC ID ABRE_PAREN . FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
-   12       | FUNC ID ABRE_PAREN . params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
-
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
-    FECHA_PAREN  shift, and go to state 74
-
-    params         go to state 75
-    param          go to state 76
-    tipoPrimitivo  go to state 77
+    ABRE_CHAVES  shift, and go to state 68
 
 
 State 41
 
-    9 proc: PROC ID ABRE_PAREN . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
-   10     | PROC ID ABRE_PAREN . params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
+   11 funcao: FUNC ID ABRE_PAREN . FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
+   12       | FUNC ID ABRE_PAREN . params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
-    FECHA_PAREN  shift, and go to state 78
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
+    FECHA_PAREN  shift, and go to state 75
 
-    params         go to state 79
-    param          go to state 76
-    tipoPrimitivo  go to state 77
+    params         go to state 76
+    param          go to state 77
+    tipoPrimitivo  go to state 78
 
 
 State 42
 
-   27 atribuicao: VAR ID DOIS_PONTOS . tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
-   31 atribuicaoArray: VAR ID DOIS_PONTOS . ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+    9 proc: PROC ID ABRE_PAREN . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
+   10     | PROC ID ABRE_PAREN . params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR      shift, and go to state 68
-    TIPO_VOID      shift, and go to state 69
-    TIPO_REAL      shift, and go to state 70
-    TIPO_INT       shift, and go to state 71
-    TIPO_STRING    shift, and go to state 72
-    TIPO_BOOL      shift, and go to state 73
-    ABRE_COLCHETE  shift, and go to state 80
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
+    FECHA_PAREN  shift, and go to state 79
 
-    tipoPrimitivo  go to state 81
+    params         go to state 80
+    param          go to state 77
+    tipoPrimitivo  go to state 78
 
 
 State 43
 
-   28 atribuicao: CONST ID DOIS_PONTOS . tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
-   32 atribuicaoArray: CONST ID DOIS_PONTOS . ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+   27 atribuicao: VAR ID DOIS_PONTOS . tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
+   31 atribuicaoArray: VAR ID DOIS_PONTOS . ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    TIPO_CHAR      shift, and go to state 68
-    TIPO_VOID      shift, and go to state 69
-    TIPO_REAL      shift, and go to state 70
-    TIPO_INT       shift, and go to state 71
-    TIPO_STRING    shift, and go to state 72
-    TIPO_BOOL      shift, and go to state 73
-    ABRE_COLCHETE  shift, and go to state 82
+    TIPO_CHAR      shift, and go to state 69
+    TIPO_VOID      shift, and go to state 70
+    TIPO_REAL      shift, and go to state 71
+    TIPO_INT       shift, and go to state 72
+    TIPO_STRING    shift, and go to state 73
+    TIPO_BOOL      shift, and go to state 74
+    ABRE_COLCHETE  shift, and go to state 81
 
-    tipoPrimitivo  go to state 83
+    tipoPrimitivo  go to state 82
 
 
 State 44
 
-   88 chamadaProcOuFuncao: ID ABRE_PAREN . FECHA_PAREN PONTO_VIRGULA
-   89                    | ID ABRE_PAREN . listaIds FECHA_PAREN PONTO_VIRGULA
+   28 atribuicao: CONST ID DOIS_PONTOS . tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
+   32 atribuicaoArray: CONST ID DOIS_PONTOS . ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    V_INTEIRO      shift, and go to state 23
-    V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    FECHA_PAREN    shift, and go to state 84
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    TIPO_CHAR      shift, and go to state 69
+    TIPO_VOID      shift, and go to state 70
+    TIPO_REAL      shift, and go to state 71
+    TIPO_INT       shift, and go to state 72
+    TIPO_STRING    shift, and go to state 73
+    TIPO_BOOL      shift, and go to state 74
+    ABRE_COLCHETE  shift, and go to state 83
 
-    expr                 go to state 85
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    listaIds             go to state 86
-    chamadaProcOuFuncao  go to state 38
+    tipoPrimitivo  go to state 84
 
 
 State 45
 
-   48 acessoArray: ID ABRE_COLCHETE . V_INTEIRO FECHA_COLCHETE
-   49            | ID ABRE_COLCHETE . ID FECHA_COLCHETE
+   89 chamadaProcOuFuncao: ID ABRE_PAREN . FECHA_PAREN PONTO_VIRGULA
+   90                    | ID ABRE_PAREN . listaIds FECHA_PAREN PONTO_VIRGULA
 
-    V_INTEIRO  shift, and go to state 87
-    ID         shift, and go to state 88
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    FECHA_PAREN    shift, and go to state 85
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
+
+    expr                 go to state 86
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    listaIds             go to state 87
+    chamadaProcOuFuncao  go to state 39
 
 
 State 46
+
+   48 acessoArray: ID ABRE_COLCHETE . V_INTEIRO FECHA_COLCHETE
+   49            | ID ABRE_COLCHETE . ID FECHA_COLCHETE
+
+    V_INTEIRO  shift, and go to state 88
+    ID         shift, and go to state 89
+
+
+State 47
 
    52 exprUnaria: OP_LOGICO_NEG expr .
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
     $default  reduce using rule 52 (exprUnaria)
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
-State 47
+State 48
 
    50 exprUnaria: OP_INC termo .
 
     $default  reduce using rule 50 (exprUnaria)
 
 
-State 48
+State 49
 
    51 exprUnaria: OP_DEC termo .
 
     $default  reduce using rule 51 (exprUnaria)
 
 
-State 49
+State 50
 
    29 atribuicao: ID OP_ATRIBUICAO expr PONTO_VIRGULA .
 
     $default  reduce using rule 29 (atribuicao)
 
 
-State 50
+State 51
 
    58 operadorAritmetico: OP_SOMA .
 
     $default  reduce using rule 58 (operadorAritmetico)
 
 
-State 51
+State 52
 
    59 operadorAritmetico: OP_SUB .
 
     $default  reduce using rule 59 (operadorAritmetico)
 
 
-State 52
+State 53
 
    60 operadorAritmetico: OP_MULT .
 
     $default  reduce using rule 60 (operadorAritmetico)
 
 
-State 53
+State 54
 
    61 operadorAritmetico: OP_DIV .
 
     $default  reduce using rule 61 (operadorAritmetico)
 
 
-State 54
+State 55
 
    62 operadorAritmetico: OP_RESTO .
 
     $default  reduce using rule 62 (operadorAritmetico)
 
 
-State 55
+State 56
 
    64 operadorLogico: OP_LOGICO_OU .
 
     $default  reduce using rule 64 (operadorLogico)
 
 
-State 56
+State 57
 
    63 operadorLogico: OP_LOGICO_E .
 
     $default  reduce using rule 63 (operadorLogico)
 
 
-State 57
+State 58
 
    68 operadorRelacional: OP_MENOR .
 
     $default  reduce using rule 68 (operadorRelacional)
 
 
-State 58
+State 59
 
    67 operadorRelacional: OP_MAIOR .
 
     $default  reduce using rule 67 (operadorRelacional)
 
 
-State 59
+State 60
 
    70 operadorRelacional: OP_MENOR_IGUAL .
 
     $default  reduce using rule 70 (operadorRelacional)
 
 
-State 60
+State 61
 
    69 operadorRelacional: OP_MAIOR_IGUAL .
 
     $default  reduce using rule 69 (operadorRelacional)
 
 
-State 61
+State 62
 
    65 operadorRelacional: OP_IGUALDADE .
 
     $default  reduce using rule 65 (operadorRelacional)
 
 
-State 62
+State 63
 
    66 operadorRelacional: OP_DIFERENTE .
 
     $default  reduce using rule 66 (operadorRelacional)
 
 
-State 63
+State 64
 
    53 exprBinaria: expr operadorBinario . termo
    54            | expr operadorBinario . exprUnaria
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    termo                go to state 89
-    acessoArray          go to state 33
-    exprUnaria           go to state 90
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    termo                go to state 90
+    acessoArray          go to state 34
+    exprUnaria           go to state 91
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 64
+State 65
 
    55 operadorBinario: operadorAritmetico .
 
     $default  reduce using rule 55 (operadorBinario)
 
 
-State 65
+State 66
 
    56 operadorBinario: operadorLogico .
 
     $default  reduce using rule 56 (operadorBinario)
 
 
-State 66
+State 67
 
    57 operadorBinario: operadorRelacional .
 
     $default  reduce using rule 57 (operadorBinario)
 
 
-State 67
+State 68
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES . sentencas FECHA_CHAVES
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 98
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 99
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
-
-
-State 68
-
-   81 tipoPrimitivo: TIPO_CHAR .
-
-    $default  reduce using rule 81 (tipoPrimitivo)
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
 State 69
 
-   83 tipoPrimitivo: TIPO_VOID .
-
-    $default  reduce using rule 83 (tipoPrimitivo)
-
-
-State 70
-
-   82 tipoPrimitivo: TIPO_REAL .
+   82 tipoPrimitivo: TIPO_CHAR .
 
     $default  reduce using rule 82 (tipoPrimitivo)
 
 
-State 71
+State 70
 
-   80 tipoPrimitivo: TIPO_INT .
-
-    $default  reduce using rule 80 (tipoPrimitivo)
-
-
-State 72
-
-   84 tipoPrimitivo: TIPO_STRING .
+   84 tipoPrimitivo: TIPO_VOID .
 
     $default  reduce using rule 84 (tipoPrimitivo)
 
 
+State 71
+
+   83 tipoPrimitivo: TIPO_REAL .
+
+    $default  reduce using rule 83 (tipoPrimitivo)
+
+
+State 72
+
+   81 tipoPrimitivo: TIPO_INT .
+
+    $default  reduce using rule 81 (tipoPrimitivo)
+
+
 State 73
 
-   85 tipoPrimitivo: TIPO_BOOL .
+   85 tipoPrimitivo: TIPO_STRING .
 
     $default  reduce using rule 85 (tipoPrimitivo)
 
 
 State 74
 
-   11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN . DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
+   86 tipoPrimitivo: TIPO_BOOL .
 
-    DOIS_PONTOS  shift, and go to state 107
+    $default  reduce using rule 86 (tipoPrimitivo)
 
 
 State 75
 
-   12 funcao: FUNC ID ABRE_PAREN params . FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
+   11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN . DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_PAREN  shift, and go to state 108
+    DOIS_PONTOS  shift, and go to state 108
 
 
 State 76
 
-   13 params: param .
-   14       | param . VIRGULA params
+   12 funcao: FUNC ID ABRE_PAREN params . FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    VIRGULA  shift, and go to state 109
-
-    $default  reduce using rule 13 (params)
+    FECHA_PAREN  shift, and go to state 109
 
 
 State 77
 
-   15 param: tipoPrimitivo . ID
+   13 params: param .
+   14       | param . VIRGULA params
 
-    ID  shift, and go to state 110
+    VIRGULA  shift, and go to state 110
+
+    $default  reduce using rule 13 (params)
 
 
 State 78
 
-    9 proc: PROC ID ABRE_PAREN FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
+   15 param: tipoPrimitivo . ID
 
-    ABRE_CHAVES  shift, and go to state 111
+    ID  shift, and go to state 111
 
 
 State 79
 
-   10 proc: PROC ID ABRE_PAREN params . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
+    9 proc: PROC ID ABRE_PAREN FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_PAREN  shift, and go to state 112
+    ABRE_CHAVES  shift, and go to state 112
 
 
 State 80
 
-   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE . tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+   10 proc: PROC ID ABRE_PAREN params . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
-
-    tipoPrimitivo  go to state 113
+    FECHA_PAREN  shift, and go to state 113
 
 
 State 81
 
-   27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo . OP_ATRIBUICAO expr PONTO_VIRGULA
+   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE . tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    OP_ATRIBUICAO  shift, and go to state 114
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
+
+    tipoPrimitivo  go to state 114
 
 
 State 82
 
-   32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE . tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+   27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo . OP_ATRIBUICAO expr PONTO_VIRGULA
 
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
-
-    tipoPrimitivo  go to state 115
+    OP_ATRIBUICAO  shift, and go to state 115
 
 
 State 83
 
-   28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo . OP_ATRIBUICAO expr PONTO_VIRGULA
+   32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE . tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    OP_ATRIBUICAO  shift, and go to state 116
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
+
+    tipoPrimitivo  go to state 116
 
 
 State 84
 
-   88 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN . PONTO_VIRGULA
+   28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo . OP_ATRIBUICAO expr PONTO_VIRGULA
 
-    PONTO_VIRGULA  shift, and go to state 117
+    OP_ATRIBUICAO  shift, and go to state 117
 
 
 State 85
 
-   53 exprBinaria: expr . operadorBinario termo
-   54            | expr . operadorBinario exprUnaria
-   86 listaIds: expr .
-   87         | expr . VIRGULA listaIds
+   89 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN . PONTO_VIRGULA
 
-    VIRGULA         shift, and go to state 118
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
-
-    $default  reduce using rule 86 (listaIds)
-
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    PONTO_VIRGULA  shift, and go to state 118
 
 
 State 86
 
-   89 chamadaProcOuFuncao: ID ABRE_PAREN listaIds . FECHA_PAREN PONTO_VIRGULA
+   53 exprBinaria: expr . operadorBinario termo
+   54            | expr . operadorBinario exprUnaria
+   87 listaIds: expr .
+   88         | expr . VIRGULA listaIds
 
-    FECHA_PAREN  shift, and go to state 119
+    VIRGULA         shift, and go to state 119
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
+
+    $default  reduce using rule 87 (listaIds)
+
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
 State 87
 
-   48 acessoArray: ID ABRE_COLCHETE V_INTEIRO . FECHA_COLCHETE
+   90 chamadaProcOuFuncao: ID ABRE_PAREN listaIds . FECHA_PAREN PONTO_VIRGULA
 
-    FECHA_COLCHETE  shift, and go to state 120
+    FECHA_PAREN  shift, and go to state 120
 
 
 State 88
 
-   49 acessoArray: ID ABRE_COLCHETE ID . FECHA_COLCHETE
+   48 acessoArray: ID ABRE_COLCHETE V_INTEIRO . FECHA_COLCHETE
 
     FECHA_COLCHETE  shift, and go to state 121
 
 
 State 89
 
+   49 acessoArray: ID ABRE_COLCHETE ID . FECHA_COLCHETE
+
+    FECHA_COLCHETE  shift, and go to state 122
+
+
+State 90
+
    53 exprBinaria: expr operadorBinario termo .
 
     $default  reduce using rule 53 (exprBinaria)
 
 
-State 90
+State 91
 
    54 exprBinaria: expr operadorBinario exprUnaria .
 
     $default  reduce using rule 54 (exprBinaria)
 
 
-State 91
+State 92
 
    29 atribuicao: ID . OP_ATRIBUICAO expr PONTO_VIRGULA
    45 termo: ID .
    48 acessoArray: ID . ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE
    49            | ID . ABRE_COLCHETE ID FECHA_COLCHETE
-   88 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
-   89                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
+   89 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
+   90                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
 
     OP_ATRIBUICAO  shift, and go to state 15
-    ABRE_PAREN     shift, and go to state 44
-    ABRE_COLCHETE  shift, and go to state 45
+    ABRE_PAREN     shift, and go to state 45
+    ABRE_COLCHETE  shift, and go to state 46
 
     $default  reduce using rule 45 (termo)
 
 
-State 92
+State 93
 
    26 sentenca: RETORNO . expr PONTO_VIRGULA
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 122
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
-
-
-State 93
-
-   37 se: SE . ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE
-   38   | SE . ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
-
-    ABRE_PAREN  shift, and go to state 123
+    expr                 go to state 123
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
 State 94
 
-   39 enquanto: ENQUANTO . ABRE_PAREN expr FECHA_PAREN FACA sentencas FIM_ENQUANTO
+   37 se: SE . ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE
+   38   | SE . ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
 
     ABRE_PAREN  shift, and go to state 124
 
 
 State 95
 
-   40 para: PARA . ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
+   39 enquanto: ENQUANTO . ABRE_PAREN expr FECHA_PAREN FACA sentencas FIM_ENQUANTO
 
     ABRE_PAREN  shift, and go to state 125
 
 
 State 96
 
-   71 imprime: IMPRIME . ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA
-   72        | IMPRIME . ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA
-   73        | IMPRIME . ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA
-   74        | IMPRIME . ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA
+   40 para: PARA . ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
     ABRE_PAREN  shift, and go to state 126
 
 
 State 97
 
-   19 sentenca: LIBERA . ID PONTO_VIRGULA
+   71 imprime: IMPRIME . ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA
+   72        | IMPRIME . ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA
+   73        | IMPRIME . ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA
+   74        | IMPRIME . ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA
 
-    ID  shift, and go to state 127
+    ABRE_PAREN  shift, and go to state 127
 
 
 State 98
 
-    2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
+   19 sentenca: LIBERA . ID PONTO_VIRGULA
 
-    FECHA_CHAVES  shift, and go to state 128
+    ID  shift, and go to state 128
 
 
 State 99
+
+    2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
+
+    FECHA_CHAVES  shift, and go to state 129
+
+
+State 100
 
    16 sentencas: sentenca .
    17          | sentenca . sentencas
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
     $default  reduce using rule 16 (sentencas)
 
-    sentencas            go to state 129
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 130
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
-State 100
+State 101
 
    18 sentenca: atribuicao .
 
     $default  reduce using rule 18 (sentenca)
 
 
-State 101
+State 102
 
    20 sentenca: se .
 
     $default  reduce using rule 20 (sentenca)
 
 
-State 102
+State 103
 
    21 sentenca: enquanto .
 
     $default  reduce using rule 21 (sentenca)
 
 
-State 103
+State 104
 
    22 sentenca: para .
 
     $default  reduce using rule 22 (sentenca)
 
 
-State 104
+State 105
 
    24 sentenca: expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   shift, and go to state 130
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    PONTO_VIRGULA   shift, and go to state 131
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
-State 105
+State 106
 
    23 sentenca: imprime .
 
     $default  reduce using rule 23 (sentenca)
 
 
-State 106
+State 107
 
    25 sentenca: chamadaProcOuFuncao .
    47 termo: chamadaProcOuFuncao .
@@ -1398,283 +1415,289 @@ State 106
     $default        reduce using rule 25 (sentenca)
 
 
-State 107
+State 108
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS . tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
 
-    tipoPrimitivo  go to state 131
-
-
-State 108
-
-   12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN . DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
-
-    DOIS_PONTOS  shift, and go to state 132
+    tipoPrimitivo  go to state 132
 
 
 State 109
 
-   14 params: param VIRGULA . params
+   12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN . DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
-
-    params         go to state 133
-    param          go to state 76
-    tipoPrimitivo  go to state 77
+    DOIS_PONTOS  shift, and go to state 133
 
 
 State 110
+
+   14 params: param VIRGULA . params
+
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
+
+    params         go to state 134
+    param          go to state 77
+    tipoPrimitivo  go to state 78
+
+
+State 111
 
    15 param: tipoPrimitivo ID .
 
     $default  reduce using rule 15 (param)
 
 
-State 111
+State 112
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES . sentencas FECHA_CHAVES
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 134
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 135
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
-
-
-State 112
-
-   10 proc: PROC ID ABRE_PAREN params FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
-
-    ABRE_CHAVES  shift, and go to state 135
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
 State 113
 
-   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo . FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+   10 proc: PROC ID ABRE_PAREN params FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_COLCHETE  shift, and go to state 136
+    ABRE_CHAVES  shift, and go to state 136
 
 
 State 114
+
+   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo . FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+
+    FECHA_COLCHETE  shift, and go to state 137
+
+
+State 115
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO . expr PONTO_VIRGULA
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 137
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
-
-
-State 115
-
-   32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo . FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
-
-    FECHA_COLCHETE  shift, and go to state 138
+    expr                 go to state 138
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
 State 116
+
+   32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo . FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
+
+    FECHA_COLCHETE  shift, and go to state 139
+
+
+State 117
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO . expr PONTO_VIRGULA
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 139
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
-
-
-State 117
-
-   88 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA .
-
-    $default  reduce using rule 88 (chamadaProcOuFuncao)
+    expr                 go to state 140
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
 State 118
 
-   87 listaIds: expr VIRGULA . listaIds
+   89 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA .
 
-    V_INTEIRO      shift, and go to state 23
-    V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
-
-    expr                 go to state 85
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    listaIds             go to state 140
-    chamadaProcOuFuncao  go to state 38
+    $default  reduce using rule 89 (chamadaProcOuFuncao)
 
 
 State 119
 
-   89 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN . PONTO_VIRGULA
+   88 listaIds: expr VIRGULA . listaIds
 
-    PONTO_VIRGULA  shift, and go to state 141
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
+
+    expr                 go to state 86
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    listaIds             go to state 141
+    chamadaProcOuFuncao  go to state 39
 
 
 State 120
+
+   90 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN . PONTO_VIRGULA
+
+    PONTO_VIRGULA  shift, and go to state 142
+
+
+State 121
 
    48 acessoArray: ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE .
 
     $default  reduce using rule 48 (acessoArray)
 
 
-State 121
+State 122
 
    49 acessoArray: ID ABRE_COLCHETE ID FECHA_COLCHETE .
 
     $default  reduce using rule 49 (acessoArray)
 
 
-State 122
+State 123
 
    26 sentenca: RETORNO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   shift, and go to state 142
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    PONTO_VIRGULA   shift, and go to state 143
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
-State 123
+State 124
 
    37 se: SE ABRE_PAREN . expr FECHA_PAREN ENTAO sentencas FIM_SE
    38   | SE ABRE_PAREN . expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 143
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    expr                 go to state 144
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 124
+State 125
 
    39 enquanto: ENQUANTO ABRE_PAREN . expr FECHA_PAREN FACA sentencas FIM_ENQUANTO
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 144
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    expr                 go to state 145
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 125
+State 126
 
    40 para: PARA ABRE_PAREN . atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
@@ -1682,947 +1705,957 @@ State 125
     VAR    shift, and go to state 5
     CONST  shift, and go to state 6
 
-    atribuicao       go to state 145
+    atribuicao       go to state 146
     atribuicaoArray  go to state 14
 
 
-State 126
+State 127
 
    71 imprime: IMPRIME ABRE_PAREN . V_STRING FECHA_PAREN PONTO_VIRGULA
    72        | IMPRIME ABRE_PAREN . V_INTEIRO FECHA_PAREN PONTO_VIRGULA
    73        | IMPRIME ABRE_PAREN . V_REAL FECHA_PAREN PONTO_VIRGULA
    74        | IMPRIME ABRE_PAREN . ID FECHA_PAREN PONTO_VIRGULA
 
-    V_INTEIRO  shift, and go to state 146
-    V_REAL     shift, and go to state 147
-    V_STRING   shift, and go to state 148
-    ID         shift, and go to state 149
-
-
-State 127
-
-   19 sentenca: LIBERA ID . PONTO_VIRGULA
-
-    PONTO_VIRGULA  shift, and go to state 150
+    V_INTEIRO  shift, and go to state 147
+    V_REAL     shift, and go to state 148
+    V_STRING   shift, and go to state 149
+    ID         shift, and go to state 150
 
 
 State 128
+
+   19 sentenca: LIBERA ID . PONTO_VIRGULA
+
+    PONTO_VIRGULA  shift, and go to state 151
+
+
+State 129
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES .
 
     $default  reduce using rule 2 (principal)
 
 
-State 129
+State 130
 
    17 sentencas: sentenca sentencas .
 
     $default  reduce using rule 17 (sentencas)
 
 
-State 130
+State 131
 
    24 sentenca: expr PONTO_VIRGULA .
 
     $default  reduce using rule 24 (sentenca)
 
 
-State 131
+State 132
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  shift, and go to state 151
-
-
-State 132
-
-   12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS . tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
-
-    TIPO_CHAR    shift, and go to state 68
-    TIPO_VOID    shift, and go to state 69
-    TIPO_REAL    shift, and go to state 70
-    TIPO_INT     shift, and go to state 71
-    TIPO_STRING  shift, and go to state 72
-    TIPO_BOOL    shift, and go to state 73
-
-    tipoPrimitivo  go to state 152
+    ABRE_CHAVES  shift, and go to state 152
 
 
 State 133
+
+   12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS . tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
+
+    TIPO_CHAR    shift, and go to state 69
+    TIPO_VOID    shift, and go to state 70
+    TIPO_REAL    shift, and go to state 71
+    TIPO_INT     shift, and go to state 72
+    TIPO_STRING  shift, and go to state 73
+    TIPO_BOOL    shift, and go to state 74
+
+    tipoPrimitivo  go to state 153
+
+
+State 134
 
    14 params: param VIRGULA params .
 
     $default  reduce using rule 14 (params)
 
 
-State 134
+State 135
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  shift, and go to state 153
+    FECHA_CHAVES  shift, and go to state 154
 
 
-State 135
+State 136
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES . sentencas FECHA_CHAVES
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 154
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 155
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
-
-
-State 136
-
-   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE . OP_ATRIBUICAO instanciaArray
-
-    OP_ATRIBUICAO  shift, and go to state 155
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
 State 137
+
+   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE . OP_ATRIBUICAO instanciaArray
+
+    OP_ATRIBUICAO  shift, and go to state 156
+
+
+State 138
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   shift, and go to state 156
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    PONTO_VIRGULA   shift, and go to state 157
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
-
-
-State 138
-
-   32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE . OP_ATRIBUICAO instanciaArray
-
-    OP_ATRIBUICAO  shift, and go to state 157
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
 State 139
+
+   32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE . OP_ATRIBUICAO instanciaArray
+
+    OP_ATRIBUICAO  shift, and go to state 158
+
+
+State 140
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   shift, and go to state 158
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    PONTO_VIRGULA   shift, and go to state 159
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
-
-
-State 140
-
-   87 listaIds: expr VIRGULA listaIds .
-
-    $default  reduce using rule 87 (listaIds)
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
 State 141
 
-   89 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA .
+   88 listaIds: expr VIRGULA listaIds .
 
-    $default  reduce using rule 89 (chamadaProcOuFuncao)
+    $default  reduce using rule 88 (listaIds)
 
 
 State 142
+
+   90 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA .
+
+    $default  reduce using rule 90 (chamadaProcOuFuncao)
+
+
+State 143
 
    26 sentenca: RETORNO expr PONTO_VIRGULA .
 
     $default  reduce using rule 26 (sentenca)
 
 
-State 143
+State 144
 
    37 se: SE ABRE_PAREN expr . FECHA_PAREN ENTAO sentencas FIM_SE
    38   | SE ABRE_PAREN expr . FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    FECHA_PAREN     shift, and go to state 159
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    FECHA_PAREN     shift, and go to state 160
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
-State 144
+State 145
 
    39 enquanto: ENQUANTO ABRE_PAREN expr . FECHA_PAREN FACA sentencas FIM_ENQUANTO
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    FECHA_PAREN     shift, and go to state 160
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    FECHA_PAREN     shift, and go to state 161
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
-State 145
+State 146
 
    40 para: PARA ABRE_PAREN atribuicao . expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    expr                 go to state 161
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
-
-
-State 146
-
-   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO . FECHA_PAREN PONTO_VIRGULA
-
-    FECHA_PAREN  shift, and go to state 162
+    expr                 go to state 162
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
 State 147
 
-   73 imprime: IMPRIME ABRE_PAREN V_REAL . FECHA_PAREN PONTO_VIRGULA
+   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO . FECHA_PAREN PONTO_VIRGULA
 
     FECHA_PAREN  shift, and go to state 163
 
 
 State 148
 
-   71 imprime: IMPRIME ABRE_PAREN V_STRING . FECHA_PAREN PONTO_VIRGULA
+   73 imprime: IMPRIME ABRE_PAREN V_REAL . FECHA_PAREN PONTO_VIRGULA
 
     FECHA_PAREN  shift, and go to state 164
 
 
 State 149
 
-   74 imprime: IMPRIME ABRE_PAREN ID . FECHA_PAREN PONTO_VIRGULA
+   71 imprime: IMPRIME ABRE_PAREN V_STRING . FECHA_PAREN PONTO_VIRGULA
 
     FECHA_PAREN  shift, and go to state 165
 
 
 State 150
 
+   74 imprime: IMPRIME ABRE_PAREN ID . FECHA_PAREN PONTO_VIRGULA
+
+    FECHA_PAREN  shift, and go to state 166
+
+
+State 151
+
    19 sentenca: LIBERA ID PONTO_VIRGULA .
 
     $default  reduce using rule 19 (sentenca)
 
 
-State 151
+State 152
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES . sentencas FECHA_CHAVES
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 166
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 167
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
-
-
-State 152
-
-   12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo . ABRE_CHAVES sentencas FECHA_CHAVES
-
-    ABRE_CHAVES  shift, and go to state 167
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
 State 153
+
+   12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo . ABRE_CHAVES sentencas FECHA_CHAVES
+
+    ABRE_CHAVES  shift, and go to state 168
+
+
+State 154
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES .
 
     $default  reduce using rule 9 (proc)
 
 
-State 154
+State 155
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  shift, and go to state 168
-
-
-State 155
-
-   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO . instanciaArray
-
-    ID             shift, and go to state 169
-    ABRE_COLCHETE  shift, and go to state 170
-
-    instanciaArray  go to state 171
+    FECHA_CHAVES  shift, and go to state 169
 
 
 State 156
+
+   31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO . instanciaArray
+
+    ID             shift, and go to state 170
+    ABRE_COLCHETE  shift, and go to state 171
+
+    instanciaArray  go to state 172
+
+
+State 157
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA .
 
     $default  reduce using rule 27 (atribuicao)
 
 
-State 157
+State 158
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO . instanciaArray
 
-    ID             shift, and go to state 169
-    ABRE_COLCHETE  shift, and go to state 170
+    ID             shift, and go to state 170
+    ABRE_COLCHETE  shift, and go to state 171
 
-    instanciaArray  go to state 172
+    instanciaArray  go to state 173
 
 
-State 158
+State 159
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA .
 
     $default  reduce using rule 28 (atribuicao)
 
 
-State 159
+State 160
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN . ENTAO sentencas FIM_SE
    38   | SE ABRE_PAREN expr FECHA_PAREN . ENTAO sentencas SENAO sentencas FIM_SE
 
-    ENTAO  shift, and go to state 173
-
-
-State 160
-
-   39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN . FACA sentencas FIM_ENQUANTO
-
-    FACA  shift, and go to state 174
+    ENTAO  shift, and go to state 174
 
 
 State 161
+
+   39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN . FACA sentencas FIM_ENQUANTO
+
+    FACA  shift, and go to state 175
+
+
+State 162
 
    40 para: PARA ABRE_PAREN atribuicao expr . PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   shift, and go to state 175
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    PONTO_VIRGULA   shift, and go to state 176
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
-
-
-State 162
-
-   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN . PONTO_VIRGULA
-
-    PONTO_VIRGULA  shift, and go to state 176
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
 State 163
 
-   73 imprime: IMPRIME ABRE_PAREN V_REAL FECHA_PAREN . PONTO_VIRGULA
+   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN . PONTO_VIRGULA
 
     PONTO_VIRGULA  shift, and go to state 177
 
 
 State 164
 
-   71 imprime: IMPRIME ABRE_PAREN V_STRING FECHA_PAREN . PONTO_VIRGULA
+   73 imprime: IMPRIME ABRE_PAREN V_REAL FECHA_PAREN . PONTO_VIRGULA
 
     PONTO_VIRGULA  shift, and go to state 178
 
 
 State 165
 
-   74 imprime: IMPRIME ABRE_PAREN ID FECHA_PAREN . PONTO_VIRGULA
+   71 imprime: IMPRIME ABRE_PAREN V_STRING FECHA_PAREN . PONTO_VIRGULA
 
     PONTO_VIRGULA  shift, and go to state 179
 
 
 State 166
 
-   11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas . FECHA_CHAVES
+   74 imprime: IMPRIME ABRE_PAREN ID FECHA_PAREN . PONTO_VIRGULA
 
-    FECHA_CHAVES  shift, and go to state 180
+    PONTO_VIRGULA  shift, and go to state 180
 
 
 State 167
+
+   11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas . FECHA_CHAVES
+
+    FECHA_CHAVES  shift, and go to state 181
+
+
+State 168
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES . sentencas FECHA_CHAVES
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 181
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 182
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
-State 168
+State 169
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES .
 
     $default  reduce using rule 10 (proc)
 
 
-State 169
+State 170
 
    33 instanciaArray: ID .
 
     $default  reduce using rule 33 (instanciaArray)
 
 
-State 170
+State 171
 
    34 instanciaArray: ABRE_COLCHETE . listaValoresArray FECHA_COLCHETE
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    listaValoresArray    go to state 182
-    expr                 go to state 183
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    listaValoresArray    go to state 183
+    expr                 go to state 184
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 171
+State 172
 
    31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray .
 
     $default  reduce using rule 31 (atribuicaoArray)
 
 
-State 172
+State 173
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray .
 
     $default  reduce using rule 32 (atribuicaoArray)
 
 
-State 173
+State 174
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO . sentencas FIM_SE
    38   | SE ABRE_PAREN expr FECHA_PAREN ENTAO . sentencas SENAO sentencas FIM_SE
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 184
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 185
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
-State 174
+State 175
 
    39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA . sentencas FIM_ENQUANTO
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 185
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 186
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
-
-
-State 175
-
-   40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA . exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
-
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
-
-    exprUnaria  go to state 186
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
 State 176
+
+   40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA . exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
+
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
+
+    exprUnaria  go to state 187
+
+
+State 177
 
    72 imprime: IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA .
 
     $default  reduce using rule 72 (imprime)
 
 
-State 177
+State 178
 
    73 imprime: IMPRIME ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA .
 
     $default  reduce using rule 73 (imprime)
 
 
-State 178
+State 179
 
    71 imprime: IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA .
 
     $default  reduce using rule 71 (imprime)
 
 
-State 179
+State 180
 
    74 imprime: IMPRIME ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA .
 
     $default  reduce using rule 74 (imprime)
 
 
-State 180
+State 181
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES .
 
     $default  reduce using rule 11 (funcao)
 
 
-State 181
+State 182
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  shift, and go to state 187
-
-
-State 182
-
-   34 instanciaArray: ABRE_COLCHETE listaValoresArray . FECHA_COLCHETE
-
-    FECHA_COLCHETE  shift, and go to state 188
+    FECHA_CHAVES  shift, and go to state 188
 
 
 State 183
+
+   34 instanciaArray: ABRE_COLCHETE listaValoresArray . FECHA_COLCHETE
+
+    FECHA_COLCHETE  shift, and go to state 189
+
+
+State 184
 
    35 listaValoresArray: expr .
    36                  | expr . VIRGULA listaValoresArray
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    VIRGULA         shift, and go to state 189
-    OP_SOMA         shift, and go to state 50
-    OP_SUB          shift, and go to state 51
-    OP_MULT         shift, and go to state 52
-    OP_DIV          shift, and go to state 53
-    OP_RESTO        shift, and go to state 54
-    OP_LOGICO_OU    shift, and go to state 55
-    OP_LOGICO_E     shift, and go to state 56
-    OP_MENOR        shift, and go to state 57
-    OP_MAIOR        shift, and go to state 58
-    OP_MENOR_IGUAL  shift, and go to state 59
-    OP_MAIOR_IGUAL  shift, and go to state 60
-    OP_IGUALDADE    shift, and go to state 61
-    OP_DIFERENTE    shift, and go to state 62
+    VIRGULA         shift, and go to state 190
+    OP_SOMA         shift, and go to state 51
+    OP_SUB          shift, and go to state 52
+    OP_MULT         shift, and go to state 53
+    OP_DIV          shift, and go to state 54
+    OP_RESTO        shift, and go to state 55
+    OP_LOGICO_OU    shift, and go to state 56
+    OP_LOGICO_E     shift, and go to state 57
+    OP_MENOR        shift, and go to state 58
+    OP_MAIOR        shift, and go to state 59
+    OP_MENOR_IGUAL  shift, and go to state 60
+    OP_MAIOR_IGUAL  shift, and go to state 61
+    OP_IGUALDADE    shift, and go to state 62
+    OP_DIFERENTE    shift, and go to state 63
 
     $default  reduce using rule 35 (listaValoresArray)
 
-    operadorBinario     go to state 63
-    operadorAritmetico  go to state 64
-    operadorLogico      go to state 65
-    operadorRelacional  go to state 66
-
-
-State 184
-
-   37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas . FIM_SE
-   38   | SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas . SENAO sentencas FIM_SE
-
-    SENAO   shift, and go to state 190
-    FIM_SE  shift, and go to state 191
+    operadorBinario     go to state 64
+    operadorAritmetico  go to state 65
+    operadorLogico      go to state 66
+    operadorRelacional  go to state 67
 
 
 State 185
 
-   39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA sentencas . FIM_ENQUANTO
+   37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas . FIM_SE
+   38   | SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas . SENAO sentencas FIM_SE
 
-    FIM_ENQUANTO  shift, and go to state 192
+    SENAO   shift, and go to state 191
+    FIM_SE  shift, and go to state 192
 
 
 State 186
 
-   40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria . FECHA_PAREN FACA sentencas FIM_PARA
+   39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA sentencas . FIM_ENQUANTO
 
-    FECHA_PAREN  shift, and go to state 193
+    FIM_ENQUANTO  shift, and go to state 193
 
 
 State 187
+
+   40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria . FECHA_PAREN FACA sentencas FIM_PARA
+
+    FECHA_PAREN  shift, and go to state 194
+
+
+State 188
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES .
 
     $default  reduce using rule 12 (funcao)
 
 
-State 188
+State 189
 
    34 instanciaArray: ABRE_COLCHETE listaValoresArray FECHA_COLCHETE .
 
     $default  reduce using rule 34 (instanciaArray)
 
 
-State 189
+State 190
 
    36 listaValoresArray: expr VIRGULA . listaValoresArray
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 25
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 26
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    listaValoresArray    go to state 194
-    expr                 go to state 183
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 38
+    listaValoresArray    go to state 195
+    expr                 go to state 184
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 39
 
 
-State 190
+State 191
 
    38 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO . sentencas FIM_SE
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 195
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 196
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
-State 191
+State 192
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE .
 
     $default  reduce using rule 37 (se)
 
 
-State 192
+State 193
 
    39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA sentencas FIM_ENQUANTO .
 
     $default  reduce using rule 39 (enquanto)
 
 
-State 193
+State 194
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN . FACA sentencas FIM_PARA
 
-    FACA  shift, and go to state 196
+    FACA  shift, and go to state 197
 
 
-State 194
+State 195
 
    36 listaValoresArray: expr VIRGULA listaValoresArray .
 
     $default  reduce using rule 36 (listaValoresArray)
 
 
-State 195
+State 196
 
    38 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas . FIM_SE
 
-    FIM_SE  shift, and go to state 197
+    FIM_SE  shift, and go to state 198
 
 
-State 196
+State 197
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA . sentencas FIM_PARA
 
     V_INTEIRO      shift, and go to state 23
     V_REAL         shift, and go to state 24
-    ID             shift, and go to state 91
-    RETORNO        shift, and go to state 92
-    VERDADE        shift, and go to state 26
-    FALSO          shift, and go to state 27
+    V_STRING       shift, and go to state 25
+    ID             shift, and go to state 92
+    RETORNO        shift, and go to state 93
+    VERDADE        shift, and go to state 27
+    FALSO          shift, and go to state 28
     VAR            shift, and go to state 5
     CONST          shift, and go to state 6
-    SE             shift, and go to state 93
-    ENQUANTO       shift, and go to state 94
-    PARA           shift, and go to state 95
-    IMPRIME        shift, and go to state 96
-    LIBERA         shift, and go to state 97
-    OP_LOGICO_NEG  shift, and go to state 28
-    OP_INC         shift, and go to state 29
-    OP_DEC         shift, and go to state 30
+    SE             shift, and go to state 94
+    ENQUANTO       shift, and go to state 95
+    PARA           shift, and go to state 96
+    IMPRIME        shift, and go to state 97
+    LIBERA         shift, and go to state 98
+    OP_LOGICO_NEG  shift, and go to state 29
+    OP_INC         shift, and go to state 30
+    OP_DEC         shift, and go to state 31
 
-    sentencas            go to state 198
-    sentenca             go to state 99
-    atribuicao           go to state 100
+    sentencas            go to state 199
+    sentenca             go to state 100
+    atribuicao           go to state 101
     atribuicaoArray      go to state 14
-    se                   go to state 101
-    enquanto             go to state 102
-    para                 go to state 103
-    expr                 go to state 104
-    termo                go to state 32
-    acessoArray          go to state 33
-    exprUnaria           go to state 34
-    exprBinaria          go to state 35
-    imprime              go to state 105
-    literal              go to state 36
-    literalBool          go to state 37
-    chamadaProcOuFuncao  go to state 106
+    se                   go to state 102
+    enquanto             go to state 103
+    para                 go to state 104
+    expr                 go to state 105
+    termo                go to state 33
+    acessoArray          go to state 34
+    exprUnaria           go to state 35
+    exprBinaria          go to state 36
+    imprime              go to state 106
+    literal              go to state 37
+    literalBool          go to state 38
+    chamadaProcOuFuncao  go to state 107
 
 
-State 197
+State 198
 
    38 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE .
 
     $default  reduce using rule 38 (se)
 
 
-State 198
+State 199
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas . FIM_PARA
 
-    FIM_PARA  shift, and go to state 199
+    FIM_PARA  shift, and go to state 200
 
 
-State 199
+State 200
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA .
 
