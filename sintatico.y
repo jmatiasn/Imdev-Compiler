@@ -37,7 +37,7 @@
 
 %type<sValue> tipoPrimitivo literalBool
 %type<sValue> operadorAritmetico operadorLogico operadorRelacional operadorBinario
-%type<item> literal expr termo exprUnaria
+%type<item> literal expr termo exprUnaria exprBinaria
 
 %left OP_LOGICO_NEG
 %left OP_LOGICO_E OP_LOGICO_OU
@@ -57,7 +57,8 @@ programa :
          ;
 
 principal:
-        MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES          {}
+        MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES {escreverMain();} 
+        sentencas FECHA_CHAVES                                                  {escrever("}");}
         ;
 
 subprogramas :
@@ -148,8 +149,8 @@ se :
    ;
 
 enquanto :
-         ENQUANTO ABRE_PAREN expr FECHA_PAREN
-                    FACA sentencas FIM_ENQUANTO                                 {}
+         ENQUANTO ABRE_PAREN {escrever("while (");} expr FECHA_PAREN
+                    FACA {escrever(") {\n");} sentencas FIM_ENQUANTO            {escrever("}\n");}
          ;
 
 para :
@@ -160,7 +161,7 @@ para :
 expr :
      termo                                                                      {$$ = $1;}
      | exprUnaria                                                               {$$ = $1;}
-     | exprBinaria                                                              {}
+     | exprBinaria                                                              {$$ = $1;}
      ;
 
 termo:
@@ -183,8 +184,8 @@ exprUnaria :
            ;
 
 exprBinaria :
-            expr operadorBinario termo                                          {}
-            | expr operadorBinario exprUnaria                                   {}
+            expr operadorBinario termo                                          {$$ = processarExprBin($1, $2, $3);}
+            | expr operadorBinario exprUnaria                                   {$$ = processarExprBin($1, $2, $3);}
             ;
 
 operadorBinario :
@@ -268,4 +269,5 @@ int yyerror(char *msg) {
 
 int main (void) {
 	return yyparse ( );
+	escreverInclude();
 }

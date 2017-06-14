@@ -2,14 +2,11 @@
 #include <regex.h>
 #include <stdbool.h>
 
-
 int escopo_ordem = 0;
 int rotulo_ordem = 0;
 extern int yylineno;
-int isTemMain = 0;/* 1 -> true, 0 -> false */
 FILE *cArquivo;
 int ultimaLinha = 0;
-int debug = 0;
 
 char* retornoTipoString(int type);
 
@@ -102,6 +99,37 @@ Item *negarExprBooleano(Item *item) {
     return item;
 }
 
+Item *processarExprBin(Item *expr1, char *operador, Item *expr2) {
+    Item* retorno = novoItem();
+    
+    //Operadores aritméticos
+    //Se for soma
+    if(strcmp("+", operador) == 0) {
+        //Se for inteiro + inteiro
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "inteiro";
+            retorno->tipoCompleto->iValor = expr1->tipoCompleto->iValor + expr2->tipoCompleto->iValor;
+            return retorno;
+        }
+        //Se for real + real
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor + expr2->tipoCompleto->fValor;
+            return retorno;
+        }
+        //Se for real + inteiro
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("inteiro", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr2->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor + novoValor2;
+            return retorno;
+        }
+    }
+}
+
 void adicionarID(char *nome, Item *item) {
     
     struct Item *info;
@@ -141,6 +169,7 @@ Item *criarItemCompleto(char *valor) {
     
     if(checkRegex(valor, "([0-9]*\\.[0-9]+)")) {
         retorno->tipoCompleto->tipo = "real";
+        retorno->tipoCompleto->fValor = atof(valor);
         return retorno;   
     } else if (checkRegex(valor, "([0-9]+)")) {
         retorno->tipoCompleto->tipo = "inteiro";
@@ -292,4 +321,18 @@ void escreverAtribuicaoConst(char *id, Item* valor) {
     strcat(atribuicao, "\n");
     
     escreverInicio(atribuicao);
+}
+
+void escreverMain() {
+    char* main = novaSentenca(strlen("main"));
+    strcpy(main, "int main() {\n");
+    
+    escrever(main);
+}
+
+void escrerverInclude() {
+    char* inc = novaSentenca(strlen("#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n"));
+    strcpy(inc,"#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n" );
+    
+    escrever(inc);
 }

@@ -5,6 +5,9 @@ main () {
     var testeDecrementar1111111: inteiro = --21;
     var testeBool: booleano = !verdade;
     var testestes: booleano = verdade;
+    var testeSoma: inteiro = 2 + 7 + tributo;
+    var testeDoisReais: real = 1.0 + 1.0;
+    var testeIntParaReal: real = 7.5 + 2;
 }
 
 
