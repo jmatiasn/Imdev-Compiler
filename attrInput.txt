@@ -5,9 +5,27 @@ main () {
     var testeDecrementar1111111: inteiro = --21;
     var testeBool: booleano = !verdade;
     var testestes: booleano = verdade;
+    
     var testeSoma: inteiro = 2 + 7 + tributo;
     var testeDoisReais: real = 1.0 + 1.0;
     var testeIntParaReal: real = 7.5 + 2;
+    var testeIntReal2: real = 2 + 7.5;
+    
+    var testeSubtracao: inteiro = 2 - 7 - tributo;
+    var testeMenosDoisReais: real = 1.0 - 1.0;
+    var testeSubtIntPraReal: real = 7.5 - 2;
+    var testeSubtIntReal2: real = 2 - 7.5;
+    
+    var testeMult: inteiro = 2 * 7 * tributo;
+    var testeMultDoisReais: real = 1.0 * 1.0;
+    var testeMultIntPraReal: real = 7.5 * 2;
+    var testeMultIntReal2: real = 2 * 7.5;
+    
+    var testeDiv: inteiro = 2 / 7 / tributo;
+    var testeDivDoisReais: real = 1.0 / 1.0;
+    var testeDivIntPraReal: real = 7.5 / 2;
+    var testeDivIntReal2: real = 2 / 7.5;
+    var testeDivZero: real = 2.2 / 0.0;
 }
 
 

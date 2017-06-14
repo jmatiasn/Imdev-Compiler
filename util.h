@@ -66,7 +66,7 @@ char *verificarCompatTipos(char *tipo1, Item *item) {
     retorno = tipo1;
 }
 
-		
+
 bool verificarSeTipoEhInteiro(Item *item) {
     
     if(strcmp("inteiro", item->tipoCompleto->tipo) != 0) {
@@ -127,7 +127,173 @@ Item *processarExprBin(Item *expr1, char *operador, Item *expr2) {
             retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor + novoValor2;
             return retorno;
         }
+        //Se for inteiro + real
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("real", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr1->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr2->tipoCompleto->fValor + novoValor2;
+            return retorno;
+        }
+        
+        fprintf (stderr, "ERRO: Tipos %s e %s são incompatíveis na operação soma. Linha: %d\n",
+                expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo, yylineno);
+        exit(0);
     }
+    //Se for subtração
+    if(strcmp("-", operador) == 0) {
+        //Se for inteiro - inteiro
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "inteiro";
+            retorno->tipoCompleto->iValor = expr1->tipoCompleto->iValor - expr2->tipoCompleto->iValor;
+            return retorno;
+        }
+        //Se for real - real
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor - expr2->tipoCompleto->fValor;
+            return retorno;
+        }
+        //Se for real - inteiro
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("inteiro", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr2->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor - novoValor2;
+            return retorno;
+        }
+        //Se for inteiro - real
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("real", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr1->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr2->tipoCompleto->fValor - novoValor2;
+            return retorno;
+        }
+        
+        fprintf (stderr, "ERRO: Tipos %s e %s são incompatíveis na operação subtração. Linha: %d\n",
+                expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo, yylineno);
+        exit(0);
+    }
+    //Se for multiplicação
+    if(strcmp("*", operador) == 0) {
+        //Se for inteiro - inteiro
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "inteiro";
+            retorno->tipoCompleto->iValor = expr1->tipoCompleto->iValor * expr2->tipoCompleto->iValor;
+            return retorno;
+        }
+        //Se for real * real
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor * expr2->tipoCompleto->fValor;
+            return retorno;
+        }
+        //Se for real * inteiro
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("inteiro", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr2->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor * novoValor2;
+            return retorno;
+        }
+        //Se for inteiro * real
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("real", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr1->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr2->tipoCompleto->fValor * novoValor2;
+            return retorno;
+        }
+        fprintf (stderr, "ERRO: Tipos %s e %s são incompatíveis na operação multiplicação. Linha: %d\n",
+                expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo, yylineno);
+        exit(0);
+    }
+    //Se for divisão
+    if(strcmp("/", operador) == 0) {
+        if ((strcmp("inteiro", expr2->tipoCompleto->tipo) && expr2->tipoCompleto->iValor == 0)
+              || (strcmp("real", expr2->tipoCompleto->tipo) && expr2->tipoCompleto->fValor == 0.0)) {
+            fprintf (stderr, "ERRO: Não é possível realizar divisão por zero. Linha: %d\n", yylineno);
+            exit(0);
+        }
+        
+        //Se for inteiro / inteiro
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "inteiro";
+            retorno->tipoCompleto->iValor = expr1->tipoCompleto->iValor / expr2->tipoCompleto->iValor;
+            return retorno;
+        }
+        //Se for real / real
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor / expr2->tipoCompleto->fValor;
+            return retorno;
+        }
+        //Se for real / inteiro
+        if(strcmp("real", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("inteiro", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr2->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr1->tipoCompleto->fValor / novoValor2;
+            return retorno;
+        }
+        //Se for inteiro / real
+        if(strcmp("inteiro", expr1->tipoCompleto->tipo) == 0
+           &&  strcmp("real", expr2->tipoCompleto->tipo) == 0) {
+            retorno->tipoCompleto->tipo = "real";
+            float novoValor2 = (float) expr1->tipoCompleto->iValor;
+            retorno->tipoCompleto->fValor = expr2->tipoCompleto->fValor / novoValor2;
+            return retorno;
+        }
+        
+        fprintf (stderr, "ERRO: Tipos %s e %s são incompatíveis na operação divisão. Linha: %d\n",
+                expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo, yylineno);
+        exit(0);
+    }
+    
+    
+    //Operadores Lógicos
+    //Se for And
+    // if(strcmp("&", operador) == 0) {
+    //     //Se for booleano & booleano
+    //     if(strcmp("booleano", expr1->tipoCompleto->tipo) == 0
+    //       &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+    //         retorno->tipoCompleto->tipo = "booleano";
+    //         bool bool1 = convCharParaBool(expr1->tipoCompleto->sValor);
+    //         bool bool2 = convCharParaBool(expr2->tipoCompleto->sValor);
+    //         bool resultado = bool1 && bool2;
+    //         retorno->tipoCompleto->sValor = convBoolParaChar(resultado);
+    //         return retorno;
+    //     }
+    //     fprintf (stderr, "ERRO: Tipos %s e %s são incompatíveis na operação And. Linha: %d\n",
+    //             expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo, yylineno);
+    //     exit(0);
+    // }
+    // //Se for Or
+    // if(strcmp("|", operador) == 0) {
+    //     //Se for booleano & booleano
+    //     if(strcmp("|", expr1->tipoCompleto->tipo) == 0
+    //       &&  strcmp(expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo) == 0) {
+    //         retorno->tipoCompleto->tipo = "|";
+    //         bool bool1 = convCharParaBool(expr1->tipoCompleto->sValor);
+    //         bool bool2 = convCharParaBool(expr2->tipoCompleto->sValor);
+    //         retorno->tipoCompleto->sValor = convBoolParaChar(bool1 || bool2);
+    //         return retorno;
+    //     }
+        
+    //     fprintf (stderr, "ERRO: Tipos %s e %s são incompatíveis na operação Or. Linha: %d\n",
+    //             expr1->tipoCompleto->tipo, expr2->tipoCompleto->tipo, yylineno);
+    //     exit(0);
+    // }
+    
+    //Operadores relacionais
+    
 }
 
 void adicionarID(char *nome, Item *item) {
@@ -160,6 +326,27 @@ char *convIntParaChar(int valor) {
 char *convFloatParaChar(float valor) {
     char *retorno = novaString(sizeof(char*) * 100);
     sprintf(retorno, "%f", valor);
+    return retorno;
+}
+
+bool convCharParaBool(char *valor) {
+    bool retorno = true;
+    
+    if (strcmp("falso", valor)) {
+        retorno = false;
+    } 
+    
+    return retorno;
+}
+
+char *convBoolParaChar(bool valor) {
+    char *retorno = novaString(sizeof(char*) * 100);
+    retorno = "true";
+    
+    if (!valor) {
+        retorno = "false";
+    }
+    
     return retorno;
 }
 

@@ -226,7 +226,10 @@ imprime :
 literal :
         V_INTEIRO                                                               {$$ = criarItemCompleto(convIntParaChar($1));}
         | V_REAL                                                                {$$ = criarItemCompleto(convFloatParaChar($1));}
-        | V_STRING                                                              {$$ = criarItemCompleto($1);}
+        | V_STRING                                                              { Item* item = novoItem();
+                                                                                  item->tipoCompleto->sValor = novaString(sizeof($1)+ sizeof(char*)); 
+                                                                                  $$ = item;
+                                                                                }
         | literalBool                                                           {
                                                                                     Item* item = novoItem();
                                                                                     item->tipoCompleto->tipo = "booleano";

@@ -567,8 +567,8 @@ static const yytype_uint16 yyrline[] =
      170,   171,   175,   176,   180,   181,   182,   187,   188,   192,
      193,   194,   199,   200,   201,   202,   203,   207,   208,   212,
      213,   214,   215,   216,   217,   220,   221,   222,   223,   227,
-     228,   229,   230,   239,   240,   244,   245,   246,   247,   248,
-     249,   253,   254,   258,   259
+     228,   229,   233,   242,   243,   247,   248,   249,   250,   251,
+     252,   256,   257,   261,   262
 };
 #endif
 
@@ -2001,95 +2001,98 @@ yyreduce:
 
   case 81:
 #line 229 "sintatico.y" /* yacc.c:1646  */
-    {(yyval.item) = criarItemCompleto((yyvsp[0].sValue));}
-#line 2006 "y.tab.c" /* yacc.c:1646  */
+    { Item* item = novoItem();
+                                                                                  item->tipoCompleto->sValor = novaString(sizeof((yyvsp[0].sValue))+ sizeof(char*)); 
+                                                                                  (yyval.item) = item;
+                                                                                }
+#line 2009 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 230 "sintatico.y" /* yacc.c:1646  */
+#line 233 "sintatico.y" /* yacc.c:1646  */
     {
                                                                                     Item* item = novoItem();
                                                                                     item->tipoCompleto->tipo = "booleano";
                                                                                     item->tipoCompleto->sValor = (yyvsp[0].sValue);
                                                                                     (yyval.item) = item;
                                                                                 }
-#line 2017 "y.tab.c" /* yacc.c:1646  */
+#line 2020 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 239 "sintatico.y" /* yacc.c:1646  */
+#line 242 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2023 "y.tab.c" /* yacc.c:1646  */
+#line 2026 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 240 "sintatico.y" /* yacc.c:1646  */
+#line 243 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2029 "y.tab.c" /* yacc.c:1646  */
+#line 2032 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 244 "sintatico.y" /* yacc.c:1646  */
+#line 247 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2035 "y.tab.c" /* yacc.c:1646  */
+#line 2038 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 245 "sintatico.y" /* yacc.c:1646  */
+#line 248 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2041 "y.tab.c" /* yacc.c:1646  */
+#line 2044 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 246 "sintatico.y" /* yacc.c:1646  */
+#line 249 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2047 "y.tab.c" /* yacc.c:1646  */
+#line 2050 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 247 "sintatico.y" /* yacc.c:1646  */
+#line 250 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2053 "y.tab.c" /* yacc.c:1646  */
+#line 2056 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 248 "sintatico.y" /* yacc.c:1646  */
+#line 251 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2059 "y.tab.c" /* yacc.c:1646  */
+#line 2062 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 249 "sintatico.y" /* yacc.c:1646  */
+#line 252 "sintatico.y" /* yacc.c:1646  */
     {(yyval.sValue) = (yyvsp[0].sValue);}
-#line 2065 "y.tab.c" /* yacc.c:1646  */
+#line 2068 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 253 "sintatico.y" /* yacc.c:1646  */
+#line 256 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2071 "y.tab.c" /* yacc.c:1646  */
+#line 2074 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 254 "sintatico.y" /* yacc.c:1646  */
+#line 257 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2077 "y.tab.c" /* yacc.c:1646  */
+#line 2080 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 258 "sintatico.y" /* yacc.c:1646  */
+#line 261 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2083 "y.tab.c" /* yacc.c:1646  */
+#line 2086 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 259 "sintatico.y" /* yacc.c:1646  */
+#line 262 "sintatico.y" /* yacc.c:1646  */
     {}
-#line 2089 "y.tab.c" /* yacc.c:1646  */
+#line 2092 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2093 "y.tab.c" /* yacc.c:1646  */
+#line 2096 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2317,7 +2320,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 262 "sintatico.y" /* yacc.c:1906  */
+#line 265 "sintatico.y" /* yacc.c:1906  */
 
 int yyerror(char *msg) {
     fprintf(stderr, "%d: %s at '%s'\n", yylineno, msg, yytext);
