@@ -1,10 +1,10 @@
-Terminais sem uso na gramática
+Terminals unused in grammar
 
    ALOCA
    OP_IGUAL
 
 
-Gramática
+Grammar
 
     0 $accept: programa $end
 
@@ -77,8 +77,8 @@ Gramática
    48 acessoArray: ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE
    49            | ID ABRE_COLCHETE ID FECHA_COLCHETE
 
-   50 exprUnaria: termo OP_INC
-   51           | termo OP_DEC
+   50 exprUnaria: OP_INC termo
+   51           | OP_DEC termo
    52           | OP_LOGICO_NEG expr
 
    53 exprBinaria: expr operadorBinario termo
@@ -105,48 +105,51 @@ Gramática
    70                   | OP_MENOR_IGUAL
 
    71 imprime: IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA
+   72        | IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA
+   73        | IMPRIME ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA
+   74        | IMPRIME ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA
 
-   72 literal: V_INTEIRO
-   73        | V_REAL
-   74        | literalBool
+   75 literal: V_INTEIRO
+   76        | V_REAL
+   77        | literalBool
 
-   75 literalBool: VERDADE
-   76            | FALSO
+   78 literalBool: VERDADE
+   79            | FALSO
 
-   77 tipoPrimitivo: TIPO_INT
-   78              | TIPO_CHAR
-   79              | TIPO_REAL
-   80              | TIPO_VOID
-   81              | TIPO_STRING
-   82              | TIPO_BOOL
+   80 tipoPrimitivo: TIPO_INT
+   81              | TIPO_CHAR
+   82              | TIPO_REAL
+   83              | TIPO_VOID
+   84              | TIPO_STRING
+   85              | TIPO_BOOL
 
-   83 listaIds: expr
-   84         | expr VIRGULA listaIds
+   86 listaIds: expr
+   87         | expr VIRGULA listaIds
 
-   85 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
-   86                    | ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
+   88 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
+   89                    | ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
 
 
-Terminais, com as regras onde eles aparecem
+Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-V_INTEIRO (258) 48 72
-V_REAL (259) 73
+V_INTEIRO (258) 48 72 75
+V_REAL (259) 73 76
 V_STRING (260) 71
-ID (261) 9 10 11 12 15 19 27 28 29 31 32 33 45 48 49 85 86
+ID (261) 9 10 11 12 15 19 27 28 29 31 32 33 45 48 49 74 88 89
 MAIN (262) 2
 RETORNO (263) 26
 FUNC (264) 11 12
 PROC (265) 9 10
-TIPO_CHAR (266) 78
-TIPO_VOID (267) 80
-TIPO_REAL (268) 79
-TIPO_INT (269) 77
-TIPO_STRING (270) 81
-TIPO_BOOL (271) 82
-VERDADE (272) 75
-FALSO (273) 76
+TIPO_CHAR (266) 81
+TIPO_VOID (267) 83
+TIPO_REAL (268) 82
+TIPO_INT (269) 80
+TIPO_STRING (270) 84
+TIPO_BOOL (271) 85
+VERDADE (272) 78
+FALSO (273) 79
 VAR (274) 27 31
 CONST (275) 28 32
 SE (276) 37 38
@@ -158,15 +161,15 @@ FIM_ENQUANTO (281) 39
 PARA (282) 40
 FIM_PARA (283) 40
 OP_ATRIBUICAO (284) 27 28 29 31 32
-PONTO_VIRGULA (285) 19 24 26 27 28 29 40 71 85 86
+PONTO_VIRGULA (285) 19 24 26 27 28 29 40 71 72 73 74 88 89
 DOIS_PONTOS (286) 11 12 27 28 31 32
-VIRGULA (287) 14 36 84
+VIRGULA (287) 14 36 87
 FACA (288) 39 40
-IMPRIME (289) 71
+IMPRIME (289) 71 72 73 74
 ALOCA (290)
 LIBERA (291) 19
-ABRE_PAREN (292) 2 9 10 11 12 37 38 39 40 71 85 86
-FECHA_PAREN (293) 2 9 10 11 12 37 38 39 40 71 85 86
+ABRE_PAREN (292) 2 9 10 11 12 37 38 39 40 71 72 73 74 88 89
+FECHA_PAREN (293) 2 9 10 11 12 37 38 39 40 71 72 73 74 88 89
 ABRE_COLCHETE (294) 31 32 34 48 49
 FECHA_COLCHETE (295) 31 32 34 48 49
 ABRE_CHAVES (296) 2 9 10 11 12
@@ -190,2314 +193,2437 @@ OP_DEC (313) 51
 OP_IGUAL (314)
 
 
-Não terminais com as regras onde eles aparecem
+Nonterminals, with rules where they appear
 
 $accept (60)
-    à esquerda: 0
+    on left: 0
 programa (61)
-    à esquerda: 1, à direita: 0
+    on left: 1, on right: 0
 principal (62)
-    à esquerda: 2, à direita: 7
+    on left: 2, on right: 7
 subprogramas (63)
-    à esquerda: 3 4, à direita: 1 4
+    on left: 3 4, on right: 1 4
 subprograma (64)
-    à esquerda: 5 6 7 8, à direita: 3 4
+    on left: 5 6 7 8, on right: 3 4
 proc (65)
-    à esquerda: 9 10, à direita: 5
+    on left: 9 10, on right: 5
 funcao (66)
-    à esquerda: 11 12, à direita: 6
+    on left: 11 12, on right: 6
 params (67)
-    à esquerda: 13 14, à direita: 10 12 14
+    on left: 13 14, on right: 10 12 14
 param (68)
-    à esquerda: 15, à direita: 13 14
+    on left: 15, on right: 13 14
 sentencas (69)
-    à esquerda: 16 17, à direita: 2 9 10 11 12 17 37 38 39 40
+    on left: 16 17, on right: 2 9 10 11 12 17 37 38 39 40
 sentenca (70)
-    à esquerda: 18 19 20 21 22 23 24 25 26, à direita: 16 17
+    on left: 18 19 20 21 22 23 24 25 26, on right: 16 17
 atribuicao (71)
-    à esquerda: 27 28 29 30, à direita: 8 18 40
+    on left: 27 28 29 30, on right: 8 18 40
 atribuicaoArray (72)
-    à esquerda: 31 32, à direita: 30
+    on left: 31 32, on right: 30
 instanciaArray (73)
-    à esquerda: 33 34, à direita: 31 32
+    on left: 33 34, on right: 31 32
 listaValoresArray (74)
-    à esquerda: 35 36, à direita: 34 36
+    on left: 35 36, on right: 34 36
 se (75)
-    à esquerda: 37 38, à direita: 20
+    on left: 37 38, on right: 20
 enquanto (76)
-    à esquerda: 39, à direita: 21
+    on left: 39, on right: 21
 para (77)
-    à esquerda: 40, à direita: 22
+    on left: 40, on right: 22
 expr (78)
-    à esquerda: 41 42 43, à direita: 24 26 27 28 29 35 36 37 38 39
-    40 52 53 54 83 84
+    on left: 41 42 43, on right: 24 26 27 28 29 35 36 37 38 39 40 52
+    53 54 86 87
 termo (79)
-    à esquerda: 44 45 46 47, à direita: 41 50 51 53
+    on left: 44 45 46 47, on right: 41 50 51 53
 acessoArray (80)
-    à esquerda: 48 49, à direita: 46
+    on left: 48 49, on right: 46
 exprUnaria (81)
-    à esquerda: 50 51 52, à direita: 40 42 54
+    on left: 50 51 52, on right: 40 42 54
 exprBinaria (82)
-    à esquerda: 53 54, à direita: 43
+    on left: 53 54, on right: 43
 operadorBinario (83)
-    à esquerda: 55 56 57, à direita: 53 54
+    on left: 55 56 57, on right: 53 54
 operadorAritmetico (84)
-    à esquerda: 58 59 60 61 62, à direita: 55
+    on left: 58 59 60 61 62, on right: 55
 operadorLogico (85)
-    à esquerda: 63 64, à direita: 56
+    on left: 63 64, on right: 56
 operadorRelacional (86)
-    à esquerda: 65 66 67 68 69 70, à direita: 57
+    on left: 65 66 67 68 69 70, on right: 57
 imprime (87)
-    à esquerda: 71, à direita: 23
+    on left: 71 72 73 74, on right: 23
 literal (88)
-    à esquerda: 72 73 74, à direita: 44
+    on left: 75 76 77, on right: 44
 literalBool (89)
-    à esquerda: 75 76, à direita: 74
+    on left: 78 79, on right: 77
 tipoPrimitivo (90)
-    à esquerda: 77 78 79 80 81 82, à direita: 11 12 15 27 28 31 32
+    on left: 80 81 82 83 84 85, on right: 11 12 15 27 28 31 32
 listaIds (91)
-    à esquerda: 83 84, à direita: 84 86
+    on left: 86 87, on right: 87 89
 chamadaProcOuFuncao (92)
-    à esquerda: 85 86, à direita: 25 47
+    on left: 88 89, on right: 25 47
 
 
-Estado 0
+State 0
 
     0 $accept: . programa $end
 
-    ID     deslocar, e ir ao estado 1
-    MAIN   deslocar, e ir ao estado 2
-    FUNC   deslocar, e ir ao estado 3
-    PROC   deslocar, e ir ao estado 4
-    VAR    deslocar, e ir ao estado 5
-    CONST  deslocar, e ir ao estado 6
+    ID     shift, and go to state 1
+    MAIN   shift, and go to state 2
+    FUNC   shift, and go to state 3
+    PROC   shift, and go to state 4
+    VAR    shift, and go to state 5
+    CONST  shift, and go to state 6
 
-    programa         ir ao estado 7
-    principal        ir ao estado 8
-    subprogramas     ir ao estado 9
-    subprograma      ir ao estado 10
-    proc             ir ao estado 11
-    funcao           ir ao estado 12
-    atribuicao       ir ao estado 13
-    atribuicaoArray  ir ao estado 14
+    programa         go to state 7
+    principal        go to state 8
+    subprogramas     go to state 9
+    subprograma      go to state 10
+    proc             go to state 11
+    funcao           go to state 12
+    atribuicao       go to state 13
+    atribuicaoArray  go to state 14
 
 
-Estado 1
+State 1
 
    29 atribuicao: ID . OP_ATRIBUICAO expr PONTO_VIRGULA
 
-    OP_ATRIBUICAO  deslocar, e ir ao estado 15
+    OP_ATRIBUICAO  shift, and go to state 15
 
 
-Estado 2
+State 2
 
     2 principal: MAIN . ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_PAREN  deslocar, e ir ao estado 16
+    ABRE_PAREN  shift, and go to state 16
 
 
-Estado 3
+State 3
 
    11 funcao: FUNC . ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
    12       | FUNC . ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ID  deslocar, e ir ao estado 17
+    ID  shift, and go to state 17
 
 
-Estado 4
+State 4
 
     9 proc: PROC . ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
    10     | PROC . ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ID  deslocar, e ir ao estado 18
+    ID  shift, and go to state 18
 
 
-Estado 5
+State 5
 
    27 atribuicao: VAR . ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    31 atribuicaoArray: VAR . ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    ID  deslocar, e ir ao estado 19
+    ID  shift, and go to state 19
 
 
-Estado 6
+State 6
 
    28 atribuicao: CONST . ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    32 atribuicaoArray: CONST . ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    ID  deslocar, e ir ao estado 20
+    ID  shift, and go to state 20
 
 
-Estado 7
+State 7
 
     0 $accept: programa . $end
 
-    $end  deslocar, e ir ao estado 21
+    $end  shift, and go to state 21
 
 
-Estado 8
+State 8
 
     7 subprograma: principal .
 
-    $padrão  reduzir usando a regra 7 (subprograma)
+    $default  reduce using rule 7 (subprograma)
 
 
-Estado 9
+State 9
 
     1 programa: subprogramas .
 
-    $padrão  reduzir usando a regra 1 (programa)
+    $default  reduce using rule 1 (programa)
 
 
-Estado 10
+State 10
 
     3 subprogramas: subprograma .
     4             | subprograma . subprogramas
 
-    ID     deslocar, e ir ao estado 1
-    MAIN   deslocar, e ir ao estado 2
-    FUNC   deslocar, e ir ao estado 3
-    PROC   deslocar, e ir ao estado 4
-    VAR    deslocar, e ir ao estado 5
-    CONST  deslocar, e ir ao estado 6
+    ID     shift, and go to state 1
+    MAIN   shift, and go to state 2
+    FUNC   shift, and go to state 3
+    PROC   shift, and go to state 4
+    VAR    shift, and go to state 5
+    CONST  shift, and go to state 6
 
-    $padrão  reduzir usando a regra 3 (subprogramas)
+    $default  reduce using rule 3 (subprogramas)
 
-    principal        ir ao estado 8
-    subprogramas     ir ao estado 22
-    subprograma      ir ao estado 10
-    proc             ir ao estado 11
-    funcao           ir ao estado 12
-    atribuicao       ir ao estado 13
-    atribuicaoArray  ir ao estado 14
+    principal        go to state 8
+    subprogramas     go to state 22
+    subprograma      go to state 10
+    proc             go to state 11
+    funcao           go to state 12
+    atribuicao       go to state 13
+    atribuicaoArray  go to state 14
 
 
-Estado 11
+State 11
 
     5 subprograma: proc .
 
-    $padrão  reduzir usando a regra 5 (subprograma)
+    $default  reduce using rule 5 (subprograma)
 
 
-Estado 12
+State 12
 
     6 subprograma: funcao .
 
-    $padrão  reduzir usando a regra 6 (subprograma)
+    $default  reduce using rule 6 (subprograma)
 
 
-Estado 13
+State 13
 
     8 subprograma: atribuicao .
 
-    $padrão  reduzir usando a regra 8 (subprograma)
+    $default  reduce using rule 8 (subprograma)
 
 
-Estado 14
+State 14
 
    30 atribuicao: atribuicaoArray .
 
-    $padrão  reduzir usando a regra 30 (atribuicao)
+    $default  reduce using rule 30 (atribuicao)
 
 
-Estado 15
+State 15
 
    29 atribuicao: ID OP_ATRIBUICAO . expr PONTO_VIRGULA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 29
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 31
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 16
+State 16
 
     2 principal: MAIN ABRE_PAREN . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_PAREN  deslocar, e ir ao estado 37
+    FECHA_PAREN  shift, and go to state 39
 
 
-Estado 17
+State 17
 
    11 funcao: FUNC ID . ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
    12       | FUNC ID . ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_PAREN  deslocar, e ir ao estado 38
+    ABRE_PAREN  shift, and go to state 40
 
 
-Estado 18
+State 18
 
     9 proc: PROC ID . ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
    10     | PROC ID . ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_PAREN  deslocar, e ir ao estado 39
+    ABRE_PAREN  shift, and go to state 41
 
 
-Estado 19
+State 19
 
    27 atribuicao: VAR ID . DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    31 atribuicaoArray: VAR ID . DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    DOIS_PONTOS  deslocar, e ir ao estado 40
+    DOIS_PONTOS  shift, and go to state 42
 
 
-Estado 20
+State 20
 
    28 atribuicao: CONST ID . DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    32 atribuicaoArray: CONST ID . DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    DOIS_PONTOS  deslocar, e ir ao estado 41
+    DOIS_PONTOS  shift, and go to state 43
 
 
-Estado 21
+State 21
 
     0 $accept: programa $end .
 
-    $padrão  aceitar
+    $default  accept
 
 
-Estado 22
+State 22
 
     4 subprogramas: subprograma subprogramas .
 
-    $padrão  reduzir usando a regra 4 (subprogramas)
+    $default  reduce using rule 4 (subprogramas)
 
 
-Estado 23
+State 23
 
-   72 literal: V_INTEIRO .
+   75 literal: V_INTEIRO .
 
-    $padrão  reduzir usando a regra 72 (literal)
-
-
-Estado 24
-
-   73 literal: V_REAL .
-
-    $padrão  reduzir usando a regra 73 (literal)
+    $default  reduce using rule 75 (literal)
 
 
-Estado 25
+State 24
+
+   76 literal: V_REAL .
+
+    $default  reduce using rule 76 (literal)
+
+
+State 25
 
    45 termo: ID .
    48 acessoArray: ID . ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE
    49            | ID . ABRE_COLCHETE ID FECHA_COLCHETE
-   85 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
-   86                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
+   88 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
+   89                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
 
-    ABRE_PAREN     deslocar, e ir ao estado 42
-    ABRE_COLCHETE  deslocar, e ir ao estado 43
+    ABRE_PAREN     shift, and go to state 44
+    ABRE_COLCHETE  shift, and go to state 45
 
-    $padrão  reduzir usando a regra 45 (termo)
-
-
-Estado 26
-
-   75 literalBool: VERDADE .
-
-    $padrão  reduzir usando a regra 75 (literalBool)
+    $default  reduce using rule 45 (termo)
 
 
-Estado 27
+State 26
 
-   76 literalBool: FALSO .
+   78 literalBool: VERDADE .
 
-    $padrão  reduzir usando a regra 76 (literalBool)
+    $default  reduce using rule 78 (literalBool)
 
 
-Estado 28
+State 27
+
+   79 literalBool: FALSO .
+
+    $default  reduce using rule 79 (literalBool)
+
+
+State 28
 
    52 exprUnaria: OP_LOGICO_NEG . expr
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 44
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 46
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 29
+State 29
+
+   50 exprUnaria: OP_INC . termo
+
+    V_INTEIRO  shift, and go to state 23
+    V_REAL     shift, and go to state 24
+    ID         shift, and go to state 25
+    VERDADE    shift, and go to state 26
+    FALSO      shift, and go to state 27
+
+    termo                go to state 47
+    acessoArray          go to state 33
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
+
+
+State 30
+
+   51 exprUnaria: OP_DEC . termo
+
+    V_INTEIRO  shift, and go to state 23
+    V_REAL     shift, and go to state 24
+    ID         shift, and go to state 25
+    VERDADE    shift, and go to state 26
+    FALSO      shift, and go to state 27
+
+    termo                go to state 48
+    acessoArray          go to state 33
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
+
+
+State 31
 
    29 atribuicao: ID OP_ATRIBUICAO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   deslocar, e ir ao estado 45
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    PONTO_VIRGULA   shift, and go to state 49
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 30
+State 32
 
    41 expr: termo .
-   50 exprUnaria: termo . OP_INC
-   51           | termo . OP_DEC
 
-    OP_INC  deslocar, e ir ao estado 63
-    OP_DEC  deslocar, e ir ao estado 64
-
-    $padrão  reduzir usando a regra 41 (expr)
+    $default  reduce using rule 41 (expr)
 
 
-Estado 31
+State 33
 
    46 termo: acessoArray .
 
-    $padrão  reduzir usando a regra 46 (termo)
+    $default  reduce using rule 46 (termo)
 
 
-Estado 32
+State 34
 
    42 expr: exprUnaria .
 
-    $padrão  reduzir usando a regra 42 (expr)
+    $default  reduce using rule 42 (expr)
 
 
-Estado 33
+State 35
 
    43 expr: exprBinaria .
 
-    $padrão  reduzir usando a regra 43 (expr)
+    $default  reduce using rule 43 (expr)
 
 
-Estado 34
+State 36
 
    44 termo: literal .
 
-    $padrão  reduzir usando a regra 44 (termo)
+    $default  reduce using rule 44 (termo)
 
 
-Estado 35
+State 37
 
-   74 literal: literalBool .
+   77 literal: literalBool .
 
-    $padrão  reduzir usando a regra 74 (literal)
+    $default  reduce using rule 77 (literal)
 
 
-Estado 36
+State 38
 
    47 termo: chamadaProcOuFuncao .
 
-    $padrão  reduzir usando a regra 47 (termo)
+    $default  reduce using rule 47 (termo)
 
 
-Estado 37
+State 39
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  deslocar, e ir ao estado 65
+    ABRE_CHAVES  shift, and go to state 67
 
 
-Estado 38
+State 40
 
    11 funcao: FUNC ID ABRE_PAREN . FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
    12       | FUNC ID ABRE_PAREN . params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
-    FECHA_PAREN  deslocar, e ir ao estado 72
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
+    FECHA_PAREN  shift, and go to state 74
 
-    params         ir ao estado 73
-    param          ir ao estado 74
-    tipoPrimitivo  ir ao estado 75
+    params         go to state 75
+    param          go to state 76
+    tipoPrimitivo  go to state 77
 
 
-Estado 39
+State 41
 
     9 proc: PROC ID ABRE_PAREN . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
    10     | PROC ID ABRE_PAREN . params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
-    FECHA_PAREN  deslocar, e ir ao estado 76
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
+    FECHA_PAREN  shift, and go to state 78
 
-    params         ir ao estado 77
-    param          ir ao estado 74
-    tipoPrimitivo  ir ao estado 75
+    params         go to state 79
+    param          go to state 76
+    tipoPrimitivo  go to state 77
 
 
-Estado 40
+State 42
 
    27 atribuicao: VAR ID DOIS_PONTOS . tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    31 atribuicaoArray: VAR ID DOIS_PONTOS . ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    TIPO_CHAR      deslocar, e ir ao estado 66
-    TIPO_VOID      deslocar, e ir ao estado 67
-    TIPO_REAL      deslocar, e ir ao estado 68
-    TIPO_INT       deslocar, e ir ao estado 69
-    TIPO_STRING    deslocar, e ir ao estado 70
-    TIPO_BOOL      deslocar, e ir ao estado 71
-    ABRE_COLCHETE  deslocar, e ir ao estado 78
+    TIPO_CHAR      shift, and go to state 68
+    TIPO_VOID      shift, and go to state 69
+    TIPO_REAL      shift, and go to state 70
+    TIPO_INT       shift, and go to state 71
+    TIPO_STRING    shift, and go to state 72
+    TIPO_BOOL      shift, and go to state 73
+    ABRE_COLCHETE  shift, and go to state 80
 
-    tipoPrimitivo  ir ao estado 79
+    tipoPrimitivo  go to state 81
 
 
-Estado 41
+State 43
 
    28 atribuicao: CONST ID DOIS_PONTOS . tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA
    32 atribuicaoArray: CONST ID DOIS_PONTOS . ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    TIPO_CHAR      deslocar, e ir ao estado 66
-    TIPO_VOID      deslocar, e ir ao estado 67
-    TIPO_REAL      deslocar, e ir ao estado 68
-    TIPO_INT       deslocar, e ir ao estado 69
-    TIPO_STRING    deslocar, e ir ao estado 70
-    TIPO_BOOL      deslocar, e ir ao estado 71
-    ABRE_COLCHETE  deslocar, e ir ao estado 80
+    TIPO_CHAR      shift, and go to state 68
+    TIPO_VOID      shift, and go to state 69
+    TIPO_REAL      shift, and go to state 70
+    TIPO_INT       shift, and go to state 71
+    TIPO_STRING    shift, and go to state 72
+    TIPO_BOOL      shift, and go to state 73
+    ABRE_COLCHETE  shift, and go to state 82
 
-    tipoPrimitivo  ir ao estado 81
-
-
-Estado 42
-
-   85 chamadaProcOuFuncao: ID ABRE_PAREN . FECHA_PAREN PONTO_VIRGULA
-   86                    | ID ABRE_PAREN . listaIds FECHA_PAREN PONTO_VIRGULA
-
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    FECHA_PAREN    deslocar, e ir ao estado 82
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
-
-    expr                 ir ao estado 83
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    listaIds             ir ao estado 84
-    chamadaProcOuFuncao  ir ao estado 36
+    tipoPrimitivo  go to state 83
 
 
-Estado 43
+State 44
+
+   88 chamadaProcOuFuncao: ID ABRE_PAREN . FECHA_PAREN PONTO_VIRGULA
+   89                    | ID ABRE_PAREN . listaIds FECHA_PAREN PONTO_VIRGULA
+
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    FECHA_PAREN    shift, and go to state 84
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
+
+    expr                 go to state 85
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    listaIds             go to state 86
+    chamadaProcOuFuncao  go to state 38
+
+
+State 45
 
    48 acessoArray: ID ABRE_COLCHETE . V_INTEIRO FECHA_COLCHETE
    49            | ID ABRE_COLCHETE . ID FECHA_COLCHETE
 
-    V_INTEIRO  deslocar, e ir ao estado 85
-    ID         deslocar, e ir ao estado 86
+    V_INTEIRO  shift, and go to state 87
+    ID         shift, and go to state 88
 
 
-Estado 44
+State 46
 
    52 exprUnaria: OP_LOGICO_NEG expr .
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    $padrão  reduzir usando a regra 52 (exprUnaria)
+    $default  reduce using rule 52 (exprUnaria)
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 45
+State 47
+
+   50 exprUnaria: OP_INC termo .
+
+    $default  reduce using rule 50 (exprUnaria)
+
+
+State 48
+
+   51 exprUnaria: OP_DEC termo .
+
+    $default  reduce using rule 51 (exprUnaria)
+
+
+State 49
 
    29 atribuicao: ID OP_ATRIBUICAO expr PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 29 (atribuicao)
+    $default  reduce using rule 29 (atribuicao)
 
 
-Estado 46
+State 50
 
    58 operadorAritmetico: OP_SOMA .
 
-    $padrão  reduzir usando a regra 58 (operadorAritmetico)
+    $default  reduce using rule 58 (operadorAritmetico)
 
 
-Estado 47
+State 51
 
    59 operadorAritmetico: OP_SUB .
 
-    $padrão  reduzir usando a regra 59 (operadorAritmetico)
+    $default  reduce using rule 59 (operadorAritmetico)
 
 
-Estado 48
+State 52
 
    60 operadorAritmetico: OP_MULT .
 
-    $padrão  reduzir usando a regra 60 (operadorAritmetico)
+    $default  reduce using rule 60 (operadorAritmetico)
 
 
-Estado 49
+State 53
 
    61 operadorAritmetico: OP_DIV .
 
-    $padrão  reduzir usando a regra 61 (operadorAritmetico)
+    $default  reduce using rule 61 (operadorAritmetico)
 
 
-Estado 50
+State 54
 
    62 operadorAritmetico: OP_RESTO .
 
-    $padrão  reduzir usando a regra 62 (operadorAritmetico)
+    $default  reduce using rule 62 (operadorAritmetico)
 
 
-Estado 51
+State 55
 
    64 operadorLogico: OP_LOGICO_OU .
 
-    $padrão  reduzir usando a regra 64 (operadorLogico)
+    $default  reduce using rule 64 (operadorLogico)
 
 
-Estado 52
+State 56
 
    63 operadorLogico: OP_LOGICO_E .
 
-    $padrão  reduzir usando a regra 63 (operadorLogico)
+    $default  reduce using rule 63 (operadorLogico)
 
 
-Estado 53
+State 57
 
    68 operadorRelacional: OP_MENOR .
 
-    $padrão  reduzir usando a regra 68 (operadorRelacional)
+    $default  reduce using rule 68 (operadorRelacional)
 
 
-Estado 54
+State 58
 
    67 operadorRelacional: OP_MAIOR .
 
-    $padrão  reduzir usando a regra 67 (operadorRelacional)
+    $default  reduce using rule 67 (operadorRelacional)
 
 
-Estado 55
+State 59
 
    70 operadorRelacional: OP_MENOR_IGUAL .
 
-    $padrão  reduzir usando a regra 70 (operadorRelacional)
+    $default  reduce using rule 70 (operadorRelacional)
 
 
-Estado 56
+State 60
 
    69 operadorRelacional: OP_MAIOR_IGUAL .
 
-    $padrão  reduzir usando a regra 69 (operadorRelacional)
+    $default  reduce using rule 69 (operadorRelacional)
 
 
-Estado 57
+State 61
 
    65 operadorRelacional: OP_IGUALDADE .
 
-    $padrão  reduzir usando a regra 65 (operadorRelacional)
+    $default  reduce using rule 65 (operadorRelacional)
 
 
-Estado 58
+State 62
 
    66 operadorRelacional: OP_DIFERENTE .
 
-    $padrão  reduzir usando a regra 66 (operadorRelacional)
+    $default  reduce using rule 66 (operadorRelacional)
 
 
-Estado 59
+State 63
 
    53 exprBinaria: expr operadorBinario . termo
    54            | expr operadorBinario . exprUnaria
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    termo                ir ao estado 87
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 88
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    termo                go to state 89
+    acessoArray          go to state 33
+    exprUnaria           go to state 90
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 60
+State 64
 
    55 operadorBinario: operadorAritmetico .
 
-    $padrão  reduzir usando a regra 55 (operadorBinario)
+    $default  reduce using rule 55 (operadorBinario)
 
 
-Estado 61
+State 65
 
    56 operadorBinario: operadorLogico .
 
-    $padrão  reduzir usando a regra 56 (operadorBinario)
+    $default  reduce using rule 56 (operadorBinario)
 
 
-Estado 62
+State 66
 
    57 operadorBinario: operadorRelacional .
 
-    $padrão  reduzir usando a regra 57 (operadorBinario)
+    $default  reduce using rule 57 (operadorBinario)
 
 
-Estado 63
-
-   50 exprUnaria: termo OP_INC .
-
-    $padrão  reduzir usando a regra 50 (exprUnaria)
-
-
-Estado 64
-
-   51 exprUnaria: termo OP_DEC .
-
-    $padrão  reduzir usando a regra 51 (exprUnaria)
-
-
-Estado 65
+State 67
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES . sentencas FECHA_CHAVES
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 96
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
-
-
-Estado 66
-
-   78 tipoPrimitivo: TIPO_CHAR .
-
-    $padrão  reduzir usando a regra 78 (tipoPrimitivo)
+    sentencas            go to state 98
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 67
+State 68
 
-   80 tipoPrimitivo: TIPO_VOID .
+   81 tipoPrimitivo: TIPO_CHAR .
 
-    $padrão  reduzir usando a regra 80 (tipoPrimitivo)
-
-
-Estado 68
-
-   79 tipoPrimitivo: TIPO_REAL .
-
-    $padrão  reduzir usando a regra 79 (tipoPrimitivo)
+    $default  reduce using rule 81 (tipoPrimitivo)
 
 
-Estado 69
+State 69
 
-   77 tipoPrimitivo: TIPO_INT .
+   83 tipoPrimitivo: TIPO_VOID .
 
-    $padrão  reduzir usando a regra 77 (tipoPrimitivo)
-
-
-Estado 70
-
-   81 tipoPrimitivo: TIPO_STRING .
-
-    $padrão  reduzir usando a regra 81 (tipoPrimitivo)
+    $default  reduce using rule 83 (tipoPrimitivo)
 
 
-Estado 71
+State 70
 
-   82 tipoPrimitivo: TIPO_BOOL .
+   82 tipoPrimitivo: TIPO_REAL .
 
-    $padrão  reduzir usando a regra 82 (tipoPrimitivo)
+    $default  reduce using rule 82 (tipoPrimitivo)
 
 
-Estado 72
+State 71
+
+   80 tipoPrimitivo: TIPO_INT .
+
+    $default  reduce using rule 80 (tipoPrimitivo)
+
+
+State 72
+
+   84 tipoPrimitivo: TIPO_STRING .
+
+    $default  reduce using rule 84 (tipoPrimitivo)
+
+
+State 73
+
+   85 tipoPrimitivo: TIPO_BOOL .
+
+    $default  reduce using rule 85 (tipoPrimitivo)
+
+
+State 74
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN . DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    DOIS_PONTOS  deslocar, e ir ao estado 105
+    DOIS_PONTOS  shift, and go to state 107
 
 
-Estado 73
+State 75
 
    12 funcao: FUNC ID ABRE_PAREN params . FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_PAREN  deslocar, e ir ao estado 106
+    FECHA_PAREN  shift, and go to state 108
 
 
-Estado 74
+State 76
 
    13 params: param .
    14       | param . VIRGULA params
 
-    VIRGULA  deslocar, e ir ao estado 107
+    VIRGULA  shift, and go to state 109
 
-    $padrão  reduzir usando a regra 13 (params)
+    $default  reduce using rule 13 (params)
 
 
-Estado 75
+State 77
 
    15 param: tipoPrimitivo . ID
 
-    ID  deslocar, e ir ao estado 108
+    ID  shift, and go to state 110
 
 
-Estado 76
+State 78
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  deslocar, e ir ao estado 109
+    ABRE_CHAVES  shift, and go to state 111
 
 
-Estado 77
+State 79
 
    10 proc: PROC ID ABRE_PAREN params . FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES
 
-    FECHA_PAREN  deslocar, e ir ao estado 110
+    FECHA_PAREN  shift, and go to state 112
 
 
-Estado 78
+State 80
 
    31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE . tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
 
-    tipoPrimitivo  ir ao estado 111
+    tipoPrimitivo  go to state 113
 
 
-Estado 79
+State 81
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo . OP_ATRIBUICAO expr PONTO_VIRGULA
 
-    OP_ATRIBUICAO  deslocar, e ir ao estado 112
+    OP_ATRIBUICAO  shift, and go to state 114
 
 
-Estado 80
+State 82
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE . tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
 
-    tipoPrimitivo  ir ao estado 113
+    tipoPrimitivo  go to state 115
 
 
-Estado 81
+State 83
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo . OP_ATRIBUICAO expr PONTO_VIRGULA
 
-    OP_ATRIBUICAO  deslocar, e ir ao estado 114
+    OP_ATRIBUICAO  shift, and go to state 116
 
 
-Estado 82
+State 84
 
-   85 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN . PONTO_VIRGULA
+   88 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN . PONTO_VIRGULA
 
-    PONTO_VIRGULA  deslocar, e ir ao estado 115
+    PONTO_VIRGULA  shift, and go to state 117
 
 
-Estado 83
+State 85
 
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
-   83 listaIds: expr .
-   84         | expr . VIRGULA listaIds
+   86 listaIds: expr .
+   87         | expr . VIRGULA listaIds
 
-    VIRGULA         deslocar, e ir ao estado 116
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    VIRGULA         shift, and go to state 118
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    $padrão  reduzir usando a regra 83 (listaIds)
+    $default  reduce using rule 86 (listaIds)
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
-
-
-Estado 84
-
-   86 chamadaProcOuFuncao: ID ABRE_PAREN listaIds . FECHA_PAREN PONTO_VIRGULA
-
-    FECHA_PAREN  deslocar, e ir ao estado 117
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 85
+State 86
+
+   89 chamadaProcOuFuncao: ID ABRE_PAREN listaIds . FECHA_PAREN PONTO_VIRGULA
+
+    FECHA_PAREN  shift, and go to state 119
+
+
+State 87
 
    48 acessoArray: ID ABRE_COLCHETE V_INTEIRO . FECHA_COLCHETE
 
-    FECHA_COLCHETE  deslocar, e ir ao estado 118
+    FECHA_COLCHETE  shift, and go to state 120
 
 
-Estado 86
+State 88
 
    49 acessoArray: ID ABRE_COLCHETE ID . FECHA_COLCHETE
 
-    FECHA_COLCHETE  deslocar, e ir ao estado 119
+    FECHA_COLCHETE  shift, and go to state 121
 
 
-Estado 87
+State 89
 
-   50 exprUnaria: termo . OP_INC
-   51           | termo . OP_DEC
    53 exprBinaria: expr operadorBinario termo .
 
-    OP_INC  deslocar, e ir ao estado 63
-    OP_DEC  deslocar, e ir ao estado 64
-
-    $padrão  reduzir usando a regra 53 (exprBinaria)
+    $default  reduce using rule 53 (exprBinaria)
 
 
-Estado 88
+State 90
 
    54 exprBinaria: expr operadorBinario exprUnaria .
 
-    $padrão  reduzir usando a regra 54 (exprBinaria)
+    $default  reduce using rule 54 (exprBinaria)
 
 
-Estado 89
+State 91
 
    29 atribuicao: ID . OP_ATRIBUICAO expr PONTO_VIRGULA
    45 termo: ID .
    48 acessoArray: ID . ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE
    49            | ID . ABRE_COLCHETE ID FECHA_COLCHETE
-   85 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
-   86                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
+   88 chamadaProcOuFuncao: ID . ABRE_PAREN FECHA_PAREN PONTO_VIRGULA
+   89                    | ID . ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA
 
-    OP_ATRIBUICAO  deslocar, e ir ao estado 15
-    ABRE_PAREN     deslocar, e ir ao estado 42
-    ABRE_COLCHETE  deslocar, e ir ao estado 43
+    OP_ATRIBUICAO  shift, and go to state 15
+    ABRE_PAREN     shift, and go to state 44
+    ABRE_COLCHETE  shift, and go to state 45
 
-    $padrão  reduzir usando a regra 45 (termo)
+    $default  reduce using rule 45 (termo)
 
 
-Estado 90
+State 92
 
    26 sentenca: RETORNO . expr PONTO_VIRGULA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 120
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 122
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 91
+State 93
 
    37 se: SE . ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE
    38   | SE . ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
 
-    ABRE_PAREN  deslocar, e ir ao estado 121
+    ABRE_PAREN  shift, and go to state 123
 
 
-Estado 92
+State 94
 
    39 enquanto: ENQUANTO . ABRE_PAREN expr FECHA_PAREN FACA sentencas FIM_ENQUANTO
 
-    ABRE_PAREN  deslocar, e ir ao estado 122
+    ABRE_PAREN  shift, and go to state 124
 
 
-Estado 93
+State 95
 
    40 para: PARA . ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
-    ABRE_PAREN  deslocar, e ir ao estado 123
+    ABRE_PAREN  shift, and go to state 125
 
 
-Estado 94
+State 96
 
    71 imprime: IMPRIME . ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA
+   72        | IMPRIME . ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA
+   73        | IMPRIME . ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA
+   74        | IMPRIME . ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA
 
-    ABRE_PAREN  deslocar, e ir ao estado 124
+    ABRE_PAREN  shift, and go to state 126
 
 
-Estado 95
+State 97
 
    19 sentenca: LIBERA . ID PONTO_VIRGULA
 
-    ID  deslocar, e ir ao estado 125
+    ID  shift, and go to state 127
 
 
-Estado 96
+State 98
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  deslocar, e ir ao estado 126
+    FECHA_CHAVES  shift, and go to state 128
 
 
-Estado 97
+State 99
 
    16 sentencas: sentenca .
    17          | sentenca . sentencas
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    $padrão  reduzir usando a regra 16 (sentencas)
+    $default  reduce using rule 16 (sentencas)
 
-    sentencas            ir ao estado 127
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 129
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 98
+State 100
 
    18 sentenca: atribuicao .
 
-    $padrão  reduzir usando a regra 18 (sentenca)
+    $default  reduce using rule 18 (sentenca)
 
 
-Estado 99
+State 101
 
    20 sentenca: se .
 
-    $padrão  reduzir usando a regra 20 (sentenca)
+    $default  reduce using rule 20 (sentenca)
 
 
-Estado 100
+State 102
 
    21 sentenca: enquanto .
 
-    $padrão  reduzir usando a regra 21 (sentenca)
+    $default  reduce using rule 21 (sentenca)
 
 
-Estado 101
+State 103
 
    22 sentenca: para .
 
-    $padrão  reduzir usando a regra 22 (sentenca)
+    $default  reduce using rule 22 (sentenca)
 
 
-Estado 102
+State 104
 
    24 sentenca: expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   deslocar, e ir ao estado 128
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    PONTO_VIRGULA   shift, and go to state 130
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 103
+State 105
 
    23 sentenca: imprime .
 
-    $padrão  reduzir usando a regra 23 (sentenca)
+    $default  reduce using rule 23 (sentenca)
 
 
-Estado 104
+State 106
 
    25 sentenca: chamadaProcOuFuncao .
    47 termo: chamadaProcOuFuncao .
 
-    PONTO_VIRGULA   reduzir usando a regra 47 (termo)
-    OP_SOMA         reduzir usando a regra 47 (termo)
-    OP_SUB          reduzir usando a regra 47 (termo)
-    OP_MULT         reduzir usando a regra 47 (termo)
-    OP_DIV          reduzir usando a regra 47 (termo)
-    OP_RESTO        reduzir usando a regra 47 (termo)
-    OP_LOGICO_OU    reduzir usando a regra 47 (termo)
-    OP_LOGICO_E     reduzir usando a regra 47 (termo)
-    OP_MENOR        reduzir usando a regra 47 (termo)
-    OP_MAIOR        reduzir usando a regra 47 (termo)
-    OP_MENOR_IGUAL  reduzir usando a regra 47 (termo)
-    OP_MAIOR_IGUAL  reduzir usando a regra 47 (termo)
-    OP_IGUALDADE    reduzir usando a regra 47 (termo)
-    OP_DIFERENTE    reduzir usando a regra 47 (termo)
-    OP_INC          reduzir usando a regra 47 (termo)
-    OP_DEC          reduzir usando a regra 47 (termo)
-    $padrão        reduzir usando a regra 25 (sentenca)
+    PONTO_VIRGULA   reduce using rule 47 (termo)
+    OP_SOMA         reduce using rule 47 (termo)
+    OP_SUB          reduce using rule 47 (termo)
+    OP_MULT         reduce using rule 47 (termo)
+    OP_DIV          reduce using rule 47 (termo)
+    OP_RESTO        reduce using rule 47 (termo)
+    OP_LOGICO_OU    reduce using rule 47 (termo)
+    OP_LOGICO_E     reduce using rule 47 (termo)
+    OP_MENOR        reduce using rule 47 (termo)
+    OP_MAIOR        reduce using rule 47 (termo)
+    OP_MENOR_IGUAL  reduce using rule 47 (termo)
+    OP_MAIOR_IGUAL  reduce using rule 47 (termo)
+    OP_IGUALDADE    reduce using rule 47 (termo)
+    OP_DIFERENTE    reduce using rule 47 (termo)
+    $default        reduce using rule 25 (sentenca)
 
 
-Estado 105
+State 107
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS . tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
 
-    tipoPrimitivo  ir ao estado 129
+    tipoPrimitivo  go to state 131
 
 
-Estado 106
+State 108
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN . DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    DOIS_PONTOS  deslocar, e ir ao estado 130
+    DOIS_PONTOS  shift, and go to state 132
 
 
-Estado 107
+State 109
 
    14 params: param VIRGULA . params
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
 
-    params         ir ao estado 131
-    param          ir ao estado 74
-    tipoPrimitivo  ir ao estado 75
+    params         go to state 133
+    param          go to state 76
+    tipoPrimitivo  go to state 77
 
 
-Estado 108
+State 110
 
    15 param: tipoPrimitivo ID .
 
-    $padrão  reduzir usando a regra 15 (param)
+    $default  reduce using rule 15 (param)
 
 
-Estado 109
+State 111
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES . sentencas FECHA_CHAVES
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 132
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 134
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 110
+State 112
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  deslocar, e ir ao estado 133
+    ABRE_CHAVES  shift, and go to state 135
 
 
-Estado 111
+State 113
 
    31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo . FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    FECHA_COLCHETE  deslocar, e ir ao estado 134
+    FECHA_COLCHETE  shift, and go to state 136
 
 
-Estado 112
+State 114
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO . expr PONTO_VIRGULA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 135
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 137
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 113
+State 115
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo . FECHA_COLCHETE OP_ATRIBUICAO instanciaArray
 
-    FECHA_COLCHETE  deslocar, e ir ao estado 136
+    FECHA_COLCHETE  shift, and go to state 138
 
 
-Estado 114
+State 116
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO . expr PONTO_VIRGULA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 137
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
-
-
-Estado 115
-
-   85 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA .
-
-    $padrão  reduzir usando a regra 85 (chamadaProcOuFuncao)
+    expr                 go to state 139
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 116
+State 117
 
-   84 listaIds: expr VIRGULA . listaIds
+   88 chamadaProcOuFuncao: ID ABRE_PAREN FECHA_PAREN PONTO_VIRGULA .
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
-
-    expr                 ir ao estado 83
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    listaIds             ir ao estado 138
-    chamadaProcOuFuncao  ir ao estado 36
+    $default  reduce using rule 88 (chamadaProcOuFuncao)
 
 
-Estado 117
+State 118
 
-   86 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN . PONTO_VIRGULA
+   87 listaIds: expr VIRGULA . listaIds
 
-    PONTO_VIRGULA  deslocar, e ir ao estado 139
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
+
+    expr                 go to state 85
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    listaIds             go to state 140
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 118
+State 119
+
+   89 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN . PONTO_VIRGULA
+
+    PONTO_VIRGULA  shift, and go to state 141
+
+
+State 120
 
    48 acessoArray: ID ABRE_COLCHETE V_INTEIRO FECHA_COLCHETE .
 
-    $padrão  reduzir usando a regra 48 (acessoArray)
+    $default  reduce using rule 48 (acessoArray)
 
 
-Estado 119
+State 121
 
    49 acessoArray: ID ABRE_COLCHETE ID FECHA_COLCHETE .
 
-    $padrão  reduzir usando a regra 49 (acessoArray)
+    $default  reduce using rule 49 (acessoArray)
 
 
-Estado 120
+State 122
 
    26 sentenca: RETORNO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   deslocar, e ir ao estado 140
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    PONTO_VIRGULA   shift, and go to state 142
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 121
+State 123
 
    37 se: SE ABRE_PAREN . expr FECHA_PAREN ENTAO sentencas FIM_SE
    38   | SE ABRE_PAREN . expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 141
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 143
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 122
+State 124
 
    39 enquanto: ENQUANTO ABRE_PAREN . expr FECHA_PAREN FACA sentencas FIM_ENQUANTO
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 142
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 144
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 123
+State 125
 
    40 para: PARA ABRE_PAREN . atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
-    ID     deslocar, e ir ao estado 1
-    VAR    deslocar, e ir ao estado 5
-    CONST  deslocar, e ir ao estado 6
+    ID     shift, and go to state 1
+    VAR    shift, and go to state 5
+    CONST  shift, and go to state 6
 
-    atribuicao       ir ao estado 143
-    atribuicaoArray  ir ao estado 14
+    atribuicao       go to state 145
+    atribuicaoArray  go to state 14
 
 
-Estado 124
+State 126
 
    71 imprime: IMPRIME ABRE_PAREN . V_STRING FECHA_PAREN PONTO_VIRGULA
+   72        | IMPRIME ABRE_PAREN . V_INTEIRO FECHA_PAREN PONTO_VIRGULA
+   73        | IMPRIME ABRE_PAREN . V_REAL FECHA_PAREN PONTO_VIRGULA
+   74        | IMPRIME ABRE_PAREN . ID FECHA_PAREN PONTO_VIRGULA
 
-    V_STRING  deslocar, e ir ao estado 144
+    V_INTEIRO  shift, and go to state 146
+    V_REAL     shift, and go to state 147
+    V_STRING   shift, and go to state 148
+    ID         shift, and go to state 149
 
 
-Estado 125
+State 127
 
    19 sentenca: LIBERA ID . PONTO_VIRGULA
 
-    PONTO_VIRGULA  deslocar, e ir ao estado 145
+    PONTO_VIRGULA  shift, and go to state 150
 
 
-Estado 126
+State 128
 
     2 principal: MAIN ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES .
 
-    $padrão  reduzir usando a regra 2 (principal)
+    $default  reduce using rule 2 (principal)
 
 
-Estado 127
+State 129
 
    17 sentencas: sentenca sentencas .
 
-    $padrão  reduzir usando a regra 17 (sentencas)
+    $default  reduce using rule 17 (sentencas)
 
 
-Estado 128
+State 130
 
    24 sentenca: expr PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 24 (sentenca)
+    $default  reduce using rule 24 (sentenca)
 
 
-Estado 129
+State 131
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  deslocar, e ir ao estado 146
+    ABRE_CHAVES  shift, and go to state 151
 
 
-Estado 130
+State 132
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS . tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES
 
-    TIPO_CHAR    deslocar, e ir ao estado 66
-    TIPO_VOID    deslocar, e ir ao estado 67
-    TIPO_REAL    deslocar, e ir ao estado 68
-    TIPO_INT     deslocar, e ir ao estado 69
-    TIPO_STRING  deslocar, e ir ao estado 70
-    TIPO_BOOL    deslocar, e ir ao estado 71
+    TIPO_CHAR    shift, and go to state 68
+    TIPO_VOID    shift, and go to state 69
+    TIPO_REAL    shift, and go to state 70
+    TIPO_INT     shift, and go to state 71
+    TIPO_STRING  shift, and go to state 72
+    TIPO_BOOL    shift, and go to state 73
 
-    tipoPrimitivo  ir ao estado 147
+    tipoPrimitivo  go to state 152
 
 
-Estado 131
+State 133
 
    14 params: param VIRGULA params .
 
-    $padrão  reduzir usando a regra 14 (params)
+    $default  reduce using rule 14 (params)
 
 
-Estado 132
+State 134
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  deslocar, e ir ao estado 148
+    FECHA_CHAVES  shift, and go to state 153
 
 
-Estado 133
+State 135
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES . sentencas FECHA_CHAVES
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 149
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 154
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 134
+State 136
 
    31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE . OP_ATRIBUICAO instanciaArray
 
-    OP_ATRIBUICAO  deslocar, e ir ao estado 150
+    OP_ATRIBUICAO  shift, and go to state 155
 
 
-Estado 135
+State 137
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   deslocar, e ir ao estado 151
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    PONTO_VIRGULA   shift, and go to state 156
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 136
+State 138
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE . OP_ATRIBUICAO instanciaArray
 
-    OP_ATRIBUICAO  deslocar, e ir ao estado 152
+    OP_ATRIBUICAO  shift, and go to state 157
 
 
-Estado 137
+State 139
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr . PONTO_VIRGULA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   deslocar, e ir ao estado 153
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    PONTO_VIRGULA   shift, and go to state 158
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
-
-
-Estado 138
-
-   84 listaIds: expr VIRGULA listaIds .
-
-    $padrão  reduzir usando a regra 84 (listaIds)
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 139
+State 140
 
-   86 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA .
+   87 listaIds: expr VIRGULA listaIds .
 
-    $padrão  reduzir usando a regra 86 (chamadaProcOuFuncao)
+    $default  reduce using rule 87 (listaIds)
 
 
-Estado 140
+State 141
+
+   89 chamadaProcOuFuncao: ID ABRE_PAREN listaIds FECHA_PAREN PONTO_VIRGULA .
+
+    $default  reduce using rule 89 (chamadaProcOuFuncao)
+
+
+State 142
 
    26 sentenca: RETORNO expr PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 26 (sentenca)
+    $default  reduce using rule 26 (sentenca)
 
 
-Estado 141
+State 143
 
    37 se: SE ABRE_PAREN expr . FECHA_PAREN ENTAO sentencas FIM_SE
    38   | SE ABRE_PAREN expr . FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    FECHA_PAREN     deslocar, e ir ao estado 154
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    FECHA_PAREN     shift, and go to state 159
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 142
+State 144
 
    39 enquanto: ENQUANTO ABRE_PAREN expr . FECHA_PAREN FACA sentencas FIM_ENQUANTO
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    FECHA_PAREN     deslocar, e ir ao estado 155
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    FECHA_PAREN     shift, and go to state 160
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 143
+State 145
 
    40 para: PARA ABRE_PAREN atribuicao . expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    expr                 ir ao estado 156
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    expr                 go to state 161
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 144
+State 146
+
+   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO . FECHA_PAREN PONTO_VIRGULA
+
+    FECHA_PAREN  shift, and go to state 162
+
+
+State 147
+
+   73 imprime: IMPRIME ABRE_PAREN V_REAL . FECHA_PAREN PONTO_VIRGULA
+
+    FECHA_PAREN  shift, and go to state 163
+
+
+State 148
 
    71 imprime: IMPRIME ABRE_PAREN V_STRING . FECHA_PAREN PONTO_VIRGULA
 
-    FECHA_PAREN  deslocar, e ir ao estado 157
+    FECHA_PAREN  shift, and go to state 164
 
 
-Estado 145
+State 149
+
+   74 imprime: IMPRIME ABRE_PAREN ID . FECHA_PAREN PONTO_VIRGULA
+
+    FECHA_PAREN  shift, and go to state 165
+
+
+State 150
 
    19 sentenca: LIBERA ID PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 19 (sentenca)
+    $default  reduce using rule 19 (sentenca)
 
 
-Estado 146
+State 151
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES . sentencas FECHA_CHAVES
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 158
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 166
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 147
+State 152
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo . ABRE_CHAVES sentencas FECHA_CHAVES
 
-    ABRE_CHAVES  deslocar, e ir ao estado 159
+    ABRE_CHAVES  shift, and go to state 167
 
 
-Estado 148
+State 153
 
     9 proc: PROC ID ABRE_PAREN FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES .
 
-    $padrão  reduzir usando a regra 9 (proc)
+    $default  reduce using rule 9 (proc)
 
 
-Estado 149
+State 154
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  deslocar, e ir ao estado 160
+    FECHA_CHAVES  shift, and go to state 168
 
 
-Estado 150
+State 155
 
    31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO . instanciaArray
 
-    ID             deslocar, e ir ao estado 161
-    ABRE_COLCHETE  deslocar, e ir ao estado 162
+    ID             shift, and go to state 169
+    ABRE_COLCHETE  shift, and go to state 170
 
-    instanciaArray  ir ao estado 163
+    instanciaArray  go to state 171
 
 
-Estado 151
+State 156
 
    27 atribuicao: VAR ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 27 (atribuicao)
+    $default  reduce using rule 27 (atribuicao)
 
 
-Estado 152
+State 157
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO . instanciaArray
 
-    ID             deslocar, e ir ao estado 161
-    ABRE_COLCHETE  deslocar, e ir ao estado 162
+    ID             shift, and go to state 169
+    ABRE_COLCHETE  shift, and go to state 170
 
-    instanciaArray  ir ao estado 164
+    instanciaArray  go to state 172
 
 
-Estado 153
+State 158
 
    28 atribuicao: CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 28 (atribuicao)
+    $default  reduce using rule 28 (atribuicao)
 
 
-Estado 154
+State 159
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN . ENTAO sentencas FIM_SE
    38   | SE ABRE_PAREN expr FECHA_PAREN . ENTAO sentencas SENAO sentencas FIM_SE
 
-    ENTAO  deslocar, e ir ao estado 165
+    ENTAO  shift, and go to state 173
 
 
-Estado 155
+State 160
 
    39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN . FACA sentencas FIM_ENQUANTO
 
-    FACA  deslocar, e ir ao estado 166
+    FACA  shift, and go to state 174
 
 
-Estado 156
+State 161
 
    40 para: PARA ABRE_PAREN atribuicao expr . PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    PONTO_VIRGULA   deslocar, e ir ao estado 167
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    PONTO_VIRGULA   shift, and go to state 175
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 157
+State 162
+
+   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN . PONTO_VIRGULA
+
+    PONTO_VIRGULA  shift, and go to state 176
+
+
+State 163
+
+   73 imprime: IMPRIME ABRE_PAREN V_REAL FECHA_PAREN . PONTO_VIRGULA
+
+    PONTO_VIRGULA  shift, and go to state 177
+
+
+State 164
 
    71 imprime: IMPRIME ABRE_PAREN V_STRING FECHA_PAREN . PONTO_VIRGULA
 
-    PONTO_VIRGULA  deslocar, e ir ao estado 168
+    PONTO_VIRGULA  shift, and go to state 178
 
 
-Estado 158
+State 165
+
+   74 imprime: IMPRIME ABRE_PAREN ID FECHA_PAREN . PONTO_VIRGULA
+
+    PONTO_VIRGULA  shift, and go to state 179
+
+
+State 166
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  deslocar, e ir ao estado 169
+    FECHA_CHAVES  shift, and go to state 180
 
 
-Estado 159
+State 167
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES . sentencas FECHA_CHAVES
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 170
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 181
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 160
+State 168
 
    10 proc: PROC ID ABRE_PAREN params FECHA_PAREN ABRE_CHAVES sentencas FECHA_CHAVES .
 
-    $padrão  reduzir usando a regra 10 (proc)
+    $default  reduce using rule 10 (proc)
 
 
-Estado 161
+State 169
 
    33 instanciaArray: ID .
 
-    $padrão  reduzir usando a regra 33 (instanciaArray)
+    $default  reduce using rule 33 (instanciaArray)
 
 
-Estado 162
+State 170
 
    34 instanciaArray: ABRE_COLCHETE . listaValoresArray FECHA_COLCHETE
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    listaValoresArray    ir ao estado 171
-    expr                 ir ao estado 172
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    listaValoresArray    go to state 182
+    expr                 go to state 183
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 163
+State 171
 
    31 atribuicaoArray: VAR ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray .
 
-    $padrão  reduzir usando a regra 31 (atribuicaoArray)
+    $default  reduce using rule 31 (atribuicaoArray)
 
 
-Estado 164
+State 172
 
    32 atribuicaoArray: CONST ID DOIS_PONTOS ABRE_COLCHETE tipoPrimitivo FECHA_COLCHETE OP_ATRIBUICAO instanciaArray .
 
-    $padrão  reduzir usando a regra 32 (atribuicaoArray)
+    $default  reduce using rule 32 (atribuicaoArray)
 
 
-Estado 165
+State 173
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO . sentencas FIM_SE
    38   | SE ABRE_PAREN expr FECHA_PAREN ENTAO . sentencas SENAO sentencas FIM_SE
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 173
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 184
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 166
+State 174
 
    39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA . sentencas FIM_ENQUANTO
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 174
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 185
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 167
+State 175
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA . exprUnaria FECHA_PAREN FACA sentencas FIM_PARA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    termo                ir ao estado 175
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 176
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    exprUnaria  go to state 186
 
 
-Estado 168
+State 176
+
+   72 imprime: IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA .
+
+    $default  reduce using rule 72 (imprime)
+
+
+State 177
+
+   73 imprime: IMPRIME ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA .
+
+    $default  reduce using rule 73 (imprime)
+
+
+State 178
 
    71 imprime: IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA .
 
-    $padrão  reduzir usando a regra 71 (imprime)
+    $default  reduce using rule 71 (imprime)
 
 
-Estado 169
+State 179
+
+   74 imprime: IMPRIME ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA .
+
+    $default  reduce using rule 74 (imprime)
+
+
+State 180
 
    11 funcao: FUNC ID ABRE_PAREN FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES .
 
-    $padrão  reduzir usando a regra 11 (funcao)
+    $default  reduce using rule 11 (funcao)
 
 
-Estado 170
+State 181
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas . FECHA_CHAVES
 
-    FECHA_CHAVES  deslocar, e ir ao estado 177
+    FECHA_CHAVES  shift, and go to state 187
 
 
-Estado 171
+State 182
 
    34 instanciaArray: ABRE_COLCHETE listaValoresArray . FECHA_COLCHETE
 
-    FECHA_COLCHETE  deslocar, e ir ao estado 178
+    FECHA_COLCHETE  shift, and go to state 188
 
 
-Estado 172
+State 183
 
    35 listaValoresArray: expr .
    36                  | expr . VIRGULA listaValoresArray
    53 exprBinaria: expr . operadorBinario termo
    54            | expr . operadorBinario exprUnaria
 
-    VIRGULA         deslocar, e ir ao estado 179
-    OP_SOMA         deslocar, e ir ao estado 46
-    OP_SUB          deslocar, e ir ao estado 47
-    OP_MULT         deslocar, e ir ao estado 48
-    OP_DIV          deslocar, e ir ao estado 49
-    OP_RESTO        deslocar, e ir ao estado 50
-    OP_LOGICO_OU    deslocar, e ir ao estado 51
-    OP_LOGICO_E     deslocar, e ir ao estado 52
-    OP_MENOR        deslocar, e ir ao estado 53
-    OP_MAIOR        deslocar, e ir ao estado 54
-    OP_MENOR_IGUAL  deslocar, e ir ao estado 55
-    OP_MAIOR_IGUAL  deslocar, e ir ao estado 56
-    OP_IGUALDADE    deslocar, e ir ao estado 57
-    OP_DIFERENTE    deslocar, e ir ao estado 58
+    VIRGULA         shift, and go to state 189
+    OP_SOMA         shift, and go to state 50
+    OP_SUB          shift, and go to state 51
+    OP_MULT         shift, and go to state 52
+    OP_DIV          shift, and go to state 53
+    OP_RESTO        shift, and go to state 54
+    OP_LOGICO_OU    shift, and go to state 55
+    OP_LOGICO_E     shift, and go to state 56
+    OP_MENOR        shift, and go to state 57
+    OP_MAIOR        shift, and go to state 58
+    OP_MENOR_IGUAL  shift, and go to state 59
+    OP_MAIOR_IGUAL  shift, and go to state 60
+    OP_IGUALDADE    shift, and go to state 61
+    OP_DIFERENTE    shift, and go to state 62
 
-    $padrão  reduzir usando a regra 35 (listaValoresArray)
+    $default  reduce using rule 35 (listaValoresArray)
 
-    operadorBinario     ir ao estado 59
-    operadorAritmetico  ir ao estado 60
-    operadorLogico      ir ao estado 61
-    operadorRelacional  ir ao estado 62
+    operadorBinario     go to state 63
+    operadorAritmetico  go to state 64
+    operadorLogico      go to state 65
+    operadorRelacional  go to state 66
 
 
-Estado 173
+State 184
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas . FIM_SE
    38   | SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas . SENAO sentencas FIM_SE
 
-    SENAO   deslocar, e ir ao estado 180
-    FIM_SE  deslocar, e ir ao estado 181
+    SENAO   shift, and go to state 190
+    FIM_SE  shift, and go to state 191
 
 
-Estado 174
+State 185
 
    39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA sentencas . FIM_ENQUANTO
 
-    FIM_ENQUANTO  deslocar, e ir ao estado 182
+    FIM_ENQUANTO  shift, and go to state 192
 
 
-Estado 175
-
-   50 exprUnaria: termo . OP_INC
-   51           | termo . OP_DEC
-
-    OP_INC  deslocar, e ir ao estado 63
-    OP_DEC  deslocar, e ir ao estado 64
-
-
-Estado 176
+State 186
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria . FECHA_PAREN FACA sentencas FIM_PARA
 
-    FECHA_PAREN  deslocar, e ir ao estado 183
+    FECHA_PAREN  shift, and go to state 193
 
 
-Estado 177
+State 187
 
    12 funcao: FUNC ID ABRE_PAREN params FECHA_PAREN DOIS_PONTOS tipoPrimitivo ABRE_CHAVES sentencas FECHA_CHAVES .
 
-    $padrão  reduzir usando a regra 12 (funcao)
+    $default  reduce using rule 12 (funcao)
 
 
-Estado 178
+State 188
 
    34 instanciaArray: ABRE_COLCHETE listaValoresArray FECHA_COLCHETE .
 
-    $padrão  reduzir usando a regra 34 (instanciaArray)
+    $default  reduce using rule 34 (instanciaArray)
 
 
-Estado 179
+State 189
 
    36 listaValoresArray: expr VIRGULA . listaValoresArray
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 25
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 25
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    listaValoresArray    ir ao estado 184
-    expr                 ir ao estado 172
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 36
+    listaValoresArray    go to state 194
+    expr                 go to state 183
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 38
 
 
-Estado 180
+State 190
 
    38 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO . sentencas FIM_SE
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 185
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 195
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 181
+State 191
 
    37 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas FIM_SE .
 
-    $padrão  reduzir usando a regra 37 (se)
+    $default  reduce using rule 37 (se)
 
 
-Estado 182
+State 192
 
    39 enquanto: ENQUANTO ABRE_PAREN expr FECHA_PAREN FACA sentencas FIM_ENQUANTO .
 
-    $padrão  reduzir usando a regra 39 (enquanto)
+    $default  reduce using rule 39 (enquanto)
 
 
-Estado 183
+State 193
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN . FACA sentencas FIM_PARA
 
-    FACA  deslocar, e ir ao estado 186
+    FACA  shift, and go to state 196
 
 
-Estado 184
+State 194
 
    36 listaValoresArray: expr VIRGULA listaValoresArray .
 
-    $padrão  reduzir usando a regra 36 (listaValoresArray)
+    $default  reduce using rule 36 (listaValoresArray)
 
 
-Estado 185
+State 195
 
    38 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas . FIM_SE
 
-    FIM_SE  deslocar, e ir ao estado 187
+    FIM_SE  shift, and go to state 197
 
 
-Estado 186
+State 196
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA . sentencas FIM_PARA
 
-    V_INTEIRO      deslocar, e ir ao estado 23
-    V_REAL         deslocar, e ir ao estado 24
-    ID             deslocar, e ir ao estado 89
-    RETORNO        deslocar, e ir ao estado 90
-    VERDADE        deslocar, e ir ao estado 26
-    FALSO          deslocar, e ir ao estado 27
-    VAR            deslocar, e ir ao estado 5
-    CONST          deslocar, e ir ao estado 6
-    SE             deslocar, e ir ao estado 91
-    ENQUANTO       deslocar, e ir ao estado 92
-    PARA           deslocar, e ir ao estado 93
-    IMPRIME        deslocar, e ir ao estado 94
-    LIBERA         deslocar, e ir ao estado 95
-    OP_LOGICO_NEG  deslocar, e ir ao estado 28
+    V_INTEIRO      shift, and go to state 23
+    V_REAL         shift, and go to state 24
+    ID             shift, and go to state 91
+    RETORNO        shift, and go to state 92
+    VERDADE        shift, and go to state 26
+    FALSO          shift, and go to state 27
+    VAR            shift, and go to state 5
+    CONST          shift, and go to state 6
+    SE             shift, and go to state 93
+    ENQUANTO       shift, and go to state 94
+    PARA           shift, and go to state 95
+    IMPRIME        shift, and go to state 96
+    LIBERA         shift, and go to state 97
+    OP_LOGICO_NEG  shift, and go to state 28
+    OP_INC         shift, and go to state 29
+    OP_DEC         shift, and go to state 30
 
-    sentencas            ir ao estado 188
-    sentenca             ir ao estado 97
-    atribuicao           ir ao estado 98
-    atribuicaoArray      ir ao estado 14
-    se                   ir ao estado 99
-    enquanto             ir ao estado 100
-    para                 ir ao estado 101
-    expr                 ir ao estado 102
-    termo                ir ao estado 30
-    acessoArray          ir ao estado 31
-    exprUnaria           ir ao estado 32
-    exprBinaria          ir ao estado 33
-    imprime              ir ao estado 103
-    literal              ir ao estado 34
-    literalBool          ir ao estado 35
-    chamadaProcOuFuncao  ir ao estado 104
+    sentencas            go to state 198
+    sentenca             go to state 99
+    atribuicao           go to state 100
+    atribuicaoArray      go to state 14
+    se                   go to state 101
+    enquanto             go to state 102
+    para                 go to state 103
+    expr                 go to state 104
+    termo                go to state 32
+    acessoArray          go to state 33
+    exprUnaria           go to state 34
+    exprBinaria          go to state 35
+    imprime              go to state 105
+    literal              go to state 36
+    literalBool          go to state 37
+    chamadaProcOuFuncao  go to state 106
 
 
-Estado 187
+State 197
 
    38 se: SE ABRE_PAREN expr FECHA_PAREN ENTAO sentencas SENAO sentencas FIM_SE .
 
-    $padrão  reduzir usando a regra 38 (se)
+    $default  reduce using rule 38 (se)
 
 
-Estado 188
+State 198
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas . FIM_PARA
 
-    FIM_PARA  deslocar, e ir ao estado 189
+    FIM_PARA  shift, and go to state 199
 
 
-Estado 189
+State 199
 
    40 para: PARA ABRE_PAREN atribuicao expr PONTO_VIRGULA exprUnaria FECHA_PAREN FACA sentencas FIM_PARA .
 
-    $padrão  reduzir usando a regra 40 (para)
+    $default  reduce using rule 40 (para)

@@ -116,6 +116,7 @@ atribuicao :
                                                                                 verificarIDJaDecl($2);
                                                                                 char* tipo = verificarCompatTipos($4, $6);
                                                                                 adicionarID($2, $6);
+                                                                                escreverAtribuicao($4,$2,$6);
                                                                                 }
            | CONST ID DOIS_PONTOS tipoPrimitivo OP_ATRIBUICAO expr PONTO_VIRGULA{}
            | ID OP_ATRIBUICAO expr PONTO_VIRGULA                                {}
@@ -174,8 +175,8 @@ acessoArray :
             ;
 
 exprUnaria :
-           termo OP_INC                                                         {$$ = $1; incrementar($1);}
-           | termo OP_DEC                                                       {}
+           OP_INC termo                                                         {$$ = incrementar($2);}
+           | OP_DEC termo                                                       {$$ = decrementar($2);}
            | OP_LOGICO_NEG expr                                                 {}
            ;
 
@@ -214,11 +215,14 @@ operadorRelacional :
 
 imprime :
         IMPRIME ABRE_PAREN V_STRING FECHA_PAREN PONTO_VIRGULA                   {}
+        | IMPRIME ABRE_PAREN V_INTEIRO FECHA_PAREN PONTO_VIRGULA                {}		
+        | IMPRIME ABRE_PAREN V_REAL FECHA_PAREN PONTO_VIRGULA                   {}		
+        | IMPRIME ABRE_PAREN ID FECHA_PAREN PONTO_VIRGULA                       {}
         ;
 
 literal :
         V_INTEIRO                                                               {$$ = criarItemCompleto(convIntParaChar($1));}
-        | V_REAL                                                                {$$ = criarItemCompleto(convIntParaChar($1));}
+        | V_REAL                                                                {$$ = criarItemCompleto(convFloatParaChar($1));}
         | literalBool                                                           {
                                                                                     Item* item = novoItem();
                                                                                     item->tipoCompleto->tipo = "booleano";

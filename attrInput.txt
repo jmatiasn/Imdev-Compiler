@@ -1,6 +1,8 @@
 main () {
-    var taxa: inteiro = 10;
     var tributo: inteiro = 3;
+    var testeInteiro: inteiro = 1230;
+    var taxa: inteiro = ++23;
+    var testeDecrementar1111111: inteiro = --21;
 }
 
 

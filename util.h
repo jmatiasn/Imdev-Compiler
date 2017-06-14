@@ -1,5 +1,6 @@
 #include "hash.h"
 #include <regex.h>
+#include <stdbool.h>
 
 
 int escopo_ordem = 0;
@@ -68,6 +69,15 @@ char *verificarCompatTipos(char *tipo1, Item *item) {
     retorno = tipo1;
 }
 
+		
+bool verificarSeTipoEhInteiro(Item *item) {
+    
+    if(strcmp("inteiro", item->tipoCompleto->tipo) != 0) {
+            return false;
+    }
+    return true;
+}
+
 void adicionarID(char *nome, Item *item) {
     
     struct Item *info;
@@ -134,8 +144,26 @@ Item *obterItem(char *nome) {
     }
 }
 
-void incrementar(Item *item) {
-    //
+Item *incrementar(Item *item) {
+    if (!verificarSeTipoEhInteiro(item)) {
+        fprintf (stderr, "ERRO: Tipo %s não compatível com o operador ++. Linha: %d\n", item->tipoCompleto->tipo, yylineno);
+        exit(0);
+    }
+    
+    item->tipoCompleto->iValor = item->tipoCompleto->iValor + 1;
+    
+    return item;
+}
+
+Item *decrementar(Item *item) {
+    if (!verificarSeTipoEhInteiro(item)) {
+        fprintf (stderr, "ERRO: Tipo %s não compatível com o operador --. Linha: %d\n", item->tipoCompleto->tipo, yylineno);
+        exit(0);
+    }
+    
+    item->tipoCompleto->iValor = item->tipoCompleto->iValor - 1;
+    
+    return item;
 }
 
 int checkRegex(const char *string, char *pattern) {
@@ -151,4 +179,64 @@ int checkRegex(const char *string, char *pattern) {
         return 0;      /* Report error. */
     }
     return 1;
+}
+
+// Gerador de código
+
+char *novaSentenca(int tamanho) {
+    char *sentenca = malloc(tamanho + sizeof(char*)*200);
+    return sentenca;
+}
+
+void escrever(char *sentenca) {
+    cArquivo = fopen("./output.c", "a+");
+    fprintf(cArquivo, "%s", sentenca);
+    fclose(cArquivo);
+}
+
+char *formatarTipo(char *tipo) {
+    char *retorno = novaSentenca(strlen(tipo));
+    if (strcmp(tipo, "inteiro") == 0) {
+        strcpy(retorno, "int");
+        return retorno;
+    }
+    if (strcmp(tipo, "booleano") == 0) {
+        strcpy(retorno, "bool");
+        return retorno;
+    }
+    if (strcmp(tipo,"real") == 0) {
+        strcpy(retorno, "float");
+        return retorno;
+    }
+    return retorno;
+}
+
+char* acessarValor(Item *item) {
+    char *tipo = item->tipoCompleto->tipo;
+    if(strcmp(tipo, "inteiro") == 0) {
+        return convIntParaChar(item->tipoCompleto->iValor);
+    } else if (strcmp(tipo, "real") == 0) {
+        return convFloatParaChar(item->tipoCompleto->fValor);
+    } else if (strcmp(tipo, "string") == 0) {
+        return item->tipoCompleto->sValor;
+    }
+    return "-1";
+}
+
+void escreverAtribuicao(char* tipo, char *id, Item* valor) {
+    char *atribuicao = novaSentenca(strlen(tipo) + strlen(id));
+    char *tipof = formatarTipo(tipo);
+    strcpy(atribuicao, tipof);
+    strcat(atribuicao, " ");
+    strcat(atribuicao, id);
+    strcat(atribuicao, " = ");
+    strcat(atribuicao, acessarValor(valor));
+    strcat(atribuicao, ";");
+    strcat(atribuicao, "\n");
+    
+    escrever(atribuicao);
+}
+
+void escreverAtribuicaoConst() {
+    
 }
